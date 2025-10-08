@@ -13,7 +13,16 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/1"
+      "href": "/products/1",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 2,
@@ -28,7 +37,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/2"
+      "href": "/products/2",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 3,
@@ -43,7 +60,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/3"
+      "href": "/products/3",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 4,
@@ -58,7 +83,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/4"
+      "href": "/products/4",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 5,
@@ -73,7 +106,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/5"
+      "href": "/products/5",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 6,
@@ -88,7 +129,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/6"
+      "href": "/products/6",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 7,
@@ -103,7 +152,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/7"
+      "href": "/products/7",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 8,
@@ -118,7 +175,15 @@
       "is_new": false,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/8"
+      "href": "/products/8",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 9,
@@ -133,7 +198,15 @@
       "is_new": true,
       "category_id": 2,
       "category_name": "Đồ cho mèo",
-      "href": "/products/9"
+      "href": "/products/9",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 10,
@@ -148,7 +221,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/10"
+      "href": "/products/10",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 11,
@@ -163,7 +244,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/11"
+      "href": "/products/11",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 12,
@@ -178,7 +267,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/12"
+      "href": "/products/12",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 13,
@@ -193,7 +290,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/13"
+      "href": "/products/13",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 14,
@@ -208,7 +313,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/14"
+      "href": "/products/14",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 15,
@@ -223,7 +336,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/15"
+      "href": "/products/15",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 16,
@@ -238,7 +359,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/16"
+      "href": "/products/16",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 17,
@@ -253,7 +382,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/17"
+      "href": "/products/17",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     },
     {
       "id": 18,
@@ -268,7 +405,15 @@
       "is_new": true,
       "category_id": 1,
       "category_name": "Đồ cho chó",
-      "href": "/products/18"
+      "href": "/products/18",
+      "gallery": [
+        "/assets/image/thumb1.jpg",
+        "/assets/image/thumb2.jpg",
+        "/assets/image/thumb3.jpg",
+        "/assets/image/thumb4.jpg",
+        "/assets/image/thumb5.jpg",
+        "/assets/image/thumb6.jpg"
+      ]
     }
   ],
   "posts": [

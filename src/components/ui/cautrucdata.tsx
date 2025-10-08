@@ -12,6 +12,7 @@ export interface IProduct {
     category_id: number;
     category_name: string;
     href: string;
+    gallery?: string[];
 }
 
 
