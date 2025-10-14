@@ -12,11 +12,10 @@ export default function ProductSalesSection() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch("/data/product.json");
+            const res = await fetch("http://localhost:3000");
             const data = await res.json();
-            const saleProduct = data.products
-                .filter((p: any) => p.sale).slice(0, 8)
-            setProducts(saleProduct);
+            const Product_sale = data.products_discount;
+            setProducts(Product_sale);
         };
         fetchData();
     }, []);

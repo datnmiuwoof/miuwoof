@@ -11,11 +11,10 @@ export default function ProductNewsSection() {
     const [products, setProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
-        fetch("/data/product.json")
+        fetch("http://localhost:3000")
             .then((res) => res.json())
             .then((data) => {
-                const newProducts = data.products
-                    .filter((p: any) => p.is_new).slice(0, 8);
+                const newProducts = data.products_new;
                 setProducts(newProducts);
             })
     }, []);

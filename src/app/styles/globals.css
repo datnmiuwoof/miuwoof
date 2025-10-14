@@ -91,6 +91,10 @@ display: -webkit-box;
 overflow: hidden;
 }
 
+.account__none{
+  pointer-events: none;
+}
+
 /* #endregion common */
 
 /* #region HEADER */

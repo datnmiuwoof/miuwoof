@@ -12,13 +12,11 @@ export default function ProductCatSection() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch("/data/product.json");
+            const res = await fetch("http://localhost:3000");
             const data = await res.json();
 
-            const saleProduct = data.products
-                .filter((p: any) => p.category_id = 2)
-                .slice(0, 8)
-            setProducts(saleProduct);
+            const ProductCat = data.products_cat;
+            setProducts(ProductCat);
         };
         fetchData();
     }, []);
