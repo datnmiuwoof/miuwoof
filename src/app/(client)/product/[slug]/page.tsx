@@ -6,34 +6,54 @@ import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { IProduct } from "@/components/ui/cautrucdata";
+import { IProduct } from "@/lib/cautrucdata";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ProductVariant from "@/components/layout/variantSelecter";
 
 export default function ProductDetail() {
     const { slug } = useParams();
     const [product, setProduct] = useState<IProduct | null>(null);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [selectedVariant, setSelectedVariant] = useState<number>(0);
+    const [loading, setLoading] = useState(true);
 
-    // Fetch product
+
     useEffect(() => {
-        fetch("/data/product.json")
+        fetch(`http://localhost:3000/product/${slug}`)
             .then((res) => res.json())
-            .then((data) => {
-                const slugProduct = data.products.find((p: IProduct) => p.slug === slug) || null;
-                setProduct(slugProduct);
+            .then((resData) => {
+                setProduct(resData.data);
+                setSelectedVariant(0);
                 setCurrentIndex(0);
+                setLoading(false);
             })
             .catch(() => {
                 setProduct(null);
             });
     }, [slug]);
 
-    // Loading guard: phải có product và gallery ít nhất 1 ảnh
-    if (!product || !product.gallery || product.gallery.length === 0) {
+
+
+    const variant = product?.ProductVariants[(selectedVariant)];
+
+    const gallery = product?.ProductVariants.flatMap(v => v?.ProductImages);
+
+    const mainImage = gallery?.[currentIndex]?.image;
+
+    useEffect(() => {
+        if (!variant) return;
+
+        const fisrtImage = variant?.ProductImages?.[0]?.image;
+        if (!fisrtImage) return;
+
+        const idx = gallery?.findIndex(v => v.image === fisrtImage)
+
+        setCurrentIndex(idx >= 0 ? idx : 0);
+    }, [selectedVariant]);
+
+    if (!product) {
         return <p className="text-center py-10">Đang tải sản phẩm...</p>;
     }
-
-    const gallery = product.gallery;
-    const lastIndex = gallery.length - 1;
 
     const prevImage = () => {
         setCurrentIndex((i) => (i - 1 + gallery.length) % gallery.length);
@@ -43,28 +63,16 @@ export default function ProductDetail() {
         setCurrentIndex((i) => (i + 1) % gallery.length);
     };
 
+    if (loading) return null;
+
     return (
         <section className="layout_product-detail">
             {/* Breadcrumb */}
-            <div className="breadcrumb-paren">
-                <div className="main-content">
-                    <div className="breadcrumb__inner">
-                        <nav style={{ "--bs-breadcrumb-divider": "'/'" } as React.CSSProperties} aria-label="breadcrumb">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item">
-                                    <Link href="/">Trang chủ</Link>
-                                </li>
-                                <li className="breadcrumb-item">
-                                    <Link href="/product">Mua đồ cho mèo</Link>
-                                </li>
-                                <li className="breadcrumb-item active" aria-current="page">
-                                    {product.name}
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+
+            {product.Categories?.length > 0 && (
+                <Breadcrumb product={product} category={product.Categories[0]} />
+            )}
+
 
             {/* Product detail */}
             <section className="prodetail">
@@ -82,7 +90,7 @@ export default function ProductDetail() {
                                                 className={`thumb__btn ${currentIndex === i ? "active" : ""}`}
                                                 aria-label={`chuyển sang ảnh ${i + 1}`}
                                             >
-                                                <Image src={img} alt={`${product.name} thumb ${i + 1}`} width={68} height={68} className="thumb__img" />
+                                                <Image key={i} src={img?.image} alt={`${product.name} thumb ${i + 1}`} width={68} height={68} className="thumb__img" />
                                             </a>
                                         </li>
                                     ))}
@@ -94,7 +102,7 @@ export default function ProductDetail() {
                                 <div className="gallery__main-img" style={{ width: 470, height: 470 }}>
                                     {/* container must be relative for fill */}
                                     <div style={{ position: "relative", width: "470px", height: "470px" }}>
-                                        <Image src={gallery[currentIndex]} alt={product.name} fill className="main__img" priority />
+                                        <Image src={mainImage} alt={product.name} fill className="main__img" priority />
                                     </div>
 
                                     {/* Left arrow */}
@@ -128,6 +136,50 @@ export default function ProductDetail() {
 
                         {/* Product basic info (right side) */}
                         <div className="prodetail__content">
+                            <div className="prodetail__name">
+                                <h1 className="prodetail__heading">{product.name}</h1>
+                                <ul className="prodetail__meta">
+                                    <li className="prodetail__sku">
+                                        Mã sản phẩm:
+                                        <span>{product.sku}</span>
+                                    </li>
+                                    <li className="prodetail__brand">{product.Brand?.url}</li>
+                                    <li className="prodetail__sold">
+                                        Trình trạng:
+                                        {(product.sold_out) ? (
+                                            <span>
+                                                hết hàng
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                còn hàng
+                                            </span>
+                                        )}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="prodetail__prices">
+                                <span className="prodetail__value"></span>
+                                <span className="prodetail__sale"></span>
+                                <span className="prodetail__price">{Number(variant.price).toLocaleString('vi-VN')}VNĐ</span>
+                            </div>
+                            <div className="prodetail__variants">
+                                <ProductVariant
+                                    product={product}
+                                    onSelectVariant={(index) => {
+                                        setSelectedVariant(index);
+                                        setCurrentIndex(0);
+                                    }}
+                                />
+                            </div>
+                            <div className="prodetail__cart">
+                                <div className="prodetail__quantity">
+
+                                </div>
+                                <span>thêm vào giỏ hàng</span>
+                            </div>
+                            <div className="prodetail__desc"></div>
+
                         </div>
                     </div>
                 </div>

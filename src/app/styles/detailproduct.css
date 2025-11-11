@@ -177,8 +177,34 @@ overflow: hidden;
   stroke-width: 2.5;
 }
 
-
-
-
-
 /* #endregion product_detail */ 
+
+/* #region product_content */ 
+
+.row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.prodetail__content{
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+    width: 100%;
+}
+
+
+.prodetail__heading{
+    font-size: 2.4rem;
+    margin: 20px 0 8px;
+    font-weight: 700;
+    
+}
+
+.prodetail__meta{
+    display: flex;
+    gap: 20px;
+}
+
+
+/* #endregion product_content */ 

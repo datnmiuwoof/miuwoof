@@ -3,10 +3,10 @@
 import '@/app/styles/globals.css';
 import MyCarousel from "@/components/ui/Carousel";
 import PromotionSection from "@/components/ui/PromotionSection";
-import ProductSalesSection from "@/components/ui/ProductSalesSection";
-import ProductNewsSection from "@/components/ui/ProductNewsSection";
-import ProductDogSection from "@/components/ui/ProductDogSection";
-import ProductCatSection from "@/components/ui/ProductCatSection";
+import ProductSalesSection from "@/components/product/ProductSalesSection";
+import ProductNewsSection from "@/components/product/ProductNewsSection";
+import ProductDogSection from "@/components/product/ProductDogSection";
+import ProductCatSection from "@/components/product/ProductCatSection";
 import PostSection from "@/components/ui/postSection";
 
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/ui/Header";
-import Footer from "@/components/ui/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/app/styles/globals.css';
 

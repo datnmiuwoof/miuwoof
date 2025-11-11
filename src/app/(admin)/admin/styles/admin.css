@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+a{
+    text-decoration: none;
+}
+
+.line-clamp{
+display: -webkit-box;
+-webkit-line-clamp: var(--line-clamp, 2);
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+.line-clamp.line-one{
+display: -webkit-box;
+-webkit-line-clamp: var(--line-clamp, 1);
+-webkit-box-orient: vertical;
+overflow: hidden;
+}
+
+.table__name{
+    max-width: 250px;
+}

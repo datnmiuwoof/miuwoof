@@ -3,7 +3,7 @@
 import '@/app/styles/reset.css';
 import '@/app/styles/globals.css';
 import React from "react";
-import { IProduct } from "./cautrucdata";
+import { IProduct } from "../../lib/cautrucdata";
 
 
 
@@ -41,21 +41,22 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 </div>
 
                 <div className="product__img">
-                    {product.image && <img src={product.image} alt="product.alt" />}
+                    {product?.ProductVariants?.[0]?.ProductImages?.[0]?.image &&
+                        <img src={product?.ProductVariants?.[0]?.ProductImages?.[0]?.image} alt="product.alt" />}
                 </div>
                 <a href={product.slug} className="product__link"></a>
             </div>
 
             <div className="product__detail">
                 <h3 className="product__name line-clamp">
-                    <a href={`product/${product.slug}`}>{product.name}</a>
+                    <a href={`/product/${product.slug}`}>{product.name}</a>
                 </h3>
 
                 <div className="product__price">
                     {product?.Discounts?.some(d => d.discount_type === 1) ? (() => {
                         const discount = product.Discounts.find(d => d.discount_type === 1);
                         const discountValue = discount?.discount_value ?? 0;
-                        const discountPrice = product.price - (product.price * discountValue / 100);
+                        const discountPrice = Number(product?.ProductVariants?.[0]?.price || 0) - (Number(product?.ProductVariants?.[0]?.price || 0) * discountValue / 100);
 
                         return (
                             <>
@@ -63,13 +64,13 @@ export default function ProductCard({ product }: { product: IProduct }) {
                                     {discountPrice.toLocaleString('vi-VN')} ₫
                                 </span>
                                 <span className="prod__price-del">
-                                    {product.price.toLocaleString('vi-VN')} ₫
+                                    {Number(product?.ProductVariants?.[0]?.price || 0).toLocaleString('vi-VN')} ₫
                                 </span>
                             </>
                         );
                     })() : (
                         <span className="prod__price">
-                            {product.price.toLocaleString('vi-VN')} ₫
+                            {Number(product?.ProductVariants?.[0]?.price || 0).toLocaleString('vi-VN')} ₫
                         </span>
                     )}
                 </div>
