@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Search, Filter, ChevronDown } from "lucide-react";
+import { IProduct } from "@/lib/cautrucdata";
 
 export default function DeletedProducts() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState<IProduct[]>([]);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1 });
 
@@ -13,10 +14,10 @@ export default function DeletedProducts() {
 
     const fetchDeleted = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/api/products/deleted?page=${page}&limit=10`);
+            const res = await fetch(`http://localhost:3000/api/products/deleted?page=${page}&limit=10`, { credentials: "include" });
             const json = await res.json();
 
-            const mapped = json?.data?.map((p) => ({
+            const mapped = json?.data?.map((p: any) => ({
                 ...p,
                 category_name: p?.Categories?.[0]?.name,
                 price: p?.ProductVariants?.[0]?.price,
@@ -31,11 +32,12 @@ export default function DeletedProducts() {
         }
     };
 
-    const handleRestore = async (id) => {
+    const handleRestore = async (id: any) => {
         if (!confirm("Khôi phục sản phẩm này?")) return;
 
         const res = await fetch(`http://localhost:3000/api/products/${id}/restore`, {
             method: "PATCH",
+            credentials: "include",
         });
 
         if (res.ok) {
@@ -117,7 +119,7 @@ export default function DeletedProducts() {
                                 <td className="px-6 py-4 text-gray-700 text-sm">{Number(p.price)?.toLocaleString("vi-VN")} VND</td>
 
                                 <td className="px-6 py-4 text-gray-700 text-sm">
-                                    {new Date(p.updatedAt).toLocaleDateString("vi-VN")}
+                                    {/* {new Date(p.updatedAt).toLocaleDateString("vi-VN")} */}
                                 </td>
 
                                 <td className="px-6 py-4 text-sm">

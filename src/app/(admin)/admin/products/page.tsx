@@ -16,7 +16,7 @@ export default function Product() {
 
     const fetchData = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/api/products?page=${page}&limit=10`);
+            const res = await fetch(`http://localhost:3000/api/products?page=${page}&limit=10`, { credentials: "include" });
             const json = await res.json();
             // Sau khi fetch data từ API
             const products = json?.data.map((p: IProduct) => ({
@@ -38,6 +38,7 @@ export default function Product() {
         if (confirm('bạn có mún xóa sản phẩm này không')) {
             const softDelete = await fetch(`http://localhost:3000/api/products/${id}/soft-delete`, {
                 method: "PUT",
+                credentials: "include",
             });
             if (softDelete.ok) {
                 alert("Đã xóa thành công!");

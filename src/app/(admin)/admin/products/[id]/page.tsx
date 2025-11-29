@@ -45,7 +45,7 @@ export default function UpdateProduct() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/categorys");
+                const res = await fetch("http://localhost:3000/api/categorys", { credentials: "include" });
                 const data = await res.json();
                 setCategories(data.data);
                 // Group by parent_id
@@ -68,7 +68,7 @@ export default function UpdateProduct() {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/products/${id}`);
+                const res = await fetch(`http://localhost:3000/api/products/${id}`, { credentials: "include" });
                 const data = await res.json();
                 const p = data.data;
 
@@ -189,6 +189,7 @@ export default function UpdateProduct() {
             const res = await fetch(`http://localhost:3000/api/products/${id}`, {
                 method: "PUT",
                 body: formData,
+                credentials: "include",
             });
             if (res.ok) {
                 alert("Cập nhật thành công!");

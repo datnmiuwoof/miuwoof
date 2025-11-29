@@ -9,14 +9,19 @@ import { useState, useEffect } from "react";
 import { IProduct } from "@/lib/cautrucdata";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ProductVariant from "@/components/layout/variantSelecter";
+import { useDispatch } from "react-redux";
+import { createCart } from "@/lib/cartSlice";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ProductDetail() {
     const { slug } = useParams();
     const [product, setProduct] = useState<IProduct | null>(null);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [selectedVariant, setSelectedVariant] = useState<number>(0);
+    const [quantityNumber, setQuantityNumber] = useState<number>(1)
     const [loading, setLoading] = useState(true);
-
+    const dispatch = useDispatch();
+    const { userId, token } = useAuth();
 
     useEffect(() => {
         fetch(`http://localhost:3000/product/${slug}`)
@@ -32,9 +37,19 @@ export default function ProductDetail() {
             });
     }, [slug]);
 
+    //check có giảm giá để hiện thị form
+    const checkDiscount = product?.Discounts.some(p => p.discount_type === 1);
 
+    const variant = product?.ProductVariants?.[(selectedVariant)];
+    const price = Number(variant?.price);
 
-    const variant = product?.ProductVariants[(selectedVariant)];
+    const discountObject = product?.Discounts.find(d => d.discount_type === 1);
+
+    const discountValue = discountObject?.discount_value ?? 0;
+
+    const finalPrice = discountValue > 0 ? Math.round(Number(price) * (1 - discountValue / 100)) : price;
+
+    const totalCart = finalPrice * quantityNumber;
 
     const gallery = product?.ProductVariants.flatMap(v => v?.ProductImages);
 
@@ -64,6 +79,7 @@ export default function ProductDetail() {
     };
 
     if (loading) return null;
+
 
     return (
         <section className="layout_product-detail">
@@ -159,9 +175,19 @@ export default function ProductDetail() {
                                 </ul>
                             </div>
                             <div className="prodetail__prices">
-                                <span className="prodetail__value"></span>
-                                <span className="prodetail__sale"></span>
-                                <span className="prodetail__price">{Number(variant.price).toLocaleString('vi-VN')}VNĐ</span>
+                                {checkDiscount ? (
+                                    <>
+                                        <span className="prodetail__value prodetail-price">{discountValue}%</span>
+                                        <span className="prodetail__price prodetail-price line-through">{Number(price).toLocaleString('vi-VN')}đ</span>
+                                        <span className="prodetail__sale prodetail-price">{Number(finalPrice).toLocaleString('vi-VN')}đ</span>
+                                    </>
+
+                                ) : (
+                                    <>
+                                        <span className="prodetail__sale prodetail-price">{Number(finalPrice).toLocaleString('vi-VN')}đ</span>
+                                    </>
+                                )}
+
                             </div>
                             <div className="prodetail__variants">
                                 <ProductVariant
@@ -172,11 +198,79 @@ export default function ProductDetail() {
                                     }}
                                 />
                             </div>
-                            <div className="prodetail__cart">
-                                <div className="prodetail__quantity">
+                            <div className="prodetail__cart flex items-center gap-4">
 
+                                {/* Số lượng */}
+                                <div className="prodetail__quantity flex items-center border border-gray-400 rounded-md overflow-hidden">
+                                    <button
+                                        className="!h-[45px] !w-[45px] font-bold text-lg"
+                                        onClick={() => setQuantityNumber(prev => Math.max(prev - 1, 1))}
+                                    >
+                                        -
+                                    </button>
+
+                                    <span className="w-10 text-center">{quantityNumber}</span>
+
+                                    <button
+                                        className="!h-[45px] !w-[45px] font-bold text-lg"
+                                        onClick={() => {
+                                            if (Number(variant?.available_quantity ?? 1) > quantityNumber) {
+                                                setQuantityNumber(prev => prev + 1)
+                                            }
+                                        }}
+                                    >
+                                        +
+                                    </button>
                                 </div>
-                                <span>thêm vào giỏ hàng</span>
+
+                                {/* Nút thêm giỏ hàng */}
+
+                                {!product.sold_out ? (
+                                    <button
+                                        className="px-6 py-3 h-[45px] w-[70%] bg-[#ff0000] text-white font-semibold rounded-md hover:bg-gray-800 transition"
+                                        onClick={() => {
+                                            dispatch(createCart({
+                                                id: product.id,
+                                                name: product.name,
+                                                quantity: quantityNumber,
+                                                image: mainImage,
+                                                finalPrice: finalPrice,
+                                                totalCart: Number(totalCart),
+                                                selectedVariant: variant,
+                                            }));
+
+                                            if (userId) {
+                                                fetch("http://localhost:3000/api/cart/add", {
+                                                    method: "POST",
+                                                    headers: { "Content-Type": "application/json" },
+                                                    credentials: "include",
+                                                    body: JSON.stringify({
+                                                        items: [
+                                                            {
+                                                                id: product.id,
+                                                                name: product.name,
+                                                                quantity: quantityNumber,
+                                                                price: finalPrice,
+                                                                totalPrice: finalPrice,
+                                                                image: mainImage,
+                                                                variant: product?.ProductVariants?.[(selectedVariant)],
+                                                            }
+                                                        ]
+                                                    }),
+                                                }).catch(err => console.error(err));
+                                            }
+                                        }}
+                                    >
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="px-6 py-3 h-[45px] w-[70%] bg-[#ff0000] text-white font-semibold rounded-md hover:bg-gray-800 transition"
+                                    >
+                                        đã hết hàng
+                                    </button>
+                                )}
+
                             </div>
                             <div className="prodetail__desc"></div>
 

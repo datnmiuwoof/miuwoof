@@ -52,6 +52,13 @@ export interface IProduct {
     ProductVariants: IVariant[];
 }
 
+export interface IUser {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+}
 
 export interface IPost {
     id: number;
@@ -73,4 +80,17 @@ export interface IVariant {
     images?: File[] | null;
     previews?: string[] | null;
     ProductImages: [];
+}
+
+export interface ICart {
+    id: number
+    name: string;
+    quantity: number;
+    variant: [];
+    price: number;
+    image: string;
+    totalPrice: number;
+    uniqueId: number;
+    finalPrice: any;
+    userId: number;
 }

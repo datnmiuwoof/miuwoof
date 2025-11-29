@@ -2,12 +2,25 @@
 
 import '@/app/styles/reset.css';
 import '@/app/styles/globals.css';
-import React from "react";
+import { useDispatch } from 'react-redux';
+import { createCart } from '@/lib/cartSlice';
 import { IProduct } from "../../lib/cautrucdata";
+import { useAuth } from "@/context/AuthContext";
 
 
 
 export default function ProductCard({ product }: { product: IProduct }) {
+    const dispatch = useDispatch();
+    const { userId, token, loading } = useAuth();
+
+
+    const checkDiscount = product?.Discounts?.some(d => d.discount_type === 1);
+    const discount = product?.Discounts?.find(d => d.discount_type === 1);
+    const discountValue = discount?.discount_value ?? 0
+
+    const finalPrice = discountValue > 0 ? Math.round(Number(product.ProductVariants?.[0]?.price) * (1 - discountValue / 100)) : product.ProductVariants?.[0]?.price;
+
+
 
     return (
         <div className="product__item">
@@ -49,35 +62,62 @@ export default function ProductCard({ product }: { product: IProduct }) {
 
             <div className="product__detail">
                 <h3 className="product__name line-clamp">
-                    <a href={`/product/${product.slug}`}>{product.name}</a>
+                    <a href={`/product/${product.slug}`} >{product.name}</a>
                 </h3>
 
                 <div className="product__price">
-                    {product?.Discounts?.some(d => d.discount_type === 1) ? (() => {
-                        const discount = product.Discounts.find(d => d.discount_type === 1);
-                        const discountValue = discount?.discount_value ?? 0;
-                        const discountPrice = Number(product?.ProductVariants?.[0]?.price || 0) - (Number(product?.ProductVariants?.[0]?.price || 0) * discountValue / 100);
-
-                        return (
+                    {checkDiscount ?
+                        (
                             <>
                                 <span className="prod__price">
-                                    {discountPrice.toLocaleString('vi-VN')} ₫
+                                    {finalPrice.toLocaleString('vi-VN')} ₫
                                 </span>
                                 <span className="prod__price-del">
                                     {Number(product?.ProductVariants?.[0]?.price || 0).toLocaleString('vi-VN')} ₫
                                 </span>
                             </>
-                        );
-                    })() : (
-                        <span className="prod__price">
-                            {Number(product?.ProductVariants?.[0]?.price || 0).toLocaleString('vi-VN')} ₫
-                        </span>
-                    )}
+                        ) : (
+                            <span className="prod__price">
+                                {Number(product?.ProductVariants?.[0]?.price || 0).toLocaleString('vi-VN')} ₫
+                            </span>
+                        )}
                 </div>
 
                 {!product.sold_out ? (
                     <div className="product__action">
-                        <a href="#!" className="product__cart">
+                        <a href="#" onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(createCart({
+                                id: product.id,
+                                name: product.name,
+                                quantity: 1,
+                                image: product?.ProductVariants?.[0]?.ProductImages?.[0]?.image,
+                                finalPrice: finalPrice,
+                                totalCart: finalPrice,
+                                selectedVariant: product?.ProductVariants?.[0],
+                            }));
+
+                            if (userId) {
+                                fetch("http://localhost:3000/api/cart/add", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    credentials: "include",
+                                    body: JSON.stringify({
+                                        items: [
+                                            {
+                                                id: product.id,
+                                                name: product.name,
+                                                quantity: 1,
+                                                price: finalPrice,
+                                                totalPrice: finalPrice,
+                                                image: product?.ProductVariants?.[0]?.ProductImages?.[0]?.image,
+                                                variant: product?.ProductVariants?.[0],
+                                            }
+                                        ]
+                                    }),
+                                }).catch(err => console.error(err));
+                            }
+                        }} className="product__cart">
                             <span className="prod_cart">
                                 <svg
                                     width="16"

@@ -5,16 +5,87 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/app/styles/globals.css';
 import { useEffect, useState } from 'react';
 import { ICategory } from '../../lib/cautrucdata';
+import { useDispatch, useSelector } from 'react-redux';
+import LoginForm from "./register";
+import PassLogin from "./passLogin"
+import Link from 'next/link';
+import { UseDispatch } from 'react-redux';
+import { RootState } from '@/lib/store';
+import { passLogin, userSlice } from '@/lib/userSlice';
+import { LogOut } from '@/lib/userSlice';
+import { totalQuantity } from '@/lib/cartSlice';
 export default function Header() {
 
     const [category, setCategory] = useState<ICategory[]>([]);
     const [menuTree, setMenuTree] = useState<ICategory[]>([]);
     const [openId, setOpenId] = useState<number | null>(null);
+    const [openLogin, setOpenLogin] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+    // const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
+    const passUser = useSelector((state: RootState) => state.user.info);
+    const tatolQuantity = useSelector(totalQuantity);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+
+    const finalQuantity = mounted ? tatolQuantity : 0;
+
+    useEffect(() => {
+        let lastCurrent = 0;
+        const downHeader = document.querySelector(".header-container");
+        const upheader = document.querySelector(".header__nav");
+
+        const handleScroll = () => {
+            let currentScroll = window.scrollY;
+            if (window.scrollY > 50) {
+                downHeader?.classList.add("scroll-down");
+
+                if (lastCurrent > currentScroll) {
+                    upheader?.classList.add("scroll-up");
+                } else {
+                    upheader?.classList.remove("scroll-up");
+                }
+            } else {
+                downHeader?.classList.remove("scroll-down");
+                upheader?.classList.remove("scroll-up");
+            }
+
+            lastCurrent = currentScroll;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
+    useEffect(() => {
+        fetch("http://localhost:3000/user/me", {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("Chưa đăng nhập");
+                return res.json();
+            })
+            .then((data) => dispatch(passLogin(data)))
+            .catch(() => dispatch(LogOut()));
+    }, []);
 
 
     const toggleMenu = () => {
         setOpenMenu(!openMenu);
+        if (openLogin == true) {
+            setOpenLogin(false);
+        }
+    }
+
+    const toggleLogin = () => {
+        setOpenLogin(!openLogin);
+        if (openMenu == true) {
+            setOpenMenu(false);
+        }
     }
 
     const handleToggle = (id: number) => {
@@ -27,10 +98,12 @@ export default function Header() {
             if (window.scrollY > 400) {
                 setOpenMenu(false);
                 setOpenId(null);
+                setOpenLogin(false);
             }
         };
 
         window.addEventListener("scroll", handleScroll);
+
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
@@ -58,7 +131,21 @@ export default function Header() {
 
             setMenuTree(tree);
         }
-    }, [category])
+    }, [category]);
+
+    const handleLogOut = async () => {
+        try {
+            await fetch("http://localhost:3000/user/logout", {
+                method: "POST",
+                credentials: "include",
+            });
+            dispatch(LogOut())
+            setOpenLogin(false);
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
+
 
     return (
         <header>
@@ -257,36 +344,60 @@ export default function Header() {
 
 
                         {/* header__action */}
-                        <div className="header__action">
-                            <a href="/account" className="header__user">
-                                <span className="header__user--icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-                                    </svg>
-                                </span>
-                                <span className="header__user--text">Tài khoản</span>
-                            </a>
+                        <div className="header__action ">
+                            <div className='relative'>
+                                <a href="#" onClick={toggleLogin} className="header__user">
+                                    <span className="header__user--icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+                                        </svg>
+                                    </span>
+                                    <span className="header__user--text">Tài khoản</span>
+                                </a>
 
-                            <a href="/cart" className="header__cart">
+                                {openLogin && (
+                                    <span className=''>
+                                        {passUser ? (
+                                            <span className='absolute left-[70%] transform -translate-x-1/2 mt-2 z-50'>
+                                                <PassLogin logOut={handleLogOut} />
+                                            </span>
+                                        ) : (
+                                            <span className='absolute left-[70%] transform -translate-x-1/2 mt-2 z-50 w-[325px]'>
+                                                <LoginForm />
+                                            </span>
+                                        )}
+
+                                    </span>
+                                )}
+
+
+
+                            </div>
+
+
+                            <Link href="/cart" className="header__cart">
+                                <div className="">
+                                    <span className='!py-[3px] !px-[6px] !text-[11px] rounded-full !font-bold absolute top-[-8px] bg-red-500 text-white'>{finalQuantity}</span>
+                                </div>
                                 <span className="header__cart--icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 
-                 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 
-                 14l.84-2h8.45c.75 0 1.41-.41 
-                 1.75-1.03l3.58-6.49L19.25 2H5.21L4.27 0H0v2h2l3.6 
-                 7.59-1.35 2.44C4.11 12.37 5 14 6.5 
-                 14h.66z"/>
+                                           0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.16 
+                                           14l.84-2h8.45c.75 0 1.41-.41 
+                                           1.75-1.03l3.58-6.49L19.25 2H5.21L4.27 0H0v2h2l3.6 
+                                           7.59-1.35 2.44C4.11 12.37 5 14 6.5 
+                                           14h.66z"/>
                                     </svg>
                                 </span>
                                 <span className="header__user--text">Giỏ hàng</span>
-                            </a>
+                            </Link>
                         </div>
 
                     </div>
                 </div>
             </div>
 
-            <div className="header__nav">
+            <div className="header__nav w-full">
                 <div className="main-content">
                     <nav className="header__nav-inner">
                         <a href="/" className="header__home">

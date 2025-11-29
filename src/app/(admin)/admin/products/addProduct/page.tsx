@@ -30,7 +30,7 @@ export default function AddProduct() {
 
     // Load categories và nhóm theo parent
     useEffect(() => {
-        fetch('http://localhost:3000/api/categorys')
+        fetch('http://localhost:3000/api/categorys', { credentials: "include" })
             .then(res => res.json())
             .then(data => {
                 const allCategories = data.data;
@@ -154,6 +154,7 @@ export default function AddProduct() {
             const res = await fetch("http://localhost:3000/api/products/create", {
                 method: "POST",
                 body: formdata,
+                credentials: "include"
             });
 
             let data;

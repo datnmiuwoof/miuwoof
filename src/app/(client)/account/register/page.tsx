@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from "react";
+import { time } from "console";
+import { useState, useEffect } from "react";
 
 export default function RegisterForm() {
     const [errors, setErrors] = useState<any>({});
+    const [otp, setOtp] = useState("");
+    const [timeDown, setTimeDown] = useState(0);
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -17,52 +21,83 @@ export default function RegisterForm() {
         })
     }
 
+    const handleOtpChange = (e: any) => setOtp(e.target.value);
+
+    const handleSendOtp = async () => {
+        if (timeDown > 0) return;
+        if (!form.name || !form.email || !form.password) {
+            alert("nhập đầy đủ thông tin trước khi gửi otp")
+            return;
+        }
+
+        setTimeDown(60);
+        try {
+            const res = await fetch('http://localhost:3000/user/register', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form)
+            });
+
+            if (!res.ok) {
+                alert("gửi OTP thất bại");
+                setTimeDown(0);
+            }
+        } catch (error) {
+            console.log(error)
+            alert("lỗi gửi otp");
+        }
+    }
+
+    useEffect(() => {
+        if (timeDown <= 0) return;
+        const timer = setInterval(() => setTimeDown((prev) => prev - 1), 1000);
+        return () => clearInterval(timer);
+    }, [timeDown]);
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
-
         const name = formData.get("name")?.toString().trim();
         const email = formData.get("email")?.toString().trim();
         const password = formData.get("password")?.toString().trim();
+        const otp = formData.get("otp")?.toString().trim();
 
         const newErrors: any = {};
-
-        // Validate
         if (!name) newErrors.name = "Tên không được để trống";
-        if (!password) newErrors.password = 'mật khẩu không được để trống';
         if (!email) newErrors.email = "Email không được để trống";
         else if (!email.includes("@")) newErrors.email = "Email không hợp lệ";
+        if (!password) newErrors.password = "Mật khẩu không được để trống";
+        if (!otp) newErrors.otp = "OTP không được để trống";
 
         setErrors(newErrors);
 
-        // Nếu không có lỗi
         if (Object.keys(newErrors).length === 0) {
             try {
-                const res = await fetch('http://localhost:3000/user/register', {
+                const res = await fetch('http://localhost:3000/user/register/verify-otp', {
                     method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        password: password,
-                    }),
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, password, otp }),
                 });
 
+                const data = await res.json();
                 if (res.ok) {
-                    alert("đăng nhập thành công")
+                    alert("Đăng ký thành công");
                     setForm({
                         name: "",
                         email: "",
                         password: "",
                     })
+                    setOtp("");
+                    setTimeDown(0);
+                } else {
+                    alert("Lỗi: " + data.message);
                 }
-            } catch (error) {
-                console.log(error)
-            }
 
+            } catch (error) {
+                console.log(error);
+                alert("Không thể kết nối tới server!");
+            }
         }
     };
 
@@ -124,6 +159,31 @@ export default function RegisterForm() {
                             )}
                         </div>
 
+                        {/* OTP */}
+                        <div className="mb-5">
+                            <div className="flex gap-2 items-center">
+                                <input
+                                    type="text"
+                                    name="otp"
+                                    value={otp}
+                                    onChange={handleOtpChange}
+                                    placeholder="Nhập OTP"
+                                    className="flex-1 p-4 bg-[#ededed] text-[#5c5c5c] focus:border-[#ededed] focus:outline focus:outline-[#ededed] focus:bg-white"
+                                />
+                                <button
+                                    type="button"
+                                    disabled={loading || timeDown > 0}
+                                    onClick={handleSendOtp}
+                                    className="w-40 bg-[#5c5c5c] text-white font-semibold p-4 flex items-center justify-center"
+                                >
+                                    {timeDown > 0 ? `${timeDown}s` : loading ? "Đang gửi..." : "Gửi OTP"}
+                                </button>
+                            </div>
+                            {errors.otp && (
+                                <p className="text-red-500 text-sm mt-1">{errors.otp}</p>
+                            )}
+                        </div>
+
 
                         <button
                             type="submit"
@@ -140,7 +200,7 @@ export default function RegisterForm() {
                         </p>
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

@@ -1,0 +1,9 @@
+/* cart csss */
+
+.main__content{
+    --width: 1170px;
+
+    width: var(--width);
+    max-width: calc(100% - 48px);
+    margin: 0 auto;
+}

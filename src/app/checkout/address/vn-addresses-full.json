@@ -1,0 +1,1140 @@
+{
+  "generated": "synthetic",
+  "note": "This file contains synthetic address data: 63 provinces, each with 3 districts and each district with 3 communes. Codes are generated and not official.",
+  "provinces": [
+    { "code": "01", "name": "Thành phố Hà Nội", "slug": "ha-noi", "districts": [
+      { "code": "0101", "name": "Quận Ba Đình", "type": "urban_district", "slug": "quan-ba-dinh", "communes": [
+        { "code": "010101", "name": "Phường Phúc Xá", "type": "ward", "slug": "phuc-xa" },
+        { "code": "010102", "name": "Phường Trúc Bạch", "type": "ward", "slug": "truc-bach" },
+        { "code": "010103", "name": "Phường Ngọc Hà", "type": "ward", "slug": "ngoc-ha" }
+      ] },
+      { "code": "0102", "name": "Quận Hoàn Kiếm", "type": "urban_district", "slug": "quan-hoan-kiem", "communes": [
+        { "code": "010201", "name": "Phường Hàng Bài", "type": "ward", "slug": "hang-bai" },
+        { "code": "010202", "name": "Phường Lý Thái Tổ", "type": "ward", "slug": "ly-thai-to" },
+        { "code": "010203", "name": "Phường Hàng Trống", "type": "ward", "slug": "hang-trong" }
+      ] },
+      { "code": "0103", "name": "Quận Tây Hồ", "type": "urban_district", "slug": "quan-tay-ho", "communes": [
+        { "code": "010301", "name": "Phường Nhật Tân", "type": "ward", "slug": "nhat-tan" },
+        { "code": "010302", "name": "Phường Quảng An", "type": "ward", "slug": "quang-an" },
+        { "code": "010303", "name": "Phường Tứ Liên", "type": "ward", "slug": "tu-lien" }
+      ] }
+    ] },
+
+    { "code": "02", "name": "Tỉnh Hà Giang", "slug": "ha-giang", "districts": [
+      { "code": "0201", "name": "Huyện Đồng Văn", "type": "rural_district", "slug": "huyen-dong-van", "communes": [
+        { "code": "020101", "name": "Xã Phố Bảng", "type": "commune", "slug": "pho-bang" },
+        { "code": "020102", "name": "Xã Lũng Cú", "type": "commune", "slug": "lung-cu" },
+        { "code": "020103", "name": "Xã Sà Phìn", "type": "commune", "slug": "sa-phin" }
+      ] },
+      { "code": "0202", "name": "Huyện Mèo Vạc", "type": "rural_district", "slug": "huyen-meo-vac", "communes": [
+        { "code": "020201", "name": "Xã Pải Lủng", "type": "commune", "slug": "pai-lung" },
+        { "code": "020202", "name": "Xã Lũng Thầu", "type": "commune", "slug": "lung-thau" },
+        { "code": "020203", "name": "Xã Thượng Phùng", "type": "commune", "slug": "thuong-phung" }
+      ] },
+      { "code": "0203", "name": "Huyện Vị Xuyên", "type": "rural_district", "slug": "huyen-vi-xuyen", "communes": [
+        { "code": "020301", "name": "Xã Thanh Thủy", "type": "commune", "slug": "thanh-thuy" },
+        { "code": "020302", "name": "Xã Thượng Sơn", "type": "commune", "slug": "thuong-son" },
+        { "code": "020303", "name": "Xã Kim Thạch", "type": "commune", "slug": "kim-thach" }
+      ] }
+    ] },
+
+    { "code": "03", "name": "Tỉnh Cao Bằng", "slug": "cao-bang", "districts": [
+      { "code": "0301", "name": "Huyện Bảo Lâm", "type": "rural_district", "slug": "huyen-bao-lam", "communes": [
+        { "code": "030101", "name": "Xã Nam Cao", "type": "commune", "slug": "nam-cao" },
+        { "code": "030102", "name": "Xã Thông Huề", "type": "commune", "slug": "thong-hue" },
+        { "code": "030103", "name": "Xã Mông Ân", "type": "commune", "slug": "mong-an" }
+      ] },
+      { "code": "0302", "name": "Huyện Bảo Lạc", "type": "rural_district", "slug": "huyen-bao-lac", "communes": [
+        { "code": "030201", "name": "Xã Hồng Trị", "type": "commune", "slug": "hong-tri" },
+        { "code": "030202", "name": "Xã Phan Thanh", "type": "commune", "slug": "phan-thanh" },
+        { "code": "030203", "name": "Xã Cô Ba", "type": "commune", "slug": "co-ba" }
+      ] },
+      { "code": "0303", "name": "Huyện Hà Quảng", "type": "rural_district", "slug": "huyen-ha-quang", "communes": [
+        { "code": "030301", "name": "Xã Sỹ Hai", "type": "commune", "slug": "sy-hai" },
+        { "code": "030302", "name": "Xã Ngọc Khê", "type": "commune", "slug": "ngoc-khe" },
+        { "code": "030303", "name": "Xã Tiên Nguyên", "type": "commune", "slug": "tien-nguyen" }
+      ] }
+    ] },
+
+    { "code": "04", "name": "Tỉnh Bắc Kạn", "slug": "bac-kan", "districts": [
+      { "code": "0401", "name": "Huyện Ba Bể", "type": "rural_district", "slug": "huyen-ba-be", "communes": [
+        { "code": "040101", "name": "Xã Đồng Phúc", "type": "commune", "slug": "dong-phuc" },
+        { "code": "040102", "name": "Xã Nam Mẫu", "type": "commune", "slug": "nam-mau" },
+        { "code": "040103", "name": "Xã Yến Dương", "type": "commune", "slug": "yen-duong" }
+      ] },
+      { "code": "0402", "name": "Huyện Bạch Thông", "type": "rural_district", "slug": "huyen-bach-thong", "communes": [
+        { "code": "040201", "name": "Xã Vi Hương", "type": "commune", "slug": "vi-huong" },
+        { "code": "040202", "name": "Xã Lương Thông", "type": "commune", "slug": "luong-thong" },
+        { "code": "040203", "name": "Xã Thanh Vận", "type": "commune", "slug": "thanh-van" }
+      ] },
+      { "code": "0403", "name": "Huyện Ngân Sơn", "type": "rural_district", "slug": "huyen-ngan-son", "communes": [
+        { "code": "040301", "name": "Xã Thượng Ân", "type": "commune", "slug": "thuong-an" },
+        { "code": "040302", "name": "Xã Bằng Vân", "type": "commune", "slug": "bang-van" },
+        { "code": "040303", "name": "Xã Đức Vân", "type": "commune", "slug": "duc-van" }
+      ] }
+    ] },
+
+    { "code": "05", "name": "Tỉnh Tuyên Quang", "slug": "tuyen-quang", "districts": [
+      { "code": "0501", "name": "Huyện Na Hang", "type": "rural_district", "slug": "huyen-na-hang", "communes": [
+        { "code": "050101", "name": "Xã Thượng Lâm", "type": "commune", "slug": "thuong-lam" },
+        { "code": "050102", "name": "Xã Sơn Phú", "type": "commune", "slug": "son-phu" },
+        { "code": "050103", "name": "Xã Hồng Thái", "type": "commune", "slug": "hong-thai" }
+      ] },
+      { "code": "0502", "name": "Huyện Chiêm Hóa", "type": "rural_district", "slug": "huyen-chiem-hoa", "communes": [
+        { "code": "050201", "name": "Xã Hòa An", "type": "commune", "slug": "hoa-an" },
+        { "code": "050202", "name": "Xã Phúc Sơn", "type": "commune", "slug": "phuc-son" },
+        { "code": "050203", "name": "Xã Hà Lang", "type": "commune", "slug": "ha-lang" }
+      ] },
+      { "code": "0503", "name": "Huyện Lâm Bình", "type": "rural_district", "slug": "huyen-lam-binh", "communes": [
+        { "code": "050301", "name": "Xã Thượng Lâm", "type": "commune", "slug": "thuong-lam-2" },
+        { "code": "050302", "name": "Xã Bình An", "type": "commune", "slug": "binh-an" },
+        { "code": "050303", "name": "Xã Xuân Long", "type": "commune", "slug": "xuan-long" }
+      ] }
+    ] },
+
+    { "code": "06", "name": "Tỉnh Lào Cai", "slug": "lao-cai", "districts": [
+      { "code": "0601", "name": "Thành phố Lào Cai", "type": "city", "slug": "tp-lao-cai", "communes": [
+        { "code": "060101", "name": "Phường Cốc Lếu", "type": "ward", "slug": "coc-leu" },
+        { "code": "060102", "name": "Phường Kim Tân", "type": "ward", "slug": "kim-tan" },
+        { "code": "060103", "name": "Phường Duyên Hải", "type": "ward", "slug": "duyen-hai" }
+      ] },
+      { "code": "0602", "name": "Huyện Bảo Thắng", "type": "rural_district", "slug": "huyen-bao-thang", "communes": [
+        { "code": "060201", "name": "Xã Thái Niên", "type": "commune", "slug": "thai-nien" },
+        { "code": "060202", "name": "Xã Phong Niên", "type": "commune", "slug": "phong-nien" },
+        { "code": "060203", "name": "Xã Bản Phiệt", "type": "commune", "slug": "ban-phiet" }
+      ] },
+      { "code": "0603", "name": "Huyện Sa Pa", "type": "rural_district", "slug": "huyen-sa-pa", "communes": [
+        { "code": "060301", "name": "Xã Trung Chải", "type": "commune", "slug": "trung-chai" },
+        { "code": "060302", "name": "Xã Lao Chải", "type": "commune", "slug": "lao-chai" },
+        { "code": "060303", "name": "Xã Hầu Thào", "type": "commune", "slug": "hau-thao" }
+      ] }
+    ] },
+
+    { "code": "07", "name": "Tỉnh Điện Biên", "slug": "dien-bien", "districts": [
+      { "code": "0701", "name": "Thành phố Điện Biên Phủ", "type": "city", "slug": "tp-dien-bien-phu", "communes": [
+        { "code": "070101", "name": "Phường Mường Thanh", "type": "ward", "slug": "muong-thanh" },
+        { "code": "070102", "name": "Phường Tân Thanh", "type": "ward", "slug": "tan-thanh" },
+        { "code": "070103", "name": "Phường Him Lam", "type": "ward", "slug": "him-lam" }
+      ] },
+      { "code": "0702", "name": "Huyện Mường Ảng", "type": "rural_district", "slug": "huyen-muong-ang", "communes": [
+        { "code": "070201", "name": "Xã Ẳng Tở", "type": "commune", "slug": "ang-to" },
+        { "code": "070202", "name": "Xã Búng Lao", "type": "commune", "slug": "bung-lao" },
+        { "code": "070203", "name": "Xã Ngối Cáy", "type": "commune", "slug": "ngoi-cay" }
+      ] },
+      { "code": "0703", "name": "Huyện Điện Biên", "type": "rural_district", "slug": "huyen-dien-bien", "communes": [
+        { "code": "070301", "name": "Xã Thanh Nưa", "type": "commune", "slug": "thanh-nua" },
+        { "code": "070302", "name": "Xã Mường Phăng", "type": "commune", "slug": "muong-phang" },
+        { "code": "070303", "name": "Xã Noong Luống", "type": "commune", "slug": "noong-luong" }
+      ] }
+    ] },
+
+    { "code": "08", "name": "Tỉnh Lai Châu", "slug": "lai-chau", "districts": [
+      { "code": "0801", "name": "Thành phố Lai Châu", "type": "city", "slug": "tp-lai-chau", "communes": [
+        { "code": "080101", "name": "Phường Đoàn Kết", "type": "ward", "slug": "doan-ket" },
+        { "code": "080102", "name": "Phường Tân Phong", "type": "ward", "slug": "tan-phong" },
+        { "code": "080103", "name": "Phường Đông Phong", "type": "ward", "slug": "dong-phong" }
+      ] },
+      { "code": "0802", "name": "Huyện Tam Đường", "type": "rural_district", "slug": "huyen-tam-duong", "communes": [
+        { "code": "080201", "name": "Xã Tả Lèng", "type": "commune", "slug": "ta-leng" },
+        { "code": "080202", "name": "Xã Bản Hon", "type": "commune", "slug": "ban-hon" },
+        { "code": "080203", "name": "Xã Nà Tăm", "type": "commune", "slug": "na-tam" }
+      ] },
+      { "code": "0803", "name": "Huyện Sìn Hồ", "type": "rural_district", "slug": "huyen-sin-ho", "communes": [
+        { "code": "080301", "name": "Xã Tả Ngảo", "type": "commune", "slug": "ta-ngao" },
+        { "code": "080302", "name": "Xã Hồ Thầu", "type": "commune", "slug": "ho-thau" },
+        { "code": "080303", "name": "Xã Pa Tầng", "type": "commune", "slug": "pa-tang" }
+      ] }
+    ] },
+
+    { "code": "09", "name": "Tỉnh Sơn La", "slug": "son-la", "districts": [
+      { "code": "0901", "name": "Thành phố Sơn La", "type": "city", "slug": "tp-son-la", "communes": [
+        { "code": "090101", "name": "Phường Tô Hiệu", "type": "ward", "slug": "to-hieu" },
+        { "code": "090102", "name": "Phường Quyết Tâm", "type": "ward", "slug": "quyet-tam" },
+        { "code": "090103", "name": "Phường Chiềng An", "type": "ward", "slug": "chieng-an" }
+      ] },
+      { "code": "0902", "name": "Huyện Mai Sơn", "type": "rural_district", "slug": "huyen-mai-son", "communes": [
+        { "code": "090201", "name": "Xã Chiềng Ban", "type": "commune", "slug": "chieng-ban" },
+        { "code": "090202", "name": "Xã Cò Nòi", "type": "commune", "slug": "co-noi" },
+        { "code": "090203", "name": "Xã Mường Bon", "type": "commune", "slug": "muong-bon" }
+      ] },
+      { "code": "0903", "name": "Huyện Thuận Châu", "type": "rural_district", "slug": "huyen-thuan-chau", "communes": [
+        { "code": "090301", "name": "Xã Púng Tra", "type": "commune", "slug": "pung-tra" },
+        { "code": "090302", "name": "Xã Chiềng Pha", "type": "commune", "slug": "chieng-pha" },
+        { "code": "090303", "name": "Xã Long Hẹ", "type": "commune", "slug": "long-he" }
+      ] }
+    ] },
+
+    { "code": "10", "name": "Tỉnh Yên Bái", "slug": "yen-bai", "districts": [
+      { "code": "1001", "name": "Thành phố Yên Bái", "type": "city", "slug": "tp-yen-bai", "communes": [
+        { "code": "100101", "name": "Phường Đồng Tâm", "type": "ward", "slug": "dong-tam" },
+        { "code": "100102", "name": "Phường Minh Tân", "type": "ward", "slug": "minh-tan" },
+        { "code": "100103", "name": "Phường Nguyễn Thái Học", "type": "ward", "slug": "nguyen-thai-hoc" }
+      ] },
+      { "code": "1002", "name": "Huyện Trấn Yên", "type": "rural_district", "slug": "huyen-tran-yen", "communes": [
+        { "code": "100201", "name": "Xã Việt Cường", "type": "commune", "slug": "viet-cuong" },
+        { "code": "100202", "name": "Xã Minh Quân", "type": "commune", "slug": "minh-quan" },
+        { "code": "100203", "name": "Xã Báo Đáp", "type": "commune", "slug": "bao-dap" }
+      ] },
+      { "code": "1003", "name": "Huyện Văn Yên", "type": "rural_district", "slug": "huyen-van-yen", "communes": [
+        { "code": "100301", "name": "Xã Mỏ Vàng", "type": "commune", "slug": "mo-vang" },
+        { "code": "100302", "name": "Xã Xuân Long", "type": "commune", "slug": "xuan-long-2" },
+        { "code": "100303", "name": "Xã An Thịnh", "type": "commune", "slug": "an-thinh" }
+      ] }
+    ] },
+
+    { "code": "11", "name": "Tỉnh Hòa Bình", "slug": "hoa-binh", "districts": [
+      { "code": "1101", "name": "Thành phố Hòa Bình", "type": "city", "slug": "tp-hoa-binh", "communes": [
+        { "code": "110101", "name": "Phường Chăm Mát", "type": "ward", "slug": "cham-mat" },
+        { "code": "110102", "name": "Phường Thái Bình", "type": "ward", "slug": "thai-binh" },
+        { "code": "110103", "name": "Phường Phương Lâm", "type": "ward", "slug": "phuong-lam" }
+      ] },
+      { "code": "1102", "name": "Huyện Lạc Thủy", "type": "rural_district", "slug": "huyen-lac-thuy", "communes": [
+        { "code": "110201", "name": "Xã Phú Nghĩa", "type": "commune", "slug": "phu-nghia" },
+        { "code": "110202", "name": "Xã Yên Lập", "type": "commune", "slug": "yen-lap" },
+        { "code": "110203", "name": "Xã Phương Lâu", "type": "commune", "slug": "phuong-lau" }
+      ] },
+      { "code": "1103", "name": "Huyện Lương Sơn", "type": "rural_district", "slug": "huyen-luong-son", "communes": [
+        { "code": "110301", "name": "Xã Cao Dương", "type": "commune", "slug": "cao-duong" },
+        { "code": "110302", "name": "Xã Tân Vinh", "type": "commune", "slug": "tan-vinh" },
+        { "code": "110303", "name": "Xã Hòa Sơn", "type": "commune", "slug": "hoa-son" }
+      ] }
+    ] },
+
+    { "code": "12", "name": "Tỉnh Thái Nguyên", "slug": "thai-nguyen", "districts": [
+      { "code": "1201", "name": "Thành phố Thái Nguyên", "type": "city", "slug": "tp-thai-nguyen", "communes": [
+        { "code": "120101", "name": "Phường Tân Thịnh", "type": "ward", "slug": "tan-thinh" },
+        { "code": "120102", "name": "Phường Hoàng Văn Thụ", "type": "ward", "slug": "hoang-van-thu" },
+        { "code": "120103", "name": "Phường Chùa Hang", "type": "ward", "slug": "chua-hang" }
+      ] },
+      { "code": "1202", "name": "Huyện Đại Từ", "type": "rural_district", "slug": "huyen-dai-tu", "communes": [
+        { "code": "120201", "name": "Xã Cát Nê", "type": "commune", "slug": "cat-ne" },
+        { "code": "120202", "name": "Xã Quang Sơn", "type": "commune", "slug": "quang-son" },
+        { "code": "120203", "name": "Xã Phục Linh", "type": "commune", "slug": "phuc-linh" }
+      ] },
+      { "code": "1203", "name": "Huyện Võ Nhai", "type": "rural_district", "slug": "huyen-vo-nhai", "communes": [
+        { "code": "120301", "name": "Xã Tràng Xá", "type": "commune", "slug": "trang-xa" },
+        { "code": "120302", "name": "Xã Đại Sàng", "type": "commune", "slug": "dai-sang" },
+        { "code": "120303", "name": "Xã Vũ Chấn", "type": "commune", "slug": "vu-chan" }
+      ] }
+    ] },
+
+    { "code": "13", "name": "Tỉnh Lạng Sơn", "slug": "lang-son", "districts": [
+      { "code": "1301", "name": "Thành phố Lạng Sơn", "type": "city", "slug": "tp-lang-son", "communes": [
+        { "code": "130101", "name": "Phường Vĩnh Trại", "type": "ward", "slug": "vinh-trai" },
+        { "code": "130102", "name": "Phường Tam Thanh", "type": "ward", "slug": "tam-thanh" },
+        { "code": "130103", "name": "Phường Hoàng Văn Thụ", "type": "ward", "slug": "hoang-van-thu-2" }
+      ] },
+      { "code": "1302", "name": "Huyện Bình Gia", "type": "rural_district", "slug": "huyen-binh-gia", "communes": [
+        { "code": "130201", "name": "Xã Tân Văn", "type": "commune", "slug": "tan-van" },
+        { "code": "130202", "name": "Xã Hưng Vũ", "type": "commune", "slug": "hung-vu" },
+        { "code": "130203", "name": "Xã Hồng Thái", "type": "commune", "slug": "hong-thai-2" }
+      ] },
+      { "code": "1303", "name": "Huyện Văn Lãng", "type": "rural_district", "slug": "huyen-van-lang", "communes": [
+        { "code": "130301", "name": "Xã Trùng Quán", "type": "commune", "slug": "trung-quan" },
+        { "code": "130302", "name": "Xã Tiên Hội", "type": "commune", "slug": "tien-hoi" },
+        { "code": "130303", "name": "Xã Hồng Phong", "type": "commune", "slug": "hong-phong" }
+      ] }
+    ] },
+
+    { "code": "14", "name": "Tỉnh Quảng Ninh", "slug": "quang-ninh", "districts": [
+      { "code": "1401", "name": "Thành phố Hạ Long", "type": "city", "slug": "tp-ha-long", "communes": [
+        { "code": "140101", "name": "Phường Hồng Gai", "type": "ward", "slug": "hong-gai" },
+        { "code": "140102", "name": "Phường Bãi Cháy", "type": "ward", "slug": "bai-chay" },
+        { "code": "140103", "name": "Phường Hùng Thắng", "type": "ward", "slug": "hung-thang" }
+      ] },
+      { "code": "1402", "name": "Huyện Vân Đồn", "type": "rural_district", "slug": "huyen-van-don", "communes": [
+        { "code": "140201", "name": "Xã Hạ Long", "type": "commune", "slug": "ha-long-2" },
+        { "code": "140202", "name": "Xã Đông Xá", "type": "commune", "slug": "dong-xa" },
+        { "code": "140203", "name": "Xã Tân Bình", "type": "commune", "slug": "tan-binh" }
+      ] },
+      { "code": "1403", "name": "Huyện Cô Tô", "type": "rural_district", "slug": "huyen-co-to", "communes": [
+        { "code": "140301", "name": "Xã Đồng Tiến", "type": "commune", "slug": "dong-tien" },
+        { "code": "140302", "name": "Xã Thanh Lân", "type": "commune", "slug": "thanh-lan" },
+        { "code": "140303", "name": "Xã Cảnh Hưng", "type": "commune", "slug": "canh-hung" }
+      ] }
+    ] },
+
+    { "code": "15", "name": "Tỉnh Bắc Giang", "slug": "bac-giang", "districts": [
+      { "code": "1501", "name": "Thị xã Bắc Giang", "type": "town", "slug": "thi-xa-bac-giang", "communes": [
+        { "code": "150101", "name": "Phường Hoàng Văn Thụ", "type": "ward", "slug": "hoang-van-thu-3" },
+        { "code": "150102", "name": "Phường Xương Giang", "type": "ward", "slug": "xuong-giang" },
+        { "code": "150103", "name": "Phường Thọ Xương", "type": "ward", "slug": "tho-xuong" }
+      ] },
+      { "code": "1502", "name": "Huyện Lạng Giang", "type": "rural_district", "slug": "huyen-lang-giang", "communes": [
+        { "code": "150201", "name": "Xã Dĩnh Trì", "type": "commune", "slug": "dinh-tri" },
+        { "code": "150202", "name": "Xã Mỹ Hà", "type": "commune", "slug": "my-ha" },
+        { "code": "150203", "name": "Xã Tân Dĩnh", "type": "commune", "slug": "tan-dinh" }
+      ] },
+      { "code": "1503", "name": "Huyện Yên Dũng", "type": "rural_district", "slug": "huyen-yen-dung", "communes": [
+        { "code": "150301", "name": "Xã Đồng Phúc", "type": "commune", "slug": "dong-phuc-2" },
+        { "code": "150302", "name": "Xã Nội Hoàng", "type": "commune", "slug": "noi-hoang" },
+        { "code": "150303", "name": "Xã Tân An", "type": "commune", "slug": "tan-an" }
+      ] }
+    ] },
+
+    { "code": "16", "name": "Tỉnh Phú Thọ", "slug": "phu-tho", "districts": [
+      { "code": "1601", "name": "Thành phố Việt Trì", "type": "city", "slug": "tp-viet-tri", "communes": [
+        { "code": "160101", "name": "Phường Vân Cơ", "type": "ward", "slug": "van-co" },
+        { "code": "160102", "name": "Phường Nông Trang", "type": "ward", "slug": "nong-trang" },
+        { "code": "160103", "name": "Phường Hùng Vương", "type": "ward", "slug": "hung-vuong" }
+      ] },
+      { "code": "1602", "name": "Huyện Tam Nông", "type": "rural_district", "slug": "huyen-tam-nong", "communes": [
+        { "code": "160201", "name": "Xã Hùng Thắng", "type": "commune", "slug": "hung-thang" },
+        { "code": "160202", "name": "Xã Dân Quyền", "type": "commune", "slug": "dan-quyen" },
+        { "code": "160203", "name": "Xã Hiền Quan", "type": "commune", "slug": "hien-quan" }
+      ] },
+      { "code": "1603", "name": "Huyện Thanh Thủy", "type": "rural_district", "slug": "huyen-thanh-thuy", "communes": [
+        { "code": "160301", "name": "Xã Tân Phú", "type": "commune", "slug": "tan-phu" },
+        { "code": "160302", "name": "Xã Đào Xá", "type": "commune", "slug": "dao-xa" },
+        { "code": "160303", "name": "Xã Sơn Thủy", "type": "commune", "slug": "son-thuy" }
+      ] }
+    ] },
+
+    { "code": "17", "name": "Tỉnh Vĩnh Phúc", "slug": "vinh-phuc", "districts": [
+      { "code": "1701", "name": "Thành phố Vĩnh Yên", "type": "city", "slug": "tp-vinh-yen", "communes": [
+        { "code": "170101", "name": "Phường Hội Hợp", "type": "ward", "slug": "hoi-hop" },
+        { "code": "170102", "name": "Phường Liên Bảo", "type": "ward", "slug": "lien-bao" },
+        { "code": "170103", "name": "Phường Khai Quang", "type": "ward", "slug": "khai-quang" }
+      ] },
+      { "code": "1702", "name": "Huyện Vĩnh Tường", "type": "rural_district", "slug": "huyen-vinh-tuong", "communes": [
+        { "code": "170201", "name": "Xã Tân Tiến", "type": "commune", "slug": "tan-tien" },
+        { "code": "170202", "name": "Xã Yên Lập", "type": "commune", "slug": "yen-lap-2" },
+        { "code": "170203", "name": "Xã Cao Đại", "type": "commune", "slug": "cao-dai" }
+      ] },
+      { "code": "1703", "name": "Huyện Tam Dương", "type": "rural_district", "slug": "huyen-tam-duong", "communes": [
+        { "code": "170301", "name": "Xã An Hòa", "type": "commune", "slug": "an-hoa" },
+        { "code": "170302", "name": "Xã Hợp Hòa", "type": "commune", "slug": "hop-hoa" },
+        { "code": "170303", "name": "Xã Đĩnh Xuyên", "type": "commune", "slug": "dinh-xuyen" }
+      ] }
+    ] },
+
+    { "code": "18", "name": "Tỉnh Bắc Ninh", "slug": "bac-ninh", "districts": [
+      { "code": "1801", "name": "Thành phố Bắc Ninh", "type": "city", "slug": "tp-bac-ninh", "communes": [
+        { "code": "180101", "name": "Phường Vũ Ninh", "type": "ward", "slug": "vu-ninh" },
+        { "code": "180102", "name": "Phường Suối Hoa", "type": "ward", "slug": "suoi-hoa" },
+        { "code": "180103", "name": "Phường Kinh Bắc", "type": "ward", "slug": "kinh-bac" }
+      ] },
+      { "code": "1802", "name": "Huyện Yên Phong", "type": "rural_district", "slug": "huyen-yen-phong", "communes": [
+        { "code": "180201", "name": "Xã Tam Giang", "type": "commune", "slug": "tam-giang-2" },
+        { "code": "180202", "name": "Xã Tam Đa", "type": "commune", "slug": "tam-da-2" },
+        { "code": "180203", "name": "Xã Phố Mới", "type": "commune", "slug": "pho-moi" }
+      ] },
+      { "code": "1803", "name": "Huyện Tiên Du", "type": "rural_district", "slug": "huyen-tien-du", "communes": [
+        { "code": "180301", "name": "Xã Lim", "type": "commune", "slug": "lim" },
+        { "code": "180302", "name": "Xã Nội Duệ", "type": "commune", "slug": "noi-due" },
+        { "code": "180303", "name": "Xã Hoàn Sơn", "type": "commune", "slug": "hoan-son" }
+      ] }
+    ] },
+
+    { "code": "19", "name": "Tỉnh Hải Dương", "slug": "hai-duong", "districts": [
+      { "code": "1901", "name": "Thành phố Hải Dương", "type": "city", "slug": "tp-hai-duong", "communes": [
+        { "code": "190101", "name": "Phường Thanh Bình", "type": "ward", "slug": "thanh-binh" },
+        { "code": "190102", "name": "Phường Tứ Minh", "type": "ward", "slug": "tu-minh" },
+        { "code": "190103", "name": "Phường Cẩm Thượng", "type": "ward", "slug": "cam-thuong" }
+      ] },
+      { "code": "1902", "name": "Huyện Nam Sách", "type": "rural_district", "slug": "huyen-nam-sach", "communes": [
+        { "code": "190201", "name": "Xã Nam Hưng", "type": "commune", "slug": "nam-hung" },
+        { "code": "190202", "name": "Xã Cộng Hòa", "type": "commune", "slug": "cong-hoa" },
+        { "code": "190203", "name": "Xã Hiệp Cát", "type": "commune", "slug": "hiep-cat" }
+      ] },
+      { "code": "1903", "name": "Huyện Kim Thành", "type": "rural_district", "slug": "huyen-kim-thanh", "communes": [
+        { "code": "190301", "name": "Xã Liên Hồng", "type": "commune", "slug": "lien-hong" },
+        { "code": "190302", "name": "Xã Cổ Cộng", "type": "commune", "slug": "co-cong" },
+        { "code": "190303", "name": "Xã Kim Lương", "type": "commune", "slug": "kim-luong" }
+      ] }
+    ] },
+
+    { "code": "20", "name": "Thành phố Hải Phòng", "slug": "hai-phong", "districts": [
+      { "code": "2001", "name": "Quận Ngô Quyền", "type": "urban_district", "slug": "quan-ngo-quyen", "communes": [
+        { "code": "200101", "name": "Phường Máy Tơ", "type": "ward", "slug": "may-to" },
+        { "code": "200102", "name": "Phường Cầu Đất", "type": "ward", "slug": "cau-dat" },
+        { "code": "200103", "name": "Phường Hạ Lý", "type": "ward", "slug": "ha-ly" }
+      ] },
+      { "code": "2002", "name": "Quận Hồng Bàng", "type": "urban_district", "slug": "quan-hong-bang", "communes": [
+        { "code": "200201", "name": "Phường Hạ Lý", "type": "ward", "slug": "ha-ly-2" },
+        { "code": "200202", "name": "Phường Sở Dầu", "type": "ward", "slug": "so-dau" },
+        { "code": "200203", "name": "Phường Trại Chuối", "type": "ward", "slug": "trai-chuoi" }
+      ] },
+      { "code": "2003", "name": "Huyện An Lão", "type": "rural_district", "slug": "huyen-an-lao", "communes": [
+        { "code": "200301", "name": "Xã Trường Thắng", "type": "commune", "slug": "truong-thang" },
+        { "code": "200302", "name": "Xã Tế Tiêu", "type": "commune", "slug": "te-tieu" },
+        { "code": "200303", "name": "Xã Đại Hợp", "type": "commune", "slug": "dai-hop" }
+      ] }
+    ] },
+
+    { "code": "21", "name": "Tỉnh Hưng Yên", "slug": "hung-yen", "districts": [
+      { "code": "2101", "name": "Thị xã Mỹ Hào", "type": "town", "slug": "thi-xa-my-hao", "communes": [
+        { "code": "210101", "name": "Phường Bần Yên Nhân", "type": "ward", "slug": "ban-yen-nhan" },
+        { "code": "210102", "name": "Phường Lê Lợi", "type": "ward", "slug": "le-loi" },
+        { "code": "210103", "name": "Phường Hiến Nam", "type": "ward", "slug": "hien-nam" }
+      ] },
+      { "code": "2102", "name": "Huyện Yên Mỹ", "type": "rural_district", "slug": "huyen-yen-my", "communes": [
+        { "code": "210201", "name": "Xã Nghĩa Hiệp", "type": "commune", "slug": "nghia-hiep" },
+        { "code": "210202", "name": "Xã Lý Thường Kiệt", "type": "commune", "slug": "ly-thuong-kiet" },
+        { "code": "210203", "name": "Xã Minh Châu", "type": "commune", "slug": "minh-chau" }
+      ] },
+      { "code": "2103", "name": "Huyện Văn Lâm", "type": "rural_district", "slug": "huyen-van-lam", "communes": [
+        { "code": "210301", "name": "Xã Đình Dù", "type": "commune", "slug": "dinh-du" },
+        { "code": "210302", "name": "Xã Cửu Cao", "type": "commune", "slug": "cuu-cao" },
+        { "code": "210303", "name": "Xã Liêu Xá", "type": "commune", "slug": "lieu-xa" }
+      ] }
+    ] },
+
+    { "code": "22", "name": "Tỉnh Thái Bình", "slug": "thai-binh", "districts": [
+      { "code": "2201", "name": "Thành phố Thái Bình", "type": "city", "slug": "tp-thai-binh", "communes": [
+        { "code": "220101", "name": "Phường Trần Hưng Đạo", "type": "ward", "slug": "tran-hung-dao" },
+        { "code": "220102", "name": "Phường Tiền Phong", "type": "ward", "slug": "tien-phong" },
+        { "code": "220103", "name": "Phường Đề Thám", "type": "ward", "slug": "de-tham" }
+      ] },
+      { "code": "2202", "name": "Huyện Kiến Xương", "type": "rural_district", "slug": "huyen-kien-xuong", "communes": [
+        { "code": "220201", "name": "Xã Quang Bình", "type": "commune", "slug": "quang-binh-2" },
+        { "code": "220202", "name": "Xã Bình Nguyên", "type": "commune", "slug": "binh-nguyen" },
+        { "code": "220203", "name": "Xã Thụy Liên", "type": "commune", "slug": "thuy-lien" }
+      ] },
+      { "code": "2203", "name": "Huyện Hưng Hà", "type": "rural_district", "slug": "huyen-hung-ha", "communes": [
+        { "code": "220301", "name": "Xã Hòa Bình", "type": "commune", "slug": "hoa-binh-2" },
+        { "code": "220302", "name": "Xã Minh Khai", "type": "commune", "slug": "minh-khai" },
+        { "code": "220303", "name": "Xã Chi Lăng", "type": "commune", "slug": "chi-lang" }
+      ] }
+    ] },
+
+    { "code": "23", "name": "Tỉnh Hà Nam", "slug": "ha-nam", "districts": [
+      { "code": "2301", "name": "Thành phố Phủ Lý", "type": "city", "slug": "tp-phu-ly", "communes": [
+        { "code": "230101", "name": "Phường Quang Trung", "type": "ward", "slug": "quang-trung" },
+        { "code": "230102", "name": "Phường Lê Hồng Phong", "type": "ward", "slug": "le-hong-phong" },
+        { "code": "230103", "name": "Phường Châu Sơn", "type": "ward", "slug": "chau-son" }
+      ] },
+      { "code": "2302", "name": "Huyện Duy Tiên", "type": "rural_district", "slug": "huyen-duy-tien", "communes": [
+        { "code": "230201", "name": "Xã Yên Nam", "type": "commune", "slug": "yen-nam" },
+        { "code": "230202", "name": "Xã Đồng Văn", "type": "commune", "slug": "dong-van-2" },
+        { "code": "230203", "name": "Xã Tiên Nội", "type": "commune", "slug": "tien-noi" }
+      ] },
+      { "code": "2303", "name": "Huyện Kim Bảng", "type": "rural_district", "slug": "huyen-kim-bang", "communes": [
+        { "code": "230301", "name": "Xã Quế", "type": "commune", "slug": "que" },
+        { "code": "230302", "name": "Xã Thanh Sơn", "type": "commune", "slug": "thanh-son-2" },
+        { "code": "230303", "name": "Xã Đọi Sơn", "type": "commune", "slug": "doi-son" }
+      ] }
+    ] },
+
+    { "code": "24", "name": "Tỉnh Nam Định", "slug": "nam-dinh", "districts": [
+      { "code": "2401", "name": "Thành phố Nam Định", "type": "city", "slug": "tp-nam-dinh", "communes": [
+        { "code": "240101", "name": "Phường Trần Tế Xương", "type": "ward", "slug": "tran-te-xuong" },
+        { "code": "240102", "name": "Phường Lộc Hạ", "type": "ward", "slug": "loc-ha" },
+        { "code": "240103", "name": "Phường Năng Tĩnh", "type": "ward", "slug": "nang-tinh" }
+      ] },
+      { "code": "2402", "name": "Huyện Nghĩa Hưng", "type": "rural_district", "slug": "huyen-nghia-hung", "communes": [
+        { "code": "240201", "name": "Xã Nghĩa Thịnh", "type": "commune", "slug": "nghia-thinh" },
+        { "code": "240202", "name": "Xã Nghĩa Hồng", "type": "commune", "slug": "nghia-hong" },
+        { "code": "240203", "name": "Xã Nghĩa Phong", "type": "commune", "slug": "nghia-phong" }
+      ] },
+      { "code": "2403", "name": "Huyện Giao Thủy", "type": "rural_district", "slug": "huyen-giao-thuy", "communes": [
+        { "code": "240301", "name": "Xã Giao An", "type": "commune", "slug": "giao-an" },
+        { "code": "240302", "name": "Xã Giao Hà", "type": "commune", "slug": "giao-ha" },
+        { "code": "240303", "name": "Xã Giao Thanh", "type": "commune", "slug": "giao-thanh" }
+      ] }
+    ] },
+
+    { "code": "25", "name": "Tỉnh Ninh Bình", "slug": "ninh-binh", "districts": [
+      { "code": "2501", "name": "Thành phố Ninh Bình", "type": "city", "slug": "tp-ninh-binh", "communes": [
+        { "code": "250101", "name": "Phường Ninh Khánh", "type": "ward", "slug": "ninh-khanh" },
+        { "code": "250102", "name": "Phường Ninh Phong", "type": "ward", "slug": "ninh-phong" },
+        { "code": "250103", "name": "Phường Ninh Sơn", "type": "ward", "slug": "ninh-son" }
+      ] },
+      { "code": "2502", "name": "Huyện Hoa Lư", "type": "rural_district", "slug": "huyen-hoa-lu", "communes": [
+        { "code": "250201", "name": "Xã Ninh Hòa", "type": "commune", "slug": "ninh-hoa" },
+        { "code": "250202", "name": "Xã Trường Yên", "type": "commune", "slug": "truong-yen" },
+        { "code": "250203", "name": "Xã Ninh Giang", "type": "commune", "slug": "ninh-giang" }
+      ] },
+      { "code": "2503", "name": "Huyện Yên Khánh", "type": "rural_district", "slug": "huyen-yen-khanh", "communes": [
+        { "code": "250301", "name": "Xã Khánh An", "type": "commune", "slug": "khanh-an" },
+        { "code": "250302", "name": "Xã Khánh Cường", "type": "commune", "slug": "khanh-cuong" },
+        { "code": "250303", "name": "Xã Khánh Hội", "type": "commune", "slug": "khanh-hoi" }
+      ] }
+    ] },
+
+    { "code": "26", "name": "Tỉnh Thanh Hóa", "slug": "thanh-hoa", "districts": [
+      { "code": "2601", "name": "Thành phố Thanh Hóa", "type": "city", "slug": "tp-thanh-hoa", "communes": [
+        { "code": "260101", "name": "Phường Lam Sơn", "type": "ward", "slug": "lam-son" },
+        { "code": "260102", "name": "Phường Điện Biên", "type": "ward", "slug": "dien-bien" },
+        { "code": "260103", "name": "Phường Trường Thi", "type": "ward", "slug": "truong-thi" }
+      ] },
+      { "code": "2602", "name": "Huyện Bỉm Sơn", "type": "rural_district", "slug": "huyen-bim-son", "communes": [
+        { "code": "260201", "name": "Xã Đông Vinh", "type": "commune", "slug": "dong-vinh" },
+        { "code": "260202", "name": "Xã Quang Trung", "type": "commune", "slug": "quang-trung-2" },
+        { "code": "260203", "name": "Xã Lam Sơn", "type": "commune", "slug": "lam-son-2" }
+      ] },
+      { "code": "2603", "name": "Huyện Hoằng Hóa", "type": "rural_district", "slug": "huyen-hoang-hoa", "communes": [
+        { "code": "260301", "name": "Xã Hoằng Hợp", "type": "commune", "slug": "hoang-hop" },
+        { "code": "260302", "name": "Xã Hoằng Thanh", "type": "commune", "slug": "hoang-thanh" },
+        { "code": "260303", "name": "Xã Hoằng Quý", "type": "commune", "slug": "hoang-quy" }
+      ] }
+    ] },
+
+    { "code": "27", "name": "Tỉnh Nghệ An", "slug": "nghe-an", "districts": [
+      { "code": "2701", "name": "Thành phố Vinh", "type": "city", "slug": "tp-vinh", "communes": [
+        { "code": "270101", "name": "Phường Vinh Tân", "type": "ward", "slug": "vinh-tan" },
+        { "code": "270102", "name": "Phường Hưng Bình", "type": "ward", "slug": "hung-binh" },
+        { "code": "270103", "name": "Phường Trường Thi", "type": "ward", "slug": "truong-thi-2" }
+      ] },
+      { "code": "2702", "name": "Huyện Quỳnh Lưu", "type": "rural_district", "slug": "huyen-quynh-luu", "communes": [
+        { "code": "270201", "name": "Xã An Hòa", "type": "commune", "slug": "an-hoa-2" },
+        { "code": "270202", "name": "Xã Quỳnh Lập", "type": "commune", "slug": "quynh-lap" },
+        { "code": "270203", "name": "Xã Quỳnh Giang", "type": "commune", "slug": "quynh-giang" }
+      ] },
+      { "code": "2703", "name": "Huyện Yên Thành", "type": "rural_district", "slug": "huyen-yen-thanh", "communes": [
+        { "code": "270301", "name": "Xã Mỹ Thành", "type": "commune", "slug": "my-thanh" },
+        { "code": "270302", "name": "Xã Hậu Thành", "type": "commune", "slug": "hau-thanh" },
+        { "code": "270303", "name": "Xã Văn Thành", "type": "commune", "slug": "van-thanh" }
+      ] }
+    ] },
+
+    { "code": "28", "name": "Tỉnh Hà Tĩnh", "slug": "ha-tinh", "districts": [
+      { "code": "2801", "name": "Thành phố Hà Tĩnh", "type": "city", "slug": "tp-ha-tinh", "communes": [
+        { "code": "280101", "name": "Phường Nguyễn Du", "type": "ward", "slug": "nguyen-du" },
+        { "code": "280102", "name": "Phường Tân Giang", "type": "ward", "slug": "tan-giang" },
+        { "code": "280103", "name": "Phường Bắc Hà", "type": "ward", "slug": "bac-ha" }
+      ] },
+      { "code": "2802", "name": "Huyện Cẩm Xuyên", "type": "rural_district", "slug": "huyen-cam-xuyen", "communes": [
+        { "code": "280201", "name": "Xã Cẩm Thành", "type": "commune", "slug": "cam-thanh" },
+        { "code": "280202", "name": "Xã Cẩm Hưng", "type": "commune", "slug": "cam-hung" },
+        { "code": "280203", "name": "Xã Cẩm Lộc", "type": "commune", "slug": "cam-loc" }
+      ] },
+      { "code": "2803", "name": "Huyện Kỳ Anh", "type": "rural_district", "slug": "huyen-ky-anh", "communes": [
+        { "code": "280301", "name": "Xã Kỳ Lâm", "type": "commune", "slug": "ky-lam" },
+        { "code": "280302", "name": "Xã Kỳ Thư", "type": "commune", "slug": "ky-thu" },
+        { "code": "280303", "name": "Xã Kỳ Phong", "type": "commune", "slug": "ky-phong" }
+      ] }
+    ] },
+
+    { "code": "29", "name": "Tỉnh Quảng Bình", "slug": "quang-binh", "districts": [
+      { "code": "2901", "name": "Thành phố Đồng Hới", "type": "city", "slug": "tp-dong-hoi", "communes": [
+        { "code": "290101", "name": "Phường Bắc Lý", "type": "ward", "slug": "bac-ly" },
+        { "code": "290102", "name": "Phường Đồng Phú", "type": "ward", "slug": "dong-phu" },
+        { "code": "290103", "name": "Phường Hải Thành", "type": "ward", "slug": "hai-thanh" }
+      ] },
+      { "code": "2902", "name": "Huyện Bố Trạch", "type": "rural_district", "slug": "huyen-bo-trach", "communes": [
+        { "code": "290201", "name": "Xã Hải Trạch", "type": "commune", "slug": "hai-trach" },
+        { "code": "290202", "name": "Xã Phù Hóa", "type": "commune", "slug": "phu-hoa" },
+        { "code": "290203", "name": "Xã Đại Trạch", "type": "commune", "slug": "dai-trach" }
+      ] },
+      { "code": "2903", "name": "Huyện Quảng Ninh", "type": "rural_district", "slug": "huyen-quang-ninh-qb", "communes": [
+        { "code": "290301", "name": "Xã Vạn Ninh", "type": "commune", "slug": "van-ninh" },
+        { "code": "290302", "name": "Xã Duy Ninh", "type": "commune", "slug": "duy-ninh" },
+        { "code": "290303", "name": "Xã Lâm Ninh", "type": "commune", "slug": "lam-ninh" }
+      ] }
+    ] },
+
+    { "code": "30", "name": "Tỉnh Quảng Trị", "slug": "quang-tri", "districts": [
+      { "code": "3001", "name": "Thành phố Đông Hà", "type": "city", "slug": "tp-dong-ha", "communes": [
+        { "code": "300101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-dh" },
+        { "code": "300102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-dh" },
+        { "code": "300103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-dh" }
+      ] },
+      { "code": "3002", "name": "Huyện Vĩnh Linh", "type": "rural_district", "slug": "huyen-vinh-linh", "communes": [
+        { "code": "300201", "name": "Xã Vĩnh Hà", "type": "commune", "slug": "vinh-ha" },
+        { "code": "300202", "name": "Xã Vĩnh Long", "type": "commune", "slug": "vinh-long-qt" },
+        { "code": "300203", "name": "Xã Vĩnh Thủy", "type": "commune", "slug": "vinh-thuy" }
+      ] },
+      { "code": "3003", "name": "Huyện Gio Linh", "type": "rural_district", "slug": "huyen-gio-linh", "communes": [
+        { "code": "300301", "name": "Xã Gio An", "type": "commune", "slug": "gio-an" },
+        { "code": "300302", "name": "Xã Gio Việt", "type": "commune", "slug": "gio-viet" },
+        { "code": "300303", "name": "Xã Gio Mai", "type": "commune", "slug": "gio-mai" }
+      ] }
+    ] },
+
+    { "code": "31", "name": "Tỉnh Thừa Thiên Huế", "slug": "thua-thien-hue", "districts": [
+      { "code": "3101", "name": "Thành phố Huế", "type": "city", "slug": "tp-hue", "communes": [
+        { "code": "310101", "name": "Phường Phú Nhuận", "type": "ward", "slug": "phu-nhuan-hue" },
+        { "code": "310102", "name": "Phường Phú Hòa", "type": "ward", "slug": "phu-hoa-hue" },
+        { "code": "310103", "name": "Phường Vĩnh Ninh", "type": "ward", "slug": "vinh-ninh" }
+      ] },
+      { "code": "3102", "name": "Huyện Phong Điền", "type": "rural_district", "slug": "huyen-phong-dien", "communes": [
+        { "code": "310201", "name": "Xã Phong An", "type": "commune", "slug": "phong-an" },
+        { "code": "310202", "name": "Xã Phong Bình", "type": "commune", "slug": "phong-binh" },
+        { "code": "310203", "name": "Xã Phong Chương", "type": "commune", "slug": "phong-chuong" }
+      ] },
+      { "code": "3103", "name": "Huyện Quảng Điền", "type": "rural_district", "slug": "huyen-quang-dien", "communes": [
+        { "code": "310301", "name": "Xã Quảng Phước", "type": "commune", "slug": "quang-phuoc" },
+        { "code": "310302", "name": "Xã Quảng An", "type": "commune", "slug": "quang-an-qt" },
+        { "code": "310303", "name": "Xã Quảng Thành", "type": "commune", "slug": "quang-thanh" }
+      ] }
+    ] },
+
+    { "code": "32", "name": "Thành phố Đà Nẵng", "slug": "da-nang", "districts": [
+      { "code": "3201", "name": "Quận Hải Châu", "type": "urban_district", "slug": "quan-hai-chau", "communes": [
+        { "code": "320101", "name": "Phường Thạch Thang", "type": "ward", "slug": "thach-thang-dn" },
+        { "code": "320102", "name": "Phường Hải Châu I", "type": "ward", "slug": "hai-chau-i-dn" },
+        { "code": "320103", "name": "Phường Hải Châu II", "type": "ward", "slug": "hai-chau-ii" }
+      ] },
+      { "code": "3202", "name": "Quận Thanh Khê", "type": "urban_district", "slug": "quan-thanh-khe", "communes": [
+        { "code": "320201", "name": "Phường Tam Thuận", "type": "ward", "slug": "tam-thuan-dn" },
+        { "code": "320202", "name": "Phường An Khê", "type": "ward", "slug": "an-khe-dn" },
+        { "code": "320203", "name": "Phường Chính Gián", "type": "ward", "slug": "chinh-gian" }
+      ] },
+      { "code": "3203", "name": "Huyện Hòa Vang", "type": "rural_district", "slug": "huyen-hoa-vang", "communes": [
+        { "code": "320301", "name": "Xã Hòa Phong", "type": "commune", "slug": "hoa-phong" },
+        { "code": "320302", "name": "Xã Hòa Phú", "type": "commune", "slug": "hoa-phu" },
+        { "code": "320303", "name": "Xã Hòa Ninh", "type": "commune", "slug": "hoa-ninh" }
+      ] }
+    ] },
+
+    { "code": "33", "name": "Tỉnh Quảng Nam", "slug": "quang-nam", "districts": [
+      { "code": "3301", "name": "Thành phố Tam Kỳ", "type": "city", "slug": "tp-tam-ky", "communes": [
+        { "code": "330101", "name": "Phường Trường Xuân", "type": "ward", "slug": "truong-xuan" },
+        { "code": "330102", "name": "Phường An Mỹ", "type": "ward", "slug": "an-my" },
+        { "code": "330103", "name": "Phường Hòa Hương", "type": "ward", "slug": "hoa-huong" }
+      ] },
+      { "code": "3302", "name": "Huyện Núi Thành", "type": "rural_district", "slug": "huyen-nui-thanh", "communes": [
+        { "code": "330201", "name": "Xã Tam Hiệp", "type": "commune", "slug": "tam-hiep" },
+        { "code": "330202", "name": "Xã Tam Xuân", "type": "commune", "slug": "tam-xuan" },
+        { "code": "330203", "name": "Xã Tam Nghĩa", "type": "commune", "slug": "tam-nghia" }
+      ] },
+      { "code": "3303", "name": "Huyện Duy Xuyên", "type": "rural_district", "slug": "huyen-duy-xuyen", "communes": [
+        { "code": "330301", "name": "Xã Duy Trung", "type": "commune", "slug": "duy-trung" },
+        { "code": "330302", "name": "Xã Duy Minh", "type": "commune", "slug": "duy-minh" },
+        { "code": "330303", "name": "Xã Duy Nghĩa", "type": "commune", "slug": "duy-nghia" }
+      ] }
+    ] },
+
+    { "code": "34", "name": "Tỉnh Quảng Ngãi", "slug": "quang-ngai", "districts": [
+      { "code": "3401", "name": "Thành phố Quảng Ngãi", "type": "city", "slug": "tp-quang-ngai", "communes": [
+        { "code": "340101", "name": "Phường Trần Phú", "type": "ward", "slug": "tran-phu-qn" },
+        { "code": "340102", "name": "Phường Nghĩa Chánh", "type": "ward", "slug": "nghia-chanh" },
+        { "code": "340103", "name": "Phường Nguyễn Nghiêm", "type": "ward", "slug": "nguyen-nghiem" }
+      ] },
+      { "code": "3402", "name": "Huyện Tư Nghĩa", "type": "rural_district", "slug": "huyen-tu-nghia", "communes": [
+        { "code": "340201", "name": "Xã Nghĩa An", "type": "commune", "slug": "nghia-an-qn" },
+        { "code": "340202", "name": "Xã Nghĩa Phú", "type": "commune", "slug": "nghia-phu" },
+        { "code": "340203", "name": "Xã Nghĩa Hà", "type": "commune", "slug": "nghia-ha" }
+      ] },
+      { "code": "3403", "name": "Huyện Sơn Tịnh", "type": "rural_district", "slug": "huyen-son-tinh", "communes": [
+        { "code": "340301", "name": "Xã Tịnh Kỳ", "type": "commune", "slug": "tinh-ky" },
+        { "code": "340302", "name": "Xã Tịnh Ấn", "type": "commune", "slug": "tinh-an" },
+        { "code": "340303", "name": "Xã Tịnh Long", "type": "commune", "slug": "tinh-long" }
+      ] }
+    ] },
+
+    { "code": "35", "name": "Tỉnh Bình Định", "slug": "binh-dinh", "districts": [
+      { "code": "3501", "name": "Thành phố Qui Nhơn", "type": "city", "slug": "tp-qui-nhon", "communes": [
+        { "code": "350101", "name": "Phường Trần Hưng Đạo", "type": "ward", "slug": "tran-hung-dao-qn" },
+        { "code": "350102", "name": "Phường Nguyễn Văn Cừ", "type": "ward", "slug": "nguyen-van-cu" },
+        { "code": "350103", "name": "Phường Lê Hồng Phong", "type": "ward", "slug": "le-hong-phong-qn" }
+      ] },
+      { "code": "3502", "name": "Huyện An Nhơn", "type": "rural_district", "slug": "huyen-an-nhon", "communes": [
+        { "code": "350201", "name": "Xã Bình Định", "type": "commune", "slug": "binh-dinh-2" },
+        { "code": "350202", "name": "Xã Nhơn Mỹ", "type": "commune", "slug": "nhon-my" },
+        { "code": "350203", "name": "Xã Nhơn Hạnh", "type": "commune", "slug": "nhon-hanh" }
+      ] },
+      { "code": "3503", "name": "Huyện Phù Cát", "type": "rural_district", "slug": "huyen-phu-cat", "communes": [
+        { "code": "350301", "name": "Xã Cát Tân", "type": "commune", "slug": "cat-tan" },
+        { "code": "350302", "name": "Xã Cát Minh", "type": "commune", "slug": "cat-minh" },
+        { "code": "350303", "name": "Xã Cát Hưng", "type": "commune", "slug": "cat-hung" }
+      ] }
+    ] },
+
+    { "code": "36", "name": "Tỉnh Phú Yên", "slug": "phu-yen", "districts": [
+      { "code": "3601", "name": "Thành phố Tuy Hòa", "type": "city", "slug": "tp-tuy-hoa", "communes": [
+        { "code": "360101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-th" },
+        { "code": "360102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-th" },
+        { "code": "360103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-th" }
+      ] },
+      { "code": "3602", "name": "Huyện Sông Cầu", "type": "rural_district", "slug": "huyen-song-cau", "communes": [
+        { "code": "360201", "name": "Xã Xuân Thọ 1", "type": "commune", "slug": "xuan-tho-1" },
+        { "code": "360202", "name": "Xã Xuân Thọ 2", "type": "commune", "slug": "xuan-tho-2" },
+        { "code": "360203", "name": "Xã Xuân Bình", "type": "commune", "slug": "xuan-binh" }
+      ] },
+      { "code": "3603", "name": "Huyện Đồng Xuân", "type": "rural_district", "slug": "huyen-dong-xuan", "communes": [
+        { "code": "360301", "name": "Xã Xuân Lâm", "type": "commune", "slug": "xuan-lam" },
+        { "code": "360302", "name": "Xã Phú Mỡ", "type": "commune", "slug": "phu-mo" },
+        { "code": "360303", "name": "Xã Xuân Quang", "type": "commune", "slug": "xuan-quang" }
+      ] }
+    ] },
+
+    { "code": "37", "name": "Tỉnh Khánh Hòa", "slug": "khanh-hoa", "districts": [
+      { "code": "3701", "name": "Thành phố Nha Trang", "type": "city", "slug": "tp-nha-trang", "communes": [
+        { "code": "370101", "name": "Phường Phước Hòa", "type": "ward", "slug": "phuoc-hoa" },
+        { "code": "370102", "name": "Phường Lộc Thọ", "type": "ward", "slug": "loc-tho" },
+        { "code": "370103", "name": "Phường Phước Long", "type": "ward", "slug": "phuoc-long" }
+      ] },
+      { "code": "3702", "name": "Huyện Cam Lâm", "type": "rural_district", "slug": "huyen-cam-lam", "communes": [
+        { "code": "370201", "name": "Xã Cam Phước Tây", "type": "commune", "slug": "cam-phuoc-tay" },
+        { "code": "370202", "name": "Xã Cam Phước Đông", "type": "commune", "slug": "cam-phuoc-dong" },
+        { "code": "370203", "name": "Xã Cam Lộc", "type": "commune", "slug": "cam-loc" }
+      ] },
+      { "code": "3703", "name": "Huyện Vạn Ninh", "type": "rural_district", "slug": "huyen-van-ninh", "communes": [
+        { "code": "370301", "name": "Xã Vạn Thạnh", "type": "commune", "slug": "van-thanh" },
+        { "code": "370302", "name": "Xã Vạn Phước", "type": "commune", "slug": "van-phuoc" },
+        { "code": "370303", "name": "Xã Vạn Khánh", "type": "commune", "slug": "van-khanh" }
+      ] }
+    ] },
+
+    { "code": "38", "name": "Tỉnh Ninh Thuận", "slug": "ninh-thuan", "districts": [
+      { "code": "3801", "name": "Thành phố Phan Rang-Tháp Chàm", "type": "city", "slug": "tp-phan-rang", "communes": [
+        { "code": "380101", "name": "Phường Đài Sơn", "type": "ward", "slug": "dai-son" },
+        { "code": "380102", "name": "Phường Thanh Sơn", "type": "ward", "slug": "thanh-son-2" },
+        { "code": "380103", "name": "Phường Văn Hải", "type": "ward", "slug": "van-hai" }
+      ] },
+      { "code": "3802", "name": "Huyện Ninh Sơn", "type": "rural_district", "slug": "huyen-ninh-son", "communes": [
+        { "code": "380201", "name": "Xã Lâm Sơn", "type": "commune", "slug": "lam-son-2" },
+        { "code": "380202", "name": "Xã Quảng Sơn", "type": "commune", "slug": "quang-son-2" },
+        { "code": "380203", "name": "Xã Phước Chiến", "type": "commune", "slug": "phuoc-chien" }
+      ] },
+      { "code": "3803", "name": "Huyện Thuận Nam", "type": "rural_district", "slug": "huyen-thuan-nam", "communes": [
+        { "code": "380301", "name": "Xã Phước Ninh", "type": "commune", "slug": "phuoc-ninh" },
+        { "code": "380302", "name": "Xã Phước Diêm", "type": "commune", "slug": "phuoc-diem" },
+        { "code": "380303", "name": "Xã Phước Nam", "type": "commune", "slug": "phuoc-nam" }
+      ] }
+    ] },
+
+    { "code": "39", "name": "Tỉnh Bình Thuận", "slug": "binh-thuan", "districts": [
+      { "code": "3901", "name": "Thành phố Phan Thiết", "type": "city", "slug": "tp-phan-thiet", "communes": [
+        { "code": "390101", "name": "Phường Phú Thủy", "type": "ward", "slug": "phu-thuy" },
+        { "code": "390102", "name": "Phường Mũi Né", "type": "ward", "slug": "mui-ne" },
+        { "code": "390103", "name": "Phường Đức Long", "type": "ward", "slug": "duc-long" }
+      ] },
+      { "code": "3902", "name": "Huyện Hàm Thuận Nam", "type": "rural_district", "slug": "huyen-ham-thuan-nam", "communes": [
+        { "code": "390201", "name": "Xã Thuận Nam", "type": "commune", "slug": "thuan-nam" },
+        { "code": "390202", "name": "Xã Thuận Quý", "type": "commune", "slug": "thuan-quy" },
+        { "code": "390203", "name": "Xã Tân Thuận", "type": "commune", "slug": "tan-thuan" }
+      ] },
+      { "code": "3903", "name": "Huyện Bắc Bình", "type": "rural_district", "slug": "huyen-bac-binh", "communes": [
+        { "code": "390301", "name": "Xã Phan Sơn", "type": "commune", "slug": "phan-son" },
+        { "code": "390302", "name": "Xã Phan Tiến", "type": "commune", "slug": "phan-tien" },
+        { "code": "390303", "name": "Xã Phan Rí Thành", "type": "commune", "slug": "phan-ri-thanh" }
+      ] }
+    ] },
+
+    { "code": "40", "name": "Tỉnh Kon Tum", "slug": "kon-tum", "districts": [
+      { "code": "4001", "name": "Thành phố Kon Tum", "type": "city", "slug": "tp-kon-tum", "communes": [
+        { "code": "400101", "name": "Phường Duy Tân", "type": "ward", "slug": "duy-tan" },
+        { "code": "400102", "name": "Phường Nguyễn Trãi", "type": "ward", "slug": "nguyen-trai" },
+        { "code": "400103", "name": "Phường Thống Nhất", "type": "ward", "slug": "thong-nhat-kt" }
+      ] },
+      { "code": "4002", "name": "Huyện Đắk Glei", "type": "rural_district", "slug": "huyen-dak-glei", "communes": [
+        { "code": "400201", "name": "Xã Đắk Long", "type": "commune", "slug": "dak-long" },
+        { "code": "400202", "name": "Xã Đắk Môn", "type": "commune", "slug": "dak-mon" },
+        { "code": "400203", "name": "Xã Đắk Nhoong", "type": "commune", "slug": "dak-nhoong" }
+      ] },
+      { "code": "4003", "name": "Huyện Kon Plông", "type": "rural_district", "slug": "huyen-kon-plong", "communes": [
+        { "code": "400301", "name": "Xã Măng Ri", "type": "commune", "slug": "mang-ri" },
+        { "code": "400302", "name": "Xã Đắk Tăng", "type": "commune", "slug": "dak-tang" },
+        { "code": "400303", "name": "Xã Đắk Long", "type": "commune", "slug": "dak-long-2" }
+      ] }
+    ] },
+
+    { "code": "41", "name": "Tỉnh Gia Lai", "slug": "gia-lai", "districts": [
+      { "code": "4101", "name": "Thành phố Pleiku", "type": "city", "slug": "tp-pleiku", "communes": [
+        { "code": "410101", "name": "Phường Thống Nhất", "type": "ward", "slug": "thong-nhat-pl" },
+        { "code": "410102", "name": "Phường Tây Sơn", "type": "ward", "slug": "tay-son-pl" },
+        { "code": "410103", "name": "Phường Diên Hồng", "type": "ward", "slug": "dien-hong" }
+      ] },
+      { "code": "4102", "name": "Huyện Chư Prông", "type": "rural_district", "slug": "huyen-chu-prong", "communes": [
+        { "code": "410201", "name": "Xã Ia Drang", "type": "commune", "slug": "ia-drang" },
+        { "code": "410202", "name": "Xã Ia Tôr", "type": "commune", "slug": "ia-tor" },
+        { "code": "410203", "name": "Xã Ia Kdăm", "type": "commune", "slug": "ia-kdam" }
+      ] },
+      { "code": "4103", "name": "Huyện Chư Sê", "type": "rural_district", "slug": "huyen-chu-se", "communes": [
+        { "code": "410301", "name": "Xã Ia Tiêm", "type": "commune", "slug": "ia-tiem" },
+        { "code": "410302", "name": "Xã Ia Ko", "type": "commune", "slug": "ia-ko" },
+        { "code": "410303", "name": "Xã Ia Pếch", "type": "commune", "slug": "ia-pech" }
+      ] }
+    ] },
+
+    { "code": "42", "name": "Tỉnh Đắk Lắk", "slug": "dak-lak", "districts": [
+      { "code": "4201", "name": "Thành phố Buôn Ma Thuột", "type": "city", "slug": "tp-buon-ma-thuot", "communes": [
+        { "code": "420101", "name": "Phường Thống Nhất", "type": "ward", "slug": "thong-nhat-bmt" },
+        { "code": "420102", "name": "Phường Tân Lợi", "type": "ward", "slug": "tan-loi-bmt" },
+        { "code": "420103", "name": "Phường Tân Thành", "type": "ward", "slug": "tan-thanh-bmt" }
+      ] },
+      { "code": "4202", "name": "Huyện Krông Ana", "type": "rural_district", "slug": "huyen-krong-ana", "communes": [
+        { "code": "420201", "name": "Xã Ea Ktur", "type": "commune", "slug": "ea-ktur" },
+        { "code": "420202", "name": "Xã Krông Jing", "type": "commune", "slug": "krong-jing" },
+        { "code": "420203", "name": "Xã Ea Bông", "type": "commune", "slug": "ea-bong" }
+      ] },
+      { "code": "4203", "name": "Huyện Ea H'leo", "type": "rural_district", "slug": "huyen-ea-hleo", "communes": [
+        { "code": "420301", "name": "Xã Ea Wy", "type": "commune", "slug": "ea-wy" },
+        { "code": "420302", "name": "Xã Ea H'leo", "type": "commune", "slug": "ea-hleo-2" },
+        { "code": "420303", "name": "Xã Ea M'lay", "type": "commune", "slug": "ea-m-lay" }
+      ] }
+    ] },
+
+    { "code": "43", "name": "Tỉnh Đắk Nông", "slug": "dak-nong", "districts": [
+      { "code": "4301", "name": "Thị xã Gia Nghĩa", "type": "town", "slug": "thi-xa-gia-nghia", "communes": [
+        { "code": "430101", "name": "Phường Nghĩa Phú", "type": "ward", "slug": "nghia-phu-dn" },
+        { "code": "430102", "name": "Phường Nghĩa Thành", "type": "ward", "slug": "nghia-thanh-dn" },
+        { "code": "430103", "name": "Xã Quảng Thành", "type": "commune", "slug": "quang-thanh-dn" }
+      ] },
+      { "code": "4302", "name": "Huyện Cư Jút", "type": "rural_district", "slug": "huyen-cu-jut", "communes": [
+        { "code": "430201", "name": "Xã Đắk Wil", "type": "commune", "slug": "dak-wil" },
+        { "code": "430202", "name": "Xã Tâm Thắng", "type": "commune", "slug": "tam-thang" },
+        { "code": "430203", "name": "Xã Dak R'lap", "type": "commune", "slug": "dak-rlap" }
+      ] },
+      { "code": "4303", "name": "Huyện Đắk R'Lấp", "type": "rural_district", "slug": "huyen-dak-rlap", "communes": [
+        { "code": "430301", "name": "Xã Nhân Cơ", "type": "commune", "slug": "nhan-co" },
+        { "code": "430302", "name": "Xã Quảng Tân", "type": "commune", "slug": "quang-tan-2" },
+        { "code": "430303", "name": "Xã Đắk Sin", "type": "commune", "slug": "dak-sin" }
+      ] }
+    ] },
+
+    { "code": "44", "name": "Tỉnh Lâm Đồng", "slug": "lam-dong", "districts": [
+      { "code": "4401", "name": "Thành phố Đà Lạt", "type": "city", "slug": "tp-da-lat", "communes": [
+        { "code": "440101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-dl" },
+        { "code": "440102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-dl" },
+        { "code": "440103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-dl" }
+      ] },
+      { "code": "4402", "name": "Huyện Đơn Dương", "type": "rural_district", "slug": "huyen-don-duong", "communes": [
+        { "code": "440201", "name": "Xã Lạc Lâm", "type": "commune", "slug": "lac-lam" },
+        { "code": "440202", "name": "Xã Lạc Xuân", "type": "commune", "slug": "lac-xuan" },
+        { "code": "440203", "name": "Xã Hiệp Thạnh", "type": "commune", "slug": "hiep-thanh" }
+      ] },
+      { "code": "4403", "name": "Huyện Đức Trọng", "type": "rural_district", "slug": "huyen-duc-trong", "communes": [
+        { "code": "440301", "name": "Xã Hiệp An", "type": "commune", "slug": "hiep-an" },
+        { "code": "440302", "name": "Xã Ninh Gia", "type": "commune", "slug": "ninh-gia" },
+        { "code": "440303", "name": "Xã Liên Nghĩa", "type": "commune", "slug": "lien-nghia" }
+      ] }
+    ] },
+
+    { "code": "45", "name": "Tỉnh Bình Phước", "slug": "binh-phuoc", "districts": [
+      { "code": "4501", "name": "Thị xã Đồng Xoài", "type": "town", "slug": "thi-xa-dong-xoai", "communes": [
+        { "code": "450101", "name": "Phường Tân Đồng", "type": "ward", "slug": "tan-dong" },
+        { "code": "450102", "name": "Phường Tân Phú", "type": "ward", "slug": "tan-phu-bp" },
+        { "code": "450103", "name": "Phường Hưng Chiến", "type": "ward", "slug": "hung-chien" }
+      ] },
+      { "code": "4502", "name": "Huyện Bù Đăng", "type": "rural_district", "slug": "huyen-bu-dang", "communes": [
+        { "code": "450201", "name": "Xã Đức Liễu", "type": "commune", "slug": "duc-lieu" },
+        { "code": "450202", "name": "Xã Phú Sơn", "type": "commune", "slug": "phu-son-bp" },
+        { "code": "450203", "name": "Xã Đồng Nai", "type": "commune", "slug": "dong-nai-2" }
+      ] },
+      { "code": "4503", "name": "Huyện Chơn Thành", "type": "rural_district", "slug": "huyen-chon-thanh", "communes": [
+        { "code": "450301", "name": "Xã Minh Hưng", "type": "commune", "slug": "minh-hung-bp" },
+        { "code": "450302", "name": "Xã Nha Bích", "type": "commune", "slug": "nha-bich" },
+        { "code": "450303", "name": "Xã Thọ Sơn", "type": "commune", "slug": "tho-son" }
+      ] }
+    ] },
+
+    { "code": "46", "name": "Tỉnh Tây Ninh", "slug": "tay-ninh", "districts": [
+      { "code": "4601", "name": "Thành phố Tây Ninh", "type": "city", "slug": "tp-tay-ninh", "communes": [
+        { "code": "460101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-tn" },
+        { "code": "460102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-tn" },
+        { "code": "460103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-tn" }
+      ] },
+      { "code": "4602", "name": "Huyện Dương Minh Châu", "type": "rural_district", "slug": "huyen-duong-minh-chau", "communes": [
+        { "code": "460201", "name": "Xã Truông Mít", "type": "commune", "slug": "truong-mit" },
+        { "code": "460202", "name": "Xã Bàu Năng", "type": "commune", "slug": "bau-nang" },
+        { "code": "460203", "name": "Xã Cầu Khởi", "type": "commune", "slug": "cau-khoi" }
+      ] },
+      { "code": "4603", "name": "Huyện Châu Thành", "type": "rural_district", "slug": "huyen-chau-thanh-tn", "communes": [
+        { "code": "460301", "name": "Xã Suối Đá", "type": "commune", "slug": "suoi-da" },
+        { "code": "460302", "name": "Xã Tân Phong", "type": "commune", "slug": "tan-phong-tn" },
+        { "code": "460303", "name": "Xã Long Thành Bắc", "type": "commune", "slug": "long-thanh-bac" }
+      ] }
+    ] },
+
+    { "code": "47", "name": "Tỉnh Bình Dương", "slug": "binh-duong", "districts": [
+      { "code": "4701", "name": "Thị xã Dĩ An", "type": "town", "slug": "thi-xa-di-an", "communes": [
+        { "code": "470101", "name": "Phường Tam Bình", "type": "ward", "slug": "tam-binh" },
+        { "code": "470102", "name": "Phường Bình An", "type": "ward", "slug": "binh-an-bd" },
+        { "code": "470103", "name": "Phường Bình Thắng", "type": "ward", "slug": "binh-thang" }
+      ] },
+      { "code": "4702", "name": "Huyện Bắc Tân Uyên", "type": "rural_district", "slug": "huyen-bac-tan-uyen", "communes": [
+        { "code": "470201", "name": "Xã Tân Định", "type": "commune", "slug": "tan-dinh-bd" },
+        { "code": "470202", "name": "Xã Tân Vĩnh Hiệp", "type": "commune", "slug": "tan-vinh-hiep" },
+        { "code": "470203", "name": "Xã Tân Mỹ", "type": "commune", "slug": "tan-my-bd" }
+      ] },
+      { "code": "4703", "name": "Huyện Dầu Tiếng", "type": "rural_district", "slug": "huyen-dau-tieng", "communes": [
+        { "code": "470301", "name": "Xã Minh Hoà", "type": "commune", "slug": "minh-hoa-bd" },
+        { "code": "470302", "name": "Xã Thanh An", "type": "commune", "slug": "thanh-an-bd" },
+        { "code": "470303", "name": "Xã Định An", "type": "commune", "slug": "dinh-an-bd" }
+      ] }
+    ] },
+
+    { "code": "48", "name": "Tỉnh Đồng Nai", "slug": "dong-nai", "districts": [
+      { "code": "4801", "name": "Thành phố Biên Hòa", "type": "city", "slug": "tp-bien-hoa", "communes": [
+        { "code": "480101", "name": "Phường Tân Hiệp", "type": "ward", "slug": "tan-hiep-dn" },
+        { "code": "480102", "name": "Phường Tân Mai", "type": "ward", "slug": "tan-mai-dn" },
+        { "code": "480103", "name": "Phường Hố Nai", "type": "ward", "slug": "ho-nai" }
+      ] },
+      { "code": "4802", "name": "Huyện Long Thành", "type": "rural_district", "slug": "huyen-long-thanh", "communes": [
+        { "code": "480201", "name": "Xã An Phước", "type": "commune", "slug": "an-phuoc" },
+        { "code": "480202", "name": "Xã Bình An", "type": "commune", "slug": "binh-an-dn" },
+        { "code": "480203", "name": "Xã Long An", "type": "commune", "slug": "long-an-dn" }
+      ] },
+      { "code": "4803", "name": "Huyện Trảng Bom", "type": "rural_district", "slug": "huyen-trang-bom", "communes": [
+        { "code": "480301", "name": "Xã Sông Thao", "type": "commune", "slug": "song-thao" },
+        { "code": "480302", "name": "Xã Bàu Hàm 2", "type": "commune", "slug": "bau-ham-2" },
+        { "code": "480303", "name": "Xã Hố Sấu", "type": "commune", "slug": "ho-sau" }
+      ] }
+    ] },
+
+    { "code": "49", "name": "Tỉnh Bà Rịa - Vũng Tàu", "slug": "ba-ria-vung-tau", "districts": [
+      { "code": "4901", "name": "Thành phố Vũng Tàu", "type": "city", "slug": "tp-vung-tau", "communes": [
+        { "code": "490101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-vt" },
+        { "code": "490102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-vt" },
+        { "code": "490103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-vt" }
+      ] },
+      { "code": "4902", "name": "Thị xã Bà Rịa", "type": "town", "slug": "thi-xa-ba-ria", "communes": [
+        { "code": "490201", "name": "Phường Long Tâm", "type": "ward", "slug": "long-tam" },
+        { "code": "490202", "name": "Phường Phước Nguyên", "type": "ward", "slug": "phuoc-nguyen" },
+        { "code": "490203", "name": "Phường Hắc Dịch", "type": "ward", "slug": "hac-dich" }
+      ] },
+      { "code": "4903", "name": "Huyện Long Điền", "type": "rural_district", "slug": "huyen-long-dien", "communes": [
+        { "code": "490301", "name": "Xã An Ngãi", "type": "commune", "slug": "an-ngai" },
+        { "code": "490302", "name": "Xã An Nhơn", "type": "commune", "slug": "an-nhon" },
+        { "code": "490303", "name": "Xã Phước Tỉnh", "type": "commune", "slug": "phuoc-tinh" }
+      ] }
+    ] },
+
+    { "code": "50", "name": "Thành phố Hồ Chí Minh", "slug": "ho-chi-minh", "districts": [
+      { "code": "5001", "name": "Quận 1", "type": "urban_district", "slug": "quan-1-hcm", "communes": [
+        { "code": "500101", "name": "Phường Bến Nghé", "type": "ward", "slug": "ben-nghe-hcm" },
+        { "code": "500102", "name": "Phường Bến Thành", "type": "ward", "slug": "ben-thanh-hcm" },
+        { "code": "500103", "name": "Phường Nguyễn Thái Bình", "type": "ward", "slug": "nguyen-thai-binh-hcm" }
+      ] },
+      { "code": "5002", "name": "Quận 3", "type": "urban_district", "slug": "quan-3-hcm", "communes": [
+        { "code": "500201", "name": "Phường Võ Thị Sáu", "type": "ward", "slug": "vo-thi-sau-hcm" },
+        { "code": "500202", "name": "Phường 1", "type": "ward", "slug": "phuong-1-q3" },
+        { "code": "500203", "name": "Phường 2", "type": "ward", "slug": "phuong-2-q3" }
+      ] },
+      { "code": "5003", "name": "Quận Tân Bình", "type": "urban_district", "slug": "quan-tan-binh", "communes": [
+        { "code": "500301", "name": "Phường 4", "type": "ward", "slug": "phuong-4-tb" },
+        { "code": "500302", "name": "Phường 5", "type": "ward", "slug": "phuong-5-tb" },
+        { "code": "500303", "name": "Phường 6", "type": "ward", "slug": "phuong-6-tb" }
+      ] }
+    ] },
+
+    { "code": "51", "name": "Tỉnh Long An", "slug": "long-an", "districts": [
+      { "code": "5101", "name": "Thành phố Tân An", "type": "city", "slug": "tp-tan-an", "communes": [
+        { "code": "510101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-ta" },
+        { "code": "510102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-ta" },
+        { "code": "510103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-ta" }
+      ] },
+      { "code": "5102", "name": "Huyện Bến Lức", "type": "rural_district", "slug": "huyen-ben-luc", "communes": [
+        { "code": "510201", "name": "Xã Thạnh Đức", "type": "commune", "slug": "thanh-duc" },
+        { "code": "510202", "name": "Xã An Thạnh", "type": "commune", "slug": "an-thanh-la" },
+        { "code": "510203", "name": "Xã Tân Bửu", "type": "commune", "slug": "tan-buu" }
+      ] },
+      { "code": "5103", "name": "Huyện Cần Giuộc", "type": "rural_district", "slug": "huyen-can-giuoc", "communes": [
+        { "code": "510301", "name": "Xã Phước Lợi", "type": "commune", "slug": "phuoc-loi" },
+        { "code": "510302", "name": "Xã Long An", "type": "commune", "slug": "long-an-la2" },
+        { "code": "510303", "name": "Xã Tân Tập", "type": "commune", "slug": "tan-tap" }
+      ] }
+    ] },
+
+    { "code": "52", "name": "Tỉnh Tiền Giang", "slug": "tien-giang", "districts": [
+      { "code": "5201", "name": "Thành phố Mỹ Tho", "type": "city", "slug": "tp-my-tho", "communes": [
+        { "code": "520101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-mt" },
+        { "code": "520102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-mt" },
+        { "code": "520103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-mt" }
+      ] },
+      { "code": "5202", "name": "Huyện Châu Thành", "type": "rural_district", "slug": "huyen-chau-thanh-tg", "communes": [
+        { "code": "520201", "name": "Xã Tân Phú", "type": "commune", "slug": "tan-phu-tg" },
+        { "code": "520202", "name": "Xã Đông Hưng", "type": "commune", "slug": "dong-hung-tg" },
+        { "code": "520203", "name": "Xã Bình Phú", "type": "commune", "slug": "binh-phu-tg" }
+      ] },
+      { "code": "5203", "name": "Huyện Gò Công", "type": "rural_district", "slug": "huyen-go-cong", "communes": [
+        { "code": "520301", "name": "Xã Tân Điền", "type": "commune", "slug": "tan-dien" },
+        { "code": "520302", "name": "Xã Bình Ninh", "type": "commune", "slug": "binh-ninh" },
+        { "code": "520303", "name": "Xã Kiểng Phước", "type": "commune", "slug": "kieng-phuoc" }
+      ] }
+    ] },
+
+    { "code": "53", "name": "Tỉnh Bến Tre", "slug": "ben-tre", "districts": [
+      { "code": "5301", "name": "Thành phố Bến Tre", "type": "city", "slug": "tp-ben-tre", "communes": [
+        { "code": "530101", "name": "Phường Phú Khương", "type": "ward", "slug": "phu-khuong" },
+        { "code": "530102", "name": "Phường 1", "type": "ward", "slug": "phuong-1-bt" },
+        { "code": "530103", "name": "Phường 2", "type": "ward", "slug": "phuong-2-bt" }
+      ] },
+      { "code": "5302", "name": "Huyện Châu Thành", "type": "rural_district", "slug": "huyen-chau-thanh-bt", "communes": [
+        { "code": "530201", "name": "Xã An Phước", "type": "commune", "slug": "an-phuoc-bt" },
+        { "code": "530202", "name": "Xã An Hiệp", "type": "commune", "slug": "an-hiep" },
+        { "code": "530203", "name": "Xã Phú Hưng", "type": "commune", "slug": "phu-hung" }
+      ] },
+      { "code": "5303", "name": "Huyện Mỏ Cày", "type": "rural_district", "slug": "huyen-mo-cay", "communes": [
+        { "code": "530301", "name": "Xã Tân Thành", "type": "commune", "slug": "tan-thanh-bt" },
+        { "code": "530302", "name": "Xã Hương Mỹ", "type": "commune", "slug": "huong-my" },
+        { "code": "530303", "name": "Xã An Thạnh", "type": "commune", "slug": "an-thanh-bt" }
+      ] }
+    ] },
+
+    { "code": "54", "name": "Tỉnh Trà Vinh", "slug": "tra-vinh", "districts": [
+      { "code": "5401", "name": "Thành phố Trà Vinh", "type": "city", "slug": "tp-tra-vinh", "communes": [
+        { "code": "540101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-tv" },
+        { "code": "540102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-tv" },
+        { "code": "540103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-tv" }
+      ] },
+      { "code": "5402", "name": "Huyện Cầu Kè", "type": "rural_district", "slug": "huyen-cau-ke", "communes": [
+        { "code": "540201", "name": "Xã Mỹ Hòa", "type": "commune", "slug": "my-hoa-tv" },
+        { "code": "540202", "name": "Xã An Phú", "type": "commune", "slug": "an-phu-tv" },
+        { "code": "540203", "name": "Xã Hòa Ân", "type": "commune", "slug": "hoa-an-tv" }
+      ] },
+      { "code": "5403", "name": "Huyện Tiểu Cần", "type": "rural_district", "slug": "huyen-tieu-can", "communes": [
+        { "code": "540301", "name": "Xã Tân Hùng", "type": "commune", "slug": "tan-hung-tv" },
+        { "code": "540302", "name": "Xã Long Hòa", "type": "commune", "slug": "long-hoa-tv" },
+        { "code": "540303", "name": "Xã Tập Sơn", "type": "commune", "slug": "tap-son" }
+      ] }
+    ] },
+
+    { "code": "55", "name": "Tỉnh Vĩnh Long", "slug": "vinh-long", "districts": [
+      { "code": "5501", "name": "Thành phố Vĩnh Long", "type": "city", "slug": "tp-vinh-long", "communes": [
+        { "code": "550101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-vl" },
+        { "code": "550102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-vl" },
+        { "code": "550103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-vl" }
+      ] },
+      { "code": "5502", "name": "Huyện Long Hồ", "type": "rural_district", "slug": "huyen-long-ho", "communes": [
+        { "code": "550201", "name": "Xã Phú Quới", "type": "commune", "slug": "phu-quoi" },
+        { "code": "550202", "name": "Xã Bình Ninh", "type": "commune", "slug": "binh-ninh-vl" },
+        { "code": "550203", "name": "Xã An Thạnh", "type": "commune", "slug": "an-thanh-vl" }
+      ] },
+      { "code": "5503", "name": "Huyện Tam Bình", "type": "rural_district", "slug": "huyen-tam-binh", "communes": [
+        { "code": "550301", "name": "Xã Tường Lộc", "type": "commune", "slug": "tuong-loc" },
+        { "code": "550302", "name": "Xã Mỹ Lộc", "type": "commune", "slug": "my-loc-vl" },
+        { "code": "550303", "name": "Xã An Thạnh", "type": "commune", "slug": "an-thanh-vl-2" }
+      ] }
+    ] },
+
+    { "code": "56", "name": "Tỉnh Đồng Tháp", "slug": "dong-thap", "districts": [
+      { "code": "5601", "name": "Thành phố Cao Lãnh", "type": "city", "slug": "tp-cao-lanh", "communes": [
+        { "code": "560101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-cl" },
+        { "code": "560102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-cl" },
+        { "code": "560103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-cl" }
+      ] },
+      { "code": "5602", "name": "Huyện Cao Lãnh", "type": "rural_district", "slug": "huyen-cao-lanh", "communes": [
+        { "code": "560201", "name": "Xã Tân Nghĩa", "type": "commune", "slug": "tan-nghia-dt" },
+        { "code": "560202", "name": "Xã Long Hậu", "type": "commune", "slug": "long-hau-dt" },
+        { "code": "560203", "name": "Xã Mỹ Hiệp", "type": "commune", "slug": "my-hiep-dt" }
+      ] },
+      { "code": "5603", "name": "Huyện Hồng Ngự", "type": "rural_district", "slug": "huyen-hong-ngu", "communes": [
+        { "code": "560301", "name": "Xã An Bình", "type": "commune", "slug": "an-binh-dt" },
+        { "code": "560302", "name": "Xã Bình Thạnh", "type": "commune", "slug": "binh-thanh-dt" },
+        { "code": "560303", "name": "Xã Tân Hội", "type": "commune", "slug": "tan-hoi-dt" }
+      ] }
+    ] },
+
+    { "code": "57", "name": "Tỉnh An Giang", "slug": "an-giang", "districts": [
+      { "code": "5701", "name": "Thành phố Long Xuyên", "type": "city", "slug": "tp-long-xuyen", "communes": [
+        { "code": "570101", "name": "Phường Mỹ Bình", "type": "ward", "slug": "my-binh-ag" },
+        { "code": "570102", "name": "Phường Mỹ Long", "type": "ward", "slug": "my-long-ag" },
+        { "code": "570103", "name": "Phường Mỹ Thới", "type": "ward", "slug": "my-thoi" }
+      ] },
+      { "code": "5702", "name": "Huyện Châu Phú", "type": "rural_district", "slug": "huyen-chau-phu", "communes": [
+        { "code": "570201", "name": "Xã Ô Long Vỹ", "type": "commune", "slug": "o-long-vy" },
+        { "code": "570202", "name": "Xã Bình Long", "type": "commune", "slug": "binh-long-ag" },
+        { "code": "570203", "name": "Xã An Hảo", "type": "commune", "slug": "an-hao" }
+      ] },
+      { "code": "5703", "name": "Huyện Chợ Mới", "type": "rural_district", "slug": "huyen-cho-moi", "communes": [
+        { "code": "570301", "name": "Xã Kiến An", "type": "commune", "slug": "kien-an-ag" },
+        { "code": "570302", "name": "Xã Kiến Thành", "type": "commune", "slug": "kien-thanh" },
+        { "code": "570303", "name": "Xã Mỹ An", "type": "commune", "slug": "my-an-ag" }
+      ] }
+    ] },
+
+    { "code": "58", "name": "Tỉnh Kiên Giang", "slug": "kien-giang", "districts": [
+      { "code": "5801", "name": "Thành phố Rạch Giá", "type": "city", "slug": "tp-rach-gia", "communes": [
+        { "code": "580101", "name": "Phường An Hòa", "type": "ward", "slug": "an-hoa-rg" },
+        { "code": "580102", "name": "Phường Vĩnh Bảo", "type": "ward", "slug": "vinh-bao-rg" },
+        { "code": "580103", "name": "Phường Vĩnh Quang", "type": "ward", "slug": "vinh-quang" }
+      ] },
+      { "code": "5802", "name": "Huyện Kiên Lương", "type": "rural_district", "slug": "huyen-kien-luong", "communes": [
+        { "code": "580201", "name": "Xã Kiên Bình", "type": "commune", "slug": "kien-binh" },
+        { "code": "580202", "name": "Xã Sơn Hải", "type": "commune", "slug": "son-hai-kg" },
+        { "code": "580203", "name": "Xã Bình An", "type": "commune", "slug": "binh-an-kg" }
+      ] },
+      { "code": "5803", "name": "Huyện Gò Quao", "type": "rural_district", "slug": "huyen-go-quaoslug", "communes": [
+        { "code": "580301", "name": "Xã Vĩnh Hòa Hiệp", "type": "commune", "slug": "vinh-hoa-hiep" },
+        { "code": "580302", "name": "Xã Vĩnh Phước A", "type": "commune", "slug": "vinh-phuoc-a" },
+        { "code": "580303", "name": "Xã Vĩnh Phước B", "type": "commune", "slug": "vinh-phuoc-b" }
+      ] }
+    ] },
+
+    { "code": "59", "name": "Thành phố Cần Thơ", "slug": "can-tho", "districts": [
+      { "code": "5901", "name": "Quận Ninh Kiều", "type": "urban_district", "slug": "quan-ninh-kieu", "communes": [
+        { "code": "590101", "name": "Phường An Cư", "type": "ward", "slug": "an-cu" },
+        { "code": "590102", "name": "Phường An Hòa", "type": "ward", "slug": "an-hoa-ct" },
+        { "code": "590103", "name": "Phường Cái Khế", "type": "ward", "slug": "cai-khe" }
+      ] },
+      { "code": "5902", "name": "Quận Bình Thủy", "type": "urban_district", "slug": "quan-binh-thuy", "communes": [
+        { "code": "590201", "name": "Phường Bình Thủy", "type": "ward", "slug": "phuong-binh-thuy" },
+        { "code": "590202", "name": "Phường An Thới", "type": "ward", "slug": "an-thoi-ct" },
+        { "code": "590203", "name": "Phường Long Tuyền", "type": "ward", "slug": "long-tuyen" }
+      ] },
+      { "code": "5903", "name": "Quận Cái Răng", "type": "urban_district", "slug": "quan-cai-rang", "communes": [
+        { "code": "590301", "name": "Phường Lê Bình", "type": "ward", "slug": "le-binh-ct" },
+        { "code": "590302", "name": "Phường Hưng Phú", "type": "ward", "slug": "hung-phu" },
+        { "code": "590303", "name": "Phường Thường Thạnh", "type": "ward", "slug": "thuong-thanh" }
+      ] }
+    ] },
+
+    { "code": "60", "name": "Tỉnh Hậu Giang", "slug": "hau-giang", "districts": [
+      { "code": "6001", "name": "Thị xã Vị Thanh", "type": "town", "slug": "thi-xa-vi-thanh", "communes": [
+        { "code": "600101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-vt2" },
+        { "code": "600102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-vt2" },
+        { "code": "600103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-vt2" }
+      ] },
+      { "code": "6002", "name": "Huyện Châu Thành A", "type": "rural_district", "slug": "huyen-chau-thanh-a", "communes": [
+        { "code": "600201", "name": "Xã Tân Phú", "type": "commune", "slug": "tan-phu-hg" },
+        { "code": "600202", "name": "Xã Hiệp Hưng", "type": "commune", "slug": "hiep-hung-hg" },
+        { "code": "600203", "name": "Xã Vị Thắng", "type": "commune", "slug": "vi-thang" }
+      ] },
+      { "code": "6003", "name": "Huyện Long Mỹ", "type": "rural_district", "slug": "huyen-long-my", "communes": [
+        { "code": "600301", "name": "Xã Vĩnh Lợi", "type": "commune", "slug": "vinh-loi-hg" },
+        { "code": "600302", "name": "Xã Vĩnh Viễn", "type": "commune", "slug": "vinh-vien-hg" },
+        { "code": "600303", "name": "Xã Lương Tâm", "type": "commune", "slug": "luong-tam-hg" }
+      ] }
+    ] },
+
+    { "code": "61", "name": "Tỉnh Sóc Trăng", "slug": "soc-trang", "districts": [
+      { "code": "6101", "name": "Thành phố Sóc Trăng", "type": "city", "slug": "tp-soc-trang", "communes": [
+        { "code": "610101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-st" },
+        { "code": "610102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-st" },
+        { "code": "610103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-st" }
+      ] },
+      { "code": "6102", "name": "Huyện Châu Thành", "type": "rural_district", "slug": "huyen-chau-thanh-st", "communes": [
+        { "code": "610201", "name": "Xã An Hiệp", "type": "commune", "slug": "an-hiep-st" },
+        { "code": "610202", "name": "Xã Phú Tâm", "type": "commune", "slug": "phu-tam-st" },
+        { "code": "610203", "name": "Xã Hồ Đắc Kiện", "type": "commune", "slug": "ho-dac-kien" }
+      ] },
+      { "code": "6103", "name": "Huyện Kế Sách", "type": "rural_district", "slug": "huyen-ke-sach", "communes": [
+        { "code": "610301", "name": "Xã Đại Hiệp", "type": "commune", "slug": "dai-hiep" },
+        { "code": "610302", "name": "Xã An Lạc Tây", "type": "commune", "slug": "an-lac-tay" },
+        { "code": "610303", "name": "Xã An Mỹ", "type": "commune", "slug": "an-my-st" }
+      ] }
+    ] },
+
+    { "code": "62", "name": "Tỉnh Bạc Liêu", "slug": "bac-lieu", "districts": [
+      { "code": "6201", "name": "Thành phố Bạc Liêu", "type": "city", "slug": "tp-bac-lieu", "communes": [
+        { "code": "620101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-bl" },
+        { "code": "620102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-bl" },
+        { "code": "620103", "name": "Phường 3", "type": "ward", "slug": "phuong-3-bl" }
+      ] },
+      { "code": "6202", "name": "Huyện Hồng Dân", "type": "rural_district", "slug": "huyen-hong-dan", "communes": [
+        { "code": "620201", "name": "Xã Vĩnh Lợi", "type": "commune", "slug": "vinh-loi-bl" },
+        { "code": "620202", "name": "Xã Vĩnh Hậu", "type": "commune", "slug": "vinh-hau" },
+        { "code": "620203", "name": "Xã Ninh Quới", "type": "commune", "slug": "ninh-quoi" }
+      ] },
+      { "code": "6203", "name": "Huyện Phước Long", "type": "rural_district", "slug": "huyen-phuoc-long-bl", "communes": [
+        { "code": "620301", "name": "Xã Vĩnh Phú", "type": "commune", "slug": "vinh-phu-bl" },
+        { "code": "620302", "name": "Xã Lộc Ninh", "type": "commune", "slug": "loc-ninh-bl" },
+        { "code": "620303", "name": "Xã Phong Thạnh", "type": "commune", "slug": "phong-thanh" }
+      ] }
+    ] },
+
+    { "code": "63", "name": "Tỉnh Cà Mau", "slug": "ca-mau", "districts": [
+      { "code": "6301", "name": "Thành phố Cà Mau", "type": "city", "slug": "tp-ca-mau", "communes": [
+        { "code": "630101", "name": "Phường 1", "type": "ward", "slug": "phuong-1-cm" },
+        { "code": "630102", "name": "Phường 2", "type": "ward", "slug": "phuong-2-cm" },
+        { "code": "630103", "name": "Phường 5", "type": "ward", "slug": "phuong-5-cm" }
+      ] },
+      { "code": "6302", "name": "Huyện U Minh", "type": "rural_district", "slug": "huyen-u-minh", "communes": [
+        { "code": "630201", "name": "Xã Khánh An", "type": "commune", "slug": "khanh-an-cm" },
+        { "code": "630202", "name": "Xã Nguyễn Phích", "type": "commune", "slug": "nguyen-phich" },
+        { "code": "630203", "name": "Xã Khánh Lâm", "type": "commune", "slug": "khanh-lam" }
+      ] },
+      { "code": "6303", "name": "Huyện Cái Nước", "type": "rural_district", "slug": "huyen-cai-nuoc", "communes": [
+        { "code": "630301", "name": "Xã Trần Thới", "type": "commune", "slug": "tran-thoi" },
+        { "code": "630302", "name": "Xã Tân Tiến", "type": "commune", "slug": "tan-tien-cm" },
+        { "code": "630303", "name": "Xã Đông Hưng", "type": "commune", "slug": "dong-hung-cm" }
+      ] }
+    ] }
+
+  ]
+}
