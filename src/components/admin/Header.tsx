@@ -12,12 +12,6 @@ export default function Header({ toggleSidebar }: { toggleSidebar: () => void })
                 >
                     <Menu className="w-5 h-5 text-gray-700" />
                 </button>
-
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm..."
-                    className="border rounded-lg px-3 py-2 text-sm w-40 sm:w-64 focus:outline-none focus:ring-1 focus:ring-blue-400"
-                />
             </div>
 
             <div className="flex items-center gap-4">

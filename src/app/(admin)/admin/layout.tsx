@@ -10,12 +10,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     return (
         <html lang="vi">
             <body className="bg-gray-50">
-                <div className="flex min-h-screen">
+                <div className="!flex">
                     {/* Sidebar */}
                     <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
                     {/* Main layout */}
-                    <div className="flex flex-col flex-1 md:ml-64 transition-all">
+                    <div className="flex flex-col flex-1 transition-all">
                         <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
                         <main className="">{children}</main>
                     </div>

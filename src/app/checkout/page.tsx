@@ -23,11 +23,9 @@ interface UserForm {
 
 export default function CheckoutPage() {
 
-    const qrRef = useRef(null);
     const router = useRouter();
     const { userId, token, loading } = useAuth();
     const selectedItems = useSelector((state: RootState) => state.checkout.selectedIds);
-    const [qrData, setQrData] = useState<any>(null);
     const cart = useSelector((state: RootState) => state.cart.listProduct);
     const [isClient, setIsClient] = useState(false);
     const [pendingOrderId, setPendingOrderId] = useState<string | null>(null);
@@ -85,6 +83,7 @@ export default function CheckoutPage() {
         product_variant_id: item.variant?.id,
         price: item.price,
         name: item.name,
+        Image: item.image,
         final_price: item.totalPrice,
         quantity: item.quantity,
     }));
@@ -121,24 +120,20 @@ export default function CheckoutPage() {
                 return;
             }
 
-            // THÀNH CÔNG: COD → hiện thông báo + chuyển về trang chủ
             if (formData.paymentMethod === "cod") {
                 alert("Đặt hàng COD thành công! Chúng tôi sẽ giao hàng sớm nhất có thể");
                 router.push("/thank-you?type=cod");
                 return;
             }
 
-            // THÀNH CÔNG: MOMO
             if (formData.paymentMethod === "momo" && result.data?.payUrl) {
-                // Lưu orderId để lát kiểm tra
                 const orderId = result.data.orderId || result.data.orderCode;
+                console.log("khi order xong", orderId)
                 setPendingOrderId(orderId);
                 localStorage.setItem("momo_pending_order", orderId);
 
-                // Mở tab MoMo
                 window.open(result.data.payUrl, "_blank", "width=550,height=750");
 
-                // Thông báo rõ ràng cho khách
                 alert("Đã mở cửa sổ thanh toán MoMo!\n\nSau khi thanh toán xong, vui lòng quay lại trang này và bấm nút 'Tôi đã thanh toán xong' bên dưới nhé!");
             }
 
@@ -151,6 +146,7 @@ export default function CheckoutPage() {
 
     const checkPaymentStatus = async () => {
         const orderId = pendingOrderId || localStorage.getItem("momo_pending_order");
+        console.log("orderId", orderId);
         if (!orderId) {
             alert("Không tìm thấy mã đơn hàng để kiểm tra");
             return;

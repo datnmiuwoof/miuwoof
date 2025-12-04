@@ -26,7 +26,10 @@ export interface ICategory {
     slug: string;
     description: string;
     children?: ICategory[];
+    parentCategory: string;
+    is_active: boolean;
     parent_id?: number | null;
+    image: string;
     ParentCategory?: ICategory | null;
 }
 

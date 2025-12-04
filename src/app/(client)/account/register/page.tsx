@@ -1,6 +1,5 @@
 'use client';
 
-import { time } from "console";
 import { useState, useEffect } from "react";
 
 export default function RegisterForm() {

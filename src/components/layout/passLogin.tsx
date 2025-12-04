@@ -12,7 +12,7 @@ export default function PassLogin({ logOut }: any) {
                 <li className="!border-t border-[#5c5c5c] shadow-lg my-1"></li>
                 <li className="p-4 hover:bg-amber-100 rounded"><a href="#">xem hồ sơ</a></li>
                 <li className="p-4 hover:bg-amber-100 rounded"><a href="#">Xem sản phẩm yêu thích</a></li>
-                <li className="p-4 hover:bg-amber-100 rounded"><a href="#">Xem đơn hàng</a></li>
+                <li className="p-4 hover:bg-amber-100 rounded"><a href="/order_detail">Xem đơn hàng</a></li>
                 <li className="!border-t border-[#5c5c5c] my-1"></li>
                 <li className="p-4 hover:bg-amber-100 rounded"><a href="#">đổi mật khẩu</a></li>
                 <li className="p-4 hover:bg-amber-100 rounded" onClick={logOut}>

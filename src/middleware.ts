@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
   // Các route yêu cầu đăng nhập
   const needAuth =
     req.nextUrl.pathname.startsWith("/profile") ||
-    req.nextUrl.pathname.startsWith("/orders") ||
+    req.nextUrl.pathname.startsWith("/order") ||
     req.nextUrl.pathname.startsWith("/changepassword") ||
     req.nextUrl.pathname.startsWith("/admin");
 

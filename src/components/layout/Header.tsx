@@ -112,13 +112,24 @@ export default function Header() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch("http://localhost:3000/api/categorys");
+            const res = await fetch("http://localhost:3000/categories");
             const datacategory = await res.json();
 
             setCategory(datacategory.data);
         };
         fetchData();
     }, []);
+
+    const menuHeader = [
+        ...category.filter((c) => c.parent_id === null).map(cate => ({
+            name: cate.name,
+            slug: `/collections/${cate.slug}`,
+            dynamic: true
+        })),
+        { name: "DỊCH VỤ SPA", slug: "/spa" },
+        { name: "TIN TỨC", slug: "/news" },
+        { name: "LIÊN HỆ", slug: "/contact" },
+    ];
 
     useEffect(() => {
         if (category.length) {
@@ -429,45 +440,13 @@ export default function Header() {
                         </a>
 
                         <ul className="header__list">
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="/collections/mua-do-cho-cho">
-                                    mua đồ cho chó
-                                </a>
-                            </li>
-
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="/collections/mua-do-cho-meo">
-                                    mua đồ cho mèo
-                                </a>
-                            </li>
-
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="/collections/vong-co">
-                                    vòng cổ
-                                </a>
-                            </li>
-
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="/collections/khuyen-mai">
-                                    khuyến mãi
-                                </a>
-                            </li>
-
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="">
-                                    DỊCH VỤ SPA
-                                </a>
-                            </li>
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="">
-                                    TIN TỨC
-                                </a>
-                            </li>
-                            <li className="header__item">
-                                <a className="header__link uppercase" href="">
-                                    LIÊN HỆ
-                                </a>
-                            </li>
+                            {menuHeader.map((item, index) => (
+                                <li key={index} className="header__item">
+                                    <a className="header__link uppercase" href={item.slug}>
+                                        {item.name}
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </nav>
                 </div>
