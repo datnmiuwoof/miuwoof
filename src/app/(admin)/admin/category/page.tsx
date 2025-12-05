@@ -37,7 +37,7 @@ export default function CategoryManagement() {
         return parents.map((parent: any) => {
             const children = categories.filter((cat: any) => cat.parent_id === parent.id);
 
-            // tính tổng quantity từ các product trong children
+
             let totalProduct = 0;
 
             children.forEach(child => {
@@ -54,10 +54,7 @@ export default function CategoryManagement() {
         });
     };
 
-
     const categoriesWithChildren = categoryParent(category);
-
-    console.log(categoriesWithChildren)
 
     const toggleExpand = (categoryId: number) => {
         if (expandedCategories.includes(categoryId)) {
@@ -66,6 +63,33 @@ export default function CategoryManagement() {
             setExpandedCategories([...expandedCategories, categoryId]);
         }
     };
+
+    const handleDelete = async (id: any) => {
+        try {
+            const isConfirm = window.confirm("Bạn có chắc chắn muốn xóa không?");
+            if (!isConfirm) return;
+            const res = await fetch(`http://localhost:3000/api/categorys/softDelete/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.message || "Xóa thất bại!");
+                return;
+            }
+
+            alert("Xóa danh mục thành công!");
+            fetchData()
+
+        } catch (error) {
+            console.error(error);
+            alert("Lỗi kết nối tới server!");
+        }
+    };
+
 
     const statusConfig = {
         true: { label: 'Hoạt động', color: 'bg-green-100 text-green-800' },
@@ -112,15 +136,18 @@ export default function CategoryManagement() {
                     </div>
 
                     <div className="flex space-x-1 items-center justify-end">
-                        <button className="flex items-center gap-2 text-center rounded !mr-2 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700"
+                        <button className="text-center !mr-2 rounded px-4 py-2 bg-blue-600 text-white hover:bg-green-700"
+                            onClick={() => router.push('/admin/category/deleteCategory')}
+                        >
+                            Danh mục đã xóa
+                        </button>
+                        <button className="flex items-center gap-2 text-center rounded px-4 py-2 bg-blue-600 text-white hover:bg-blue-700"
                             onClick={() => router.push('/admin/category/addCategory')}
                         >
                             <Plus className="w-4 h-4" />
                             Thêm danh mục
                         </button>
-                        <button className="text-center rounded px-4 py-2 bg-green-600 text-white hover:bg-green-700">
-                            Xuất Excel
-                        </button>
+
                     </div>
                 </div>
             </div>
@@ -228,7 +255,9 @@ export default function CategoryManagement() {
                                                     <Edit className="w-4 h-4" />
                                                     Sửa
                                                 </button>
-                                                <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50">
+                                                <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50"
+                                                    onClick={() => handleDelete(parentCategory.id)}
+                                                >
                                                     <Trash2 className="w-4 h-4" />
                                                     Xóa
                                                 </button>
@@ -286,7 +315,9 @@ export default function CategoryManagement() {
                                                         />
                                                         Sửa
                                                     </button>
-                                                    <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50">
+                                                    <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50"
+                                                        onClick={() => handleDelete(childCategory.id)}
+                                                    >
                                                         <Trash2 className="w-4 h-4" />
                                                         Xóa
                                                     </button>

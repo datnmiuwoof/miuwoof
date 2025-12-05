@@ -1,55 +1,38 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import ProductCard from "@/components/product/ProductCard";
-import Link from "next/link";
-
-import { useParams } from "next/navigation";
+import '@/app/styles/reset.css';
+import '@/app/styles/globals.css';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
+import { createCart } from '@/lib/cartSlice';
 import { IProduct } from "@/lib/cautrucdata";
+import { useAuth } from "@/context/AuthContext";
+import ProductCard from '@/components/product/ProductCard';
 
-export default function ProductDogPage() {
-    const { slug } = useParams();
-    const [products, setProducts] = useState<IProduct[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [limit, setLimit] = useState(8);
-    const [hasMore, setHasMore] = useState(true);
+export default function SearchPage() {
 
+    const searchParams = useSearchParams();
+    const q = searchParams.get("q");
+    const [product, setProduct] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                let url;
+        if (!q) return
+        fetchData()
+    }, [q])
 
-                if (slug === "khuyen-mai") {
-                    url = "http://localhost:3000/product/khuyen-mai?limit=${limit}";
-                } else {
-                    url = `http://localhost:3000/product/collections/${slug}?limit=${limit}`;
-                }
-
-                const res = await fetch(url);
-                const data = await res.json();
-
-                if (Array.isArray(data)) {
-                    setProducts(data);
-
-                    if (data.length < limit) {
-                        setHasMore(false);
-                    }
-                    setLoading(false);
-                } else {
-                    console.error("Dữ liệu API không phải mảng:", data);
-                    setProducts([]);
-                }
-            } catch (error) {
-                console.error("Lỗi khi tải dữ liệu:", error);
-                setProducts([]);
-            }
-        };
-
-        fetchData();
-    }, [slug, limit]);
-
-    if (loading) return null;
+    const fetchData = async () => {
+        try {
+            const data = await fetch(`http://localhost:3000/product?search=${q}`);
+            const res = await data.json();
+            console.log(res)
+            setProduct(res)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(product)
     return (
         <div className="py-5 container">
             {/* Breadcrumb */}
@@ -62,9 +45,7 @@ export default function ProductDogPage() {
                                     <Link href="/">Trang chủ</Link>
                                 </li>
                                 <li className="breadcrumb-item">
-                                    <Link href={`/collections/${slug}`}>
-                                        {products?.[0]?.Category?.name}
-                                    </Link>
+                                    Tìm kiếm
                                 </li>
                             </ol>
                         </nav>
@@ -120,33 +101,20 @@ export default function ProductDogPage() {
             <section className="product product-sales">
                 <div className="main-content">
                     <div className="product__list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                        {products?.map((p) => (
+                        {product?.map((p) => (
                             <ProductCard key={p.id} product={p} />
                         ))}
                     </div>
-                    <div className="product__more">
-
-                        {hasMore ? (
-                            <button
-                                onClick={() => setLimit(prev => prev + 8)}
-                                className="product__more--btn"
-                                type="button"
-                            >
-                                Xem thêm sản phẩm
+                    {product.length > 8 && (
+                        <div className="product__more">
+                            <a href="" className="product__more--btn">
+                                xem thêm sản phẩm
                                 <b> sản phẩm cho mèo</b>
-                            </button>
-                        ) : (
-                            <button
-                                className="product__more--btn"
-                            >
-                                Đã hết sản phẩm
-                            </button>
-                        )}
-
-                    </div>
+                            </a>
+                        </div>
+                    )}
                 </div>
             </section>
         </div>
     );
 }
-

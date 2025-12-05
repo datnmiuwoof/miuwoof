@@ -9,36 +9,31 @@ const AddCategoryPage = () => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        parentCategory: '',
+        parent_id: '',
         is_active: true,
     });
 
     const router = useRouter();
     const [errors, setErrors] = useState({});
+    const [parent, setParent] = useState([]);
 
-    // useEffect(()=>{
+    useEffect(() => {
+        parentcategory()
+    }, [])
 
-    // },[])
+    const parentcategory = async () => {
+        const data = await fetch(`http://localhost:3000/api/categorys`);
+        const res = await data.json();
 
-    // const parentcategory = async ()=>{
-    //     const data = await fetch(`http://localhost:3000/api/categorys/parent`)
-    // }
-
-    // Danh sách danh mục cha mẫu
-    const parentCategories = [
-        { id: '', name: 'Không có (Danh mục chính)' },
-        { id: '1', name: 'Điện thoại & Tablet' },
-        { id: '2', name: 'Laptop & Máy tính' },
-        { id: '3', name: 'Âm thanh & Phụ kiện' },
-        { id: '4', name: 'Thiết bị thông minh' },
-        { id: '5', name: 'Gaming & Console' }
-    ];
+        const categoryParent = res.data.filter((p: any) => p.parent_id === null)
+        setParent(categoryParent)
+    }
 
     const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: value === '' ? null : value
         }));
         // Xóa lỗi khi người dùng bắt đầu nhập
         if (errors[name]) {
@@ -65,13 +60,30 @@ const AddCategoryPage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const sendFormData = {
+        ...formData,
+        parent_id: formData.parent_id === "" ? null : formData.parent_id
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
             console.log('Form data:', formData);
             alert('Thêm danh mục thành công!');
-            // Xử lý logic thêm danh mục ở đây
+        }
+        const submitData = await fetch(`http://localhost:3000/api/categorys/create`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendFormData),
+            credentials: "include",
+        });
+
+        if (submitData.ok) {
+            alert("thêm danh mục thành công");
+            router.push("/admin/category")
         }
     };
 
@@ -80,12 +92,14 @@ const AddCategoryPage = () => {
             setFormData({
                 name: '',
                 description: '',
-                parentCategory: '',
+                parent_id: '',
                 is_active: true,
             });
             setErrors({});
         }
     };
+
+    console.log(formData)
 
     return (
         <div className="min-h-screen bg-gray-50 p-6">
@@ -128,18 +142,21 @@ const AddCategoryPage = () => {
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                             Danh mục cha
                         </label>
+
                         <select
-                            name="parentCategory"
-                            value={formData.parentCategory}
+                            name="parent_id"
+                            value={formData.parent_id ?? ""}
                             onChange={handleInputChange}
                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white cursor-pointer"
                         >
-                            {parentCategories.map(cat => (
+                            <option value="">Không có danh mục</option>
+                            {parent.map(cat => (
                                 <option key={cat.id} value={cat.id}>
                                     {cat.name}
                                 </option>
                             ))}
                         </select>
+
                         <p className="mt-1 text-xs text-gray-500">
                             Chọn danh mục cha nếu đây là danh mục con. Để trống nếu là danh mục chính.
                         </p>

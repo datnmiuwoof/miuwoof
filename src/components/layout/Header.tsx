@@ -6,6 +6,7 @@ import '@/app/styles/globals.css';
 import { useEffect, useState } from 'react';
 import { ICategory } from '../../lib/cautrucdata';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import LoginForm from "./register";
 import PassLogin from "./passLogin"
 import Link from 'next/link';
@@ -16,6 +17,8 @@ import { LogOut } from '@/lib/userSlice';
 import { totalQuantity } from '@/lib/cartSlice';
 export default function Header() {
 
+    const router = useRouter();
+    const [query, setQuery] = useState('');
     const [category, setCategory] = useState<ICategory[]>([]);
     const [menuTree, setMenuTree] = useState<ICategory[]>([]);
     const [openId, setOpenId] = useState<number | null>(null);
@@ -126,6 +129,7 @@ export default function Header() {
             slug: `/collections/${cate.slug}`,
             dynamic: true
         })),
+        { name: "KHUYẾN MÃI", slug: "/collections/khuyen-mai" },
         { name: "DỊCH VỤ SPA", slug: "/spa" },
         { name: "TIN TỨC", slug: "/news" },
         { name: "LIÊN HỆ", slug: "/contact" },
@@ -156,6 +160,20 @@ export default function Header() {
             console.error("Logout failed:", error);
         }
     }
+
+    const handleSearch = () => {
+        const q = query.trim();
+        if (q) {
+            router.push(`/search?q=${encodeURIComponent(q)}`);
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSearch();
+        }
+    };
 
 
     return (
@@ -332,10 +350,14 @@ export default function Header() {
                                 id="search"
                                 name="search"
                                 type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                onKeyDown={handleKeyDown}
                                 className="mz-search__input"
                                 placeholder="Tìm kiếm sản phẩm..."
+                                autoComplete="off"
                             />
-                            <button className="mz-search__btn" aria-label="Tìm kiếm">
+                            <button className="mz-search__btn" aria-label="Tìm kiếm" onClick={handleSearch}>
                                 <span className="mz-search__icon">
                                     <svg
                                         width="18"

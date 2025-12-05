@@ -250,7 +250,7 @@ header {
     padding: 9px 50px 10px 9px;
     width: calc(100% - 40px) ;
     border: none;
-    color: #ccc;
+    color: #000;
     background: transparent;
     font-size: 1.4rem;
     font-weight: 600;
