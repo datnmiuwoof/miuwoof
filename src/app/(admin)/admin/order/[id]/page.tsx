@@ -31,12 +31,12 @@ const buttonLabel = {
 export default function OrderDetailPage() {
     const { id } = useParams();
     const [orderDetail, setOrderDetail] = useState<any>(null);
-    const [address, setAddress] = useState({})
     const [status, setStatus] = useState("");
     const [showCancelModal, setShowCancelModal] = useState(false);
+    const [address, setAddress] = useState({})
     const addressString = formatAddress(address, dvhcvn);
 
-    const fetchData = () => fetch(`http://localhost:3000/order/${id}`, { credentials: "include" })
+    const fetchData = () => fetch(`http://localhost:3000/api/admin/orders/${id}`, { credentials: "include" })
         .then(res => res.json())
         .then(data => {
             setOrderDetail(data);
@@ -45,7 +45,7 @@ export default function OrderDetailPage() {
         });
 
     async function handleUpdate() {
-        await fetch("http://localhost:3000/api/order/update", {
+        await fetch("http://localhost:3000/api/admin/orders/update", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -56,7 +56,7 @@ export default function OrderDetailPage() {
     }
 
     const handleCancelled = async () => {
-        fetch(`http://localhost:3000/api/order/cancelled`, {
+        fetch(`http://localhost:3000/api/admin/orders/cancelled`, {
             method: 'PUT',
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -96,7 +96,7 @@ export default function OrderDetailPage() {
         <div className="main p-6 bg-gray-50 min-h-screen">
             {/* Header */}
             <div className="mb-6">
-                <a href="/admin/orders" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4">
+                <a href="/admin/order" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Quay lại danh sách
                 </a>

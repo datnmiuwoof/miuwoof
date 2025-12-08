@@ -4,6 +4,7 @@ import "@/app/styles/reset.css";
 import "@/app/styles/detailproduct.css";
 import Link from "next/link";
 import Image from "next/image";
+import RelatedProducts from "@/components/layout/RelatedProducts";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { IProduct } from "@/lib/cautrucdata";
@@ -22,6 +23,8 @@ export default function ProductDetail() {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const { userId, token } = useAuth();
+
+    console.log(product)
 
     useEffect(() => {
         fetch(`http://localhost:3000/product/${slug}`)
@@ -277,6 +280,10 @@ export default function ProductDetail() {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section className="!mt-[30px]">
+                <RelatedProducts productId={product.id} categoryId={product.Categories?.[0]?.id} />
             </section>
         </section>
     );
