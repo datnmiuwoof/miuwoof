@@ -15,6 +15,7 @@ export default function SearchPage() {
 
     const searchParams = useSearchParams();
     const q = searchParams.get("q");
+    const [page, setPage] = useState(1);
     const [product, setProduct] = useState([]);
 
     useEffect(() => {
@@ -24,9 +25,9 @@ export default function SearchPage() {
 
     const fetchData = async () => {
         try {
-            const data = await fetch(`http://localhost:3000/product?search=${q}`);
+            const data = await fetch(`http://localhost:3000/product?search=${q}&page=${page}`);
             const res = await data.json();
-            console.log(res)
+            console.log(res.rows)
             setProduct(res)
         } catch (error) {
             console.log(error)
@@ -35,23 +36,6 @@ export default function SearchPage() {
     console.log(product)
     return (
         <div className="py-5 container">
-            {/* Breadcrumb */}
-            <div className="breadcrumb-paren">
-                <div className="main-content">
-                    <div className="breadcrumb__inner">
-                        <nav style={{ "--bs-breadcrumb-divider": "'/'" } as React.CSSProperties} aria-label="breadcrumb">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item">
-                                    <Link href="/">Trang chủ</Link>
-                                </li>
-                                <li className="breadcrumb-item">
-                                    Tìm kiếm
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
 
             {/* Tiêu đề + sắp xếp */}
             <div className="heading-d">
@@ -98,23 +82,26 @@ export default function SearchPage() {
             </div>
 
             {/* Danh sách sản phẩm */}
-            <section className="product product-sales">
-                <div className="main-content">
-                    <div className="product__list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                        {product?.map((p) => (
-                            <ProductCard key={p.id} product={p} />
-                        ))}
-                    </div>
-                    {product.length > 8 && (
-                        <div className="product__more">
-                            <a href="" className="product__more--btn">
-                                xem thêm sản phẩm
-                                <b> sản phẩm cho mèo</b>
-                            </a>
+            {product?.rows && (
+                <section className="product product-sales">
+                    <div className="main-content">
+                        <div className="product__list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                            {product?.rows.map((p) => (
+                                <ProductCard key={p.id} product={p} />
+                            ))}
                         </div>
-                    )}
-                </div>
-            </section>
+                        {product?.rows.length > 8 && (
+                            <div className="product__more">
+                                <a href="" className="product__more--btn">
+                                    xem thêm sản phẩm
+                                    <b> sản phẩm cho mèo</b>
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            )}
+
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "@/components/admin/Sidebar";
 import Header from "@/components/admin/Header";
 import "@/app/(admin)/admin/styles/admin.css";
+import { MantineProvider } from "@mantine/core";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);

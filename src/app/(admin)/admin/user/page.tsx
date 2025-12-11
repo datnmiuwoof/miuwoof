@@ -51,6 +51,22 @@ const UserManagement = () => {
         });
     };
 
+    const handleLocked = async (id: any) => {
+        try {
+            const result = await fetch(`http://localhost:3000/api/users/block/${id}`, {
+                method: "PUT",
+                credentials: "include",
+            });
+
+            if (result.ok) {
+                alert("chặn được user thành công")
+                fetchData();
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
 
     return (
         <div className="main p-6">
@@ -210,7 +226,9 @@ const UserManagement = () => {
                                             <Edit className="w-4 h-4" />
                                             Xem
                                         </Link>
-                                        <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50">
+                                        <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50"
+                                            onClick={() => handleLocked(u.id)}
+                                        >
                                             <Trash2 className="w-4 h-4" />
                                             Chặn
                                         </button>

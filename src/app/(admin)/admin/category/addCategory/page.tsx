@@ -29,11 +29,11 @@ const AddCategoryPage = () => {
         setParent(categoryParent)
     }
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: value === '' ? null : value
+            [name]: value,
         }));
         // Xóa lỗi khi người dùng bắt đầu nhập
         if (errors[name]) {

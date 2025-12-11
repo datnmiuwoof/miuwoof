@@ -14,150 +14,70 @@ import {
     FileText,
     ArrowLeft
 } from "lucide-react";
+import dvhcvn from "@/app/checkout/address/dvhcvn.json";
 
 export default function BannedUsersPage() {
-    const [bannedUsers, setBannedUsers] = useState<any>([]);
+    const [userData, setUserData] = useState([])
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [reasonFilter, setReasonFilter] = useState("");
     const [showUnbanModal, setShowUnbanModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
+    const [page, setPage] = useState(1);
+    const [status, setStatus] = useState("all");
+    const [totalPage, setTotalPage] = useState(1);
+
+    console.log(userData)
 
     useEffect(() => {
         fetchBannedUsers();
-    }, []);
+    }, [status, page]);
 
     const fetchBannedUsers = async () => {
         try {
-            // const res = await fetch('http://localhost:3000/api/admin/users/banned', { 
-            //     credentials: "include" 
-            // });
-            // const json = await res.json();
-            // setBannedUsers(json);
-
-            // Mock data
-            setBannedUsers(mockBannedUsers);
+            const res = await fetch(`http://localhost:3000/api/users/is_locked?page=${page}&status=${status}`, {
+                credentials: "include"
+            });
+            const json = await res.json();
+            setUserData(json.data);
+            console.log(json)
+            setTotalPage(json.totalPages)
             setLoading(false);
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
-    };
-
-    const mockBannedUsers = [
-        {
-            id: 1,
-            name: "Nguyễn Văn A",
-            email: "nguyenvana@email.com",
-            phone: "0901234567",
-            bannedAt: "2024-12-01 10:30",
-            bannedBy: "Admin Nguyễn Văn B",
-            reason: "spam",
-            reasonDetail: "Spam tin nhắn quá nhiều lần",
-            duration: "permanent",
-            expiresAt: null,
-            totalOrders: 5,
-            totalSpent: 2500000
-        },
-        {
-            id: 2,
-            name: "Trần Thị C",
-            email: "tranthic@email.com",
-            phone: "0912345678",
-            bannedAt: "2024-11-28 15:20",
-            bannedBy: "Admin Lê Văn D",
-            reason: "fraud",
-            reasonDetail: "Thanh toán giả mạo, lừa đảo",
-            duration: "permanent",
-            expiresAt: null,
-            totalOrders: 12,
-            totalSpent: 5800000
-        },
-        {
-            id: 3,
-            name: "Lê Văn E",
-            email: "levane@email.com",
-            phone: "0923456789",
-            bannedAt: "2024-11-25 09:45",
-            bannedBy: "Admin Phạm Thị F",
-            reason: "violation",
-            reasonDetail: "Vi phạm điều khoản sử dụng nhiều lần",
-            duration: "30days",
-            expiresAt: "2024-12-25 09:45",
-            totalOrders: 8,
-            totalSpent: 3200000
-        },
-        {
-            id: 4,
-            name: "Phạm Thị G",
-            email: "phamthig@email.com",
-            phone: "0934567890",
-            bannedAt: "2024-11-20 14:15",
-            bannedBy: "Admin Hoàng Văn H",
-            reason: "abuse",
-            reasonDetail: "Lạm dụng chính sách đổi trả",
-            duration: "7days",
-            expiresAt: "2024-11-27 14:15",
-            totalOrders: 15,
-            totalSpent: 4500000
-        },
-        {
-            id: 5,
-            name: "Hoàng Văn I",
-            email: "hoangvani@email.com",
-            phone: "0945678901",
-            bannedAt: "2024-11-15 11:30",
-            bannedBy: "Admin Nguyễn Thị J",
-            reason: "other",
-            reasonDetail: "Hành vi xấu với nhân viên hỗ trợ",
-            duration: "permanent",
-            expiresAt: null,
-            totalOrders: 3,
-            totalSpent: 1200000
-        }
-    ];
-
-    const reasonConfig: any = {
-        spam: { label: "Spam", color: "bg-yellow-100 text-yellow-700" },
-        fraud: { label: "Lừa đảo", color: "bg-red-100 text-red-700" },
-        violation: { label: "Vi phạm điều khoản", color: "bg-orange-100 text-orange-700" },
-        abuse: { label: "Lạm dụng", color: "bg-purple-100 text-purple-700" },
-        other: { label: "Khác", color: "bg-gray-100 text-gray-700" }
     };
 
     const handleUnban = async (userId: number) => {
         try {
-            // const res = await fetch(`http://localhost:3000/api/admin/users/${userId}/unban`, {
-            //     method: 'POST',
-            //     credentials: "include"
-            // });
-            // if (res.ok) {
-            //     fetchBannedUsers();
-            // }
+            const res = await fetch(`http://localhost:3000/api/users/${userId}/unban`, {
+                method: 'PUT',
+                credentials: "include"
+            });
+            if (res.ok) {
+                fetchBannedUsers();
+            }
 
-            console.log("Unban user:", userId);
             setShowUnbanModal(false);
             setSelectedUser(null);
-            // Refresh data
         } catch (error) {
             console.log(error);
         }
     };
 
-    const getDurationText = (duration: string, expiresAt: string | null) => {
-        if (duration === "permanent") {
-            return "Vĩnh viễn";
-        }
-        if (expiresAt) {
-            return `Đến ${expiresAt}`;
-        }
-        return duration;
-    };
+    function getFullAddress(address: any, dvhcvn: any) {
+        const province = dvhcvn.data.find((p: any) => p.level1_id == address.city);
+        const district = province?.level2s.find((d: any) => d.level2_id == address.district);
+        const ward = district?.level3s.find((w: any) => w.level3_id == address.ward);
 
-    const isExpired = (expiresAt: string | null) => {
-        if (!expiresAt) return false;
-        return new Date(expiresAt) < new Date();
-    };
+        return {
+            line: address.address_line,
+            ward: ward?.name ?? "",
+            district: district?.name ?? "",
+            province: province?.name ?? "",
+            full: `${address.address_line}`,
+        };
+    }
 
     if (loading) {
         return (
@@ -197,7 +117,7 @@ export default function BannedUsersPage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm text-gray-600 mb-1">Tổng bị chặn</p>
-                            <h3 className="text-2xl font-bold text-gray-800">{bannedUsers.length}</h3>
+                            <h3 className="text-2xl font-bold text-gray-800">{userData.length}</h3>
                         </div>
                         <div className="bg-red-100 p-3 rounded-full">
                             <Ban className="w-6 h-6 text-red-600" />
@@ -210,7 +130,7 @@ export default function BannedUsersPage() {
                         <div>
                             <p className="text-sm text-gray-600 mb-1">Vĩnh viễn</p>
                             <h3 className="text-2xl font-bold text-gray-800">
-                                {bannedUsers.filter((u: any) => u.duration === "permanent").length}
+                                {/* {bannedUsers.filter((u: any) => u.duration === "permanent").length} */}4
                             </h3>
                         </div>
                         <div className="bg-gray-100 p-3 rounded-full">
@@ -224,7 +144,7 @@ export default function BannedUsersPage() {
                         <div>
                             <p className="text-sm text-gray-600 mb-1">Tạm thời</p>
                             <h3 className="text-2xl font-bold text-gray-800">
-                                {bannedUsers.filter((u: any) => u.duration !== "permanent").length}
+                                {/* {bannedUsers.filter((u: any) => u.duration !== "permanent").length} */}2
                             </h3>
                         </div>
                         <div className="bg-yellow-100 p-3 rounded-full">
@@ -253,13 +173,13 @@ export default function BannedUsersPage() {
                     <div className="relative">
                         <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <select
-                            value={reasonFilter}
-                            onChange={(e) => setReasonFilter(e.target.value)}
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
                             className="w-full border border-gray-300 rounded-lg pl-10 pr-8 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-2 focus:ring-blue-400 outline-none"
                         >
-                            <option value="">Tất cả</option>
-                            <option value="spam">xóa vĩnh viễn</option>
-                            <option value="fraud">xóa tạm thời</option>
+                            <option value="all">Tất cả</option>
+                            <option value="forever">xóa vĩnh viễn</option>
+                            <option value="temporary">xóa tạm thời</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
                     </div>
@@ -281,7 +201,7 @@ export default function BannedUsersPage() {
                                 Thời gian chặn
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Thời hạn
+                                địa chỉ
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Thao tác
@@ -289,7 +209,7 @@ export default function BannedUsersPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                        {bannedUsers.map((user: any) => (
+                        {userData.map((user: any) => (
                             <tr key={user.id} className="hover:bg-gray-50 transition-colors">
                                 {/* User Info */}
                                 <td className="px-6 py-4">
@@ -300,7 +220,8 @@ export default function BannedUsersPage() {
                                         <div>
                                             <p className="font-medium text-gray-900">{user.name}</p>
                                             <p className="text-xs text-gray-500">{user.email}</p>
-                                            <p className="text-xs text-gray-500">{user.phone}</p>
+                                            {user?.Addresses ? (<p className="text-xs text-gray-500">{user?.Addresses?.[0]?.phone}</p>) : ("...")}
+
                                         </div>
                                     </div>
                                 </td>
@@ -309,27 +230,29 @@ export default function BannedUsersPage() {
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-2 text-sm text-gray-700">
                                         <Calendar className="w-4 h-4 text-gray-400" />
-                                        {user.bannedAt}
+                                        {new Date(user.updatedAt).toLocaleDateString("vi-VN")}
                                     </div>
                                 </td>
+
 
                                 {/* Banned By */}
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-2 text-sm text-gray-700">
                                         <Shield className="w-4 h-4 text-gray-400" />
-                                        {user.bannedBy}
+                                        {user.is_destroyed !== true ? ("Khóa tạm thời") : ("Khóa vĩnh viễn")}
                                     </div>
                                 </td>
 
                                 {/* Duration */}
                                 <td className="px-6 py-4">
                                     <div className="text-sm text-gray-700">
-                                        {getDurationText(user.duration, user.expiresAt)}
-                                        {isExpired(user.expiresAt) && (
-                                            <span className="block text-xs text-green-600 mt-1">
-                                                ✓ Đã hết hạn
-                                            </span>
-                                        )}
+
+                                        {user?.Addresses && user?.Addresses.map((a: any) => {
+                                            const formatted = getFullAddress(a, dvhcvn);
+                                            return (
+                                                <p key={a.id}>{formatted.full}</p>
+                                            );
+                                        })}
                                     </div>
                                 </td>
 
@@ -352,7 +275,7 @@ export default function BannedUsersPage() {
                     </tbody>
                 </table>
 
-                {bannedUsers.length === 0 && (
+                {userData.length === 0 && (
                     <div className="text-center py-12 text-gray-500">
                         Không có người dùng bị chặn
                     </div>
@@ -374,13 +297,6 @@ export default function BannedUsersPage() {
                             Bạn có chắc chắn muốn mở khóa tài khoản của <strong>{selectedUser.name}</strong>?
                         </p>
 
-                        <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                            <p className="text-sm text-gray-600 mb-1">Thông tin:</p>
-                            <p className="text-sm"><strong>Email:</strong> {selectedUser.email}</p>
-                            <p className="text-sm"><strong>Lý do chặn:</strong> {reasonConfig[selectedUser.reason].label}</p>
-                            <p className="text-sm"><strong>Chi tiết:</strong> {selectedUser.reasonDetail}</p>
-                        </div>
-
                         <div className="flex gap-3">
                             <button
                                 onClick={() => {
@@ -401,6 +317,31 @@ export default function BannedUsersPage() {
                     </div>
                 </div>
             )}
+
+            <div className="flex items-center justify-between bg-white rounded-lg shadow p-4 mt-4">
+                <div className="text-sm text-gray-600">
+                    {/* Hiển thị {user.length} đơn hàng */}
+                </div>
+                <div className="flex items-center space-x-2">
+                    <button
+                        disabled={page === 1}
+                        onClick={() => setPage(page - 1)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                    >
+                        Trước
+                    </button>
+                    <span className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium">
+                        Trang {page}
+                    </span>
+                    <button
+                        disabled={page >= totalPage}
+                        onClick={() => setPage(page + 1)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                    >
+                        Sau
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }

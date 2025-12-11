@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Home, ShoppingCart, Users, Package, Settings, LogOut, BookOpen, FolderTree } from "lucide-react";
+import { X, Home, ShoppingCart, Users, Package, Settings, LogOut, BookOpen, FolderTree, Image } from "lucide-react";
 
 export default function Sidebar({
     isOpen,
@@ -24,6 +24,7 @@ export default function Sidebar({
         { href: "/admin/order", icon: ShoppingCart, label: "Đơn hàng" },
         { href: "/admin/user", icon: Users, label: "Khách hàng" },
         { href: "/admin/post", icon: BookOpen, label: "Bài viết" },
+        { href: "/admin/banner", icon: Image, label: "Banner" },
         { href: "/admin/settings", icon: Settings, label: "Cài đặt" },
     ];
 

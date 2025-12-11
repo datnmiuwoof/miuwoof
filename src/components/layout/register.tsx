@@ -48,7 +48,8 @@ export default function LoginForm() {
 
 
                 } else {
-                    console.log("đăng nhập lỗi");
+                    const err = await data.json();
+                    alert(err.message);
                 }
             } catch (error) {
                 console.log(error);
