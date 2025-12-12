@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { CreditCard, MapPin, User, Package, Router } from 'lucide-react';
-import { useSelector } from 'react-redux';
+import { useSelector, } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { useAuth } from "@/context/AuthContext";
 import { jwtDecode } from 'jwt-decode';
+import { totalQuantity } from '@/lib/cartSlice';
 import AddressSlectect from '@/components/layout/AddressSelect';
 import Link from 'next/link';
 
@@ -162,13 +163,13 @@ export default function CheckoutPage() {
             });
 
             const data = await res.json();
-            console.log(data);
 
 
             if (data.success === true || data.success && data.status === 0) {
                 localStorage.removeItem("momo_pending_order");
                 alert("Thanh toán MoMo thành công!");
                 router.push(`/thank-you?orderId=${orderId}&method=momo`);
+
             } else {
                 alert("Chưa thấy thanh toán thành công. Bạn thử lại sau 5-10 giây nhé!");
             }

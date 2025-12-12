@@ -113,7 +113,7 @@ export default function LoginForm() {
 
                 <div className="text-start text-gray-500 mt-3">
                     <p className="text-[#5c5c5c] mt-2 !text-[1.2rem] font-extralight">Khách hàng mới? <a href="/account/register" className="text-[#5c3a2d] hover:underline">Tạo tài khoản</a></p>
-                    <p className="text-[#5c5c5c] mt-2 !text-[1.2rem] font-extralight">Quên mật khẩu? <a href="#" className="text-[#5c3a2d] text-[10px] hover:underline">Khôi phục mật khẩu</a></p>
+                    <p className="text-[#5c5c5c] mt-2 !text-[1.2rem] font-extralight">Quên mật khẩu? <a href="/account/forgotPassword" className="text-[#5c3a2d] text-[10px] hover:underline">Khôi phục mật khẩu</a></p>
 
                 </div>
             </div>

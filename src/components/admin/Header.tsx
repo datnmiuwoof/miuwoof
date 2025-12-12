@@ -15,12 +15,11 @@ export default function Header({ toggleSidebar }: { toggleSidebar: () => void })
             </div>
 
             <div className="flex items-center gap-4">
-                <Bell className="text-gray-600 w-5 h-5 cursor-pointer hover:text-blue-600" />
-                <img
-                    src="https://i.pravatar.cc/40"
-                    alt="admin"
-                    className="w-8 h-8 rounded-full"
-                />
+
+                <Bell className="text-gray-600 w-5 h-5 cursor-default hover:text-blue-600" />
+                <a href="/">    <p className="py-3 mb-0 font-bold cursor-pointer hover:text-red-700">Trang người dùng</p>
+                </a>
+
             </div>
         </header>
     );

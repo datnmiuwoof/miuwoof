@@ -24,6 +24,7 @@ export default function Header() {
     const [openId, setOpenId] = useState<number | null>(null);
     const [openLogin, setOpenLogin] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
+    const [loading, setLoading] = useState(true)
     // const [user, setUser] = useState(null);
     const dispatch = useDispatch();
     const passUser = useSelector((state: RootState) => state.user.info);
@@ -119,9 +120,20 @@ export default function Header() {
             const datacategory = await res.json();
 
             setCategory(datacategory.data);
+            setLoading(false);
         };
         fetchData();
     }, []);
+
+    const fallbackMenu = [
+        { name: "MUA ĐỒ CHO CHÓ", slug: "#" },
+        { name: "MUA ĐỒ CHO MÈO", slug: "#" },
+        { name: "VÒNG CỔ", slug: "#" },
+        { name: "KHUYẾN MÃI", slug: "#" },
+        { name: "DỊCH VỤ SPA", slug: "#" },
+        { name: "TIN TỨC", slug: "#" },
+        { name: "LIÊN HỆ", slug: "#" },
+    ];
 
     const menuHeader = [
         ...category.filter((c) => c.parent_id === null).map(cate => ({
@@ -261,31 +273,38 @@ export default function Header() {
                             {openMenu && (
                                 <div className="header__menu--dropdown">
                                     <div className="header__menu-home">
-                                        <span className="header__menu--home">
-                                            <svg
-                                                width="22"
-                                                height="22"
-                                                viewBox="0 0 20 20"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <g clipPath="url(#clip0_106_310)">
-                                                    <path
-                                                        d="M18.7279 9.60556L10.3945 1.27222C10.2904 1.16875 10.1496 1.11067 10.0029 1.11067C9.8561 1.11067 9.7153 1.16875 9.61121 1.27222L1.27787 9.60556C1.18686 9.71184 1.1393 9.84855 1.1447 9.98836C1.1501 10.1282 1.20806 10.2608 1.30701 10.3598C1.40595 10.4587 1.53858 10.5167 1.6784 10.5221C1.81822 10.5275 1.95493 10.4799 2.06121 10.3889L10.0001 2.45L17.939 10.3944C18.0453 10.4855 18.182 10.533 18.3218 10.5276C18.4616 10.5222 18.5942 10.4643 18.6932 10.3653C18.7921 10.2664 18.8501 10.1337 18.8555 9.99392C18.8609 9.8541 18.8133 9.71739 18.7223 9.61111L18.7279 9.60556Z"
-                                                        fill="#522F1F"
-                                                    />
-                                                    <path
-                                                        d="M15.5555 17.7778H12.7777V12.2222H7.22214V17.7778H4.44436V10L3.33325 11.1111V17.7778C3.33325 18.0725 3.45032 18.3551 3.65869 18.5635C3.86706 18.7718 4.14968 18.8889 4.44436 18.8889H8.33325V13.3333H11.6666V18.8889H15.5555C15.8502 18.8889 16.1328 18.7718 16.3411 18.5635C16.5495 18.3551 16.6666 18.0725 16.6666 17.7778V10.9778L15.5555 9.86667V17.7778Z"
-                                                        fill="#522F1F"
-                                                    />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_106_310">
-                                                        <rect width="20" height="20" fill="white" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg></span>
-                                        <span className="header__menu--close"></span>
+                                        <a href="/">
+                                            <span className="header__menu--home">
+                                                <svg
+                                                    width="22"
+                                                    height="22"
+                                                    viewBox="0 0 20 20"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <g clipPath="url(#clip0_106_310)">
+                                                        <path
+                                                            d="M18.7279 9.60556L10.3945 1.27222C10.2904 1.16875 10.1496 1.11067 10.0029 1.11067C9.8561 1.11067 9.7153 1.16875 9.61121 1.27222L1.27787 9.60556C1.18686 9.71184 1.1393 9.84855 1.1447 9.98836C1.1501 10.1282 1.20806 10.2608 1.30701 10.3598C1.40595 10.4587 1.53858 10.5167 1.6784 10.5221C1.81822 10.5275 1.95493 10.4799 2.06121 10.3889L10.0001 2.45L17.939 10.3944C18.0453 10.4855 18.182 10.533 18.3218 10.5276C18.4616 10.5222 18.5942 10.4643 18.6932 10.3653C18.7921 10.2664 18.8501 10.1337 18.8555 9.99392C18.8609 9.8541 18.8133 9.71739 18.7223 9.61111L18.7279 9.60556Z"
+                                                            fill="#522F1F"
+                                                        />
+                                                        <path
+                                                            d="M15.5555 17.7778H12.7777V12.2222H7.22214V17.7778H4.44436V10L3.33325 11.1111V17.7778C3.33325 18.0725 3.45032 18.3551 3.65869 18.5635C3.86706 18.7718 4.14968 18.8889 4.44436 18.8889H8.33325V13.3333H11.6666V18.8889H15.5555C15.8502 18.8889 16.1328 18.7718 16.3411 18.5635C16.5495 18.3551 16.6666 18.0725 16.6666 17.7778V10.9778L15.5555 9.86667V17.7778Z"
+                                                            fill="#522F1F"
+                                                        />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_106_310">
+                                                            <rect width="20" height="20" fill="white" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </span>
+                                        </a>
+
+                                        <span className="header__menu--close"
+                                            onClick={toggleMenu}>
+                                            X
+                                        </span>
                                     </div>
                                     <ul className="header__menu-list ">
 
@@ -388,7 +407,7 @@ export default function Header() {
                                     <span className="header__user--text">Tài khoản</span>
                                 </a>
 
-                                {openLogin && (
+                                {/* {openLogin && (
                                     <span className=''>
                                         {passUser ? (
                                             <span className='absolute left-[70%] transform -translate-x-1/2 mt-2 z-50'>
@@ -401,9 +420,27 @@ export default function Header() {
                                         )}
 
                                     </span>
+                                )} */}
+
+                                {openLogin && (
+                                    <span className=''>
+                                        {passUser ? (
+                                            <span className='login-modal'>
+                                                <button onClick={toggleLogin} className="close-btn">×</button>
+                                                <div className="login-content">
+                                                    <PassLogin logOut={handleLogOut} />
+                                                </div>
+                                            </span>
+                                        ) : (
+                                            <span className='login-modal'>
+                                                <button onClick={toggleLogin} className="close-btn">×</button>
+                                                <div className="login-content">
+                                                    <LoginForm />
+                                                </div>
+                                            </span>
+                                        )}
+                                    </span>
                                 )}
-
-
 
                             </div>
 
@@ -462,7 +499,7 @@ export default function Header() {
                         </a>
 
                         <ul className="header__list">
-                            {menuHeader.map((item, index) => (
+                            {(loading ? fallbackMenu : menuHeader).map((item, index) => (
                                 <li key={index} className="header__item">
                                     <a className="header__link uppercase" href={item.slug}>
                                         {item.name}

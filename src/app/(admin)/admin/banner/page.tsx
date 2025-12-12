@@ -153,19 +153,6 @@ export default function Banner() {
                         />
                     </div>
 
-                    {/* Position filter */}
-                    <div className="relative">
-                        <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                        <select
-                            className="w-full border border-gray-300 rounded-lg pl-10 pr-8 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
-                        >
-                            <option value="">Tất cả vị trí</option>
-                            {positions.map(pos => (
-                                <option key={pos} value={pos}>{positionConfig[pos].label}</option>
-                            ))}
-                        </select>
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
-                    </div>
 
                     {/* Status filter */}
                     <div className="relative">
@@ -176,7 +163,6 @@ export default function Banner() {
                             <option value="">Tất cả trạng thái</option>
                             <option value="active">Đang hiển thị</option>
                             <option value="inactive">Đã tắt</option>
-                            <option value="scheduled">Đã lên lịch</option>
                             <option value="expired">Hết hạn</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
@@ -187,9 +173,6 @@ export default function Banner() {
                         <button className="flex items-center gap-2 text-center rounded !mr-2 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
                             <Plus className="w-4 h-4" />
                             Tạo banner
-                        </button>
-                        <button className="text-center rounded px-4 py-2 bg-green-600 text-white hover:bg-green-700">
-                            Xuất Excel
                         </button>
                     </div>
                 </div>

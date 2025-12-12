@@ -47,8 +47,9 @@ interface IStats {
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any>({});
-    const [address, setAddress] = useState({})
-    const addressString = formatAddress(address, dvhcvn);
+    const [address, setAddress] = useState({});
+    const [startDate, setStartDate] = useState('2024-12-01');
+    const [endDate, setEndDate] = useState('2024-12-13');
 
     console.log(data)
 
@@ -116,7 +117,6 @@ export default function AdminDashboard() {
         );
     }
 
-    // --- RENDER LOADING ---
     if (loading) {
         return (
             <div className="flex h-screen w-full items-center justify-center bg-gray-50/50">
@@ -154,11 +154,114 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
+            {/* Quick Select */}
+            <div>
+                <label className="block font-semibold text-gray-700 mb-3">Chọn nhanh:</label>
+                <div className="grid grid-cols-2 gap-2">
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            setStartDate(today.toISOString().split('T')[0]);
+                            setEndDate(today.toISOString().split('T')[0]);
+                        }}
+                        className="bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        Hôm nay
+                    </button>
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            const yesterday = new Date(today);
+                            yesterday.setDate(yesterday.getDate() - 1);
+                            setStartDate(yesterday.toISOString().split('T')[0]);
+                            setEndDate(yesterday.toISOString().split('T')[0]);
+                        }}
+                        className="bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        Hôm qua
+                    </button>
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            const weekAgo = new Date(today);
+                            weekAgo.setDate(weekAgo.getDate() - 7);
+                            setStartDate(weekAgo.toISOString().split('T')[0]);
+                            setEndDate(today.toISOString().split('T')[0]);
+                        }}
+                        className="bg-green-100 hover:bg-green-200 text-green-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        7 ngày qua
+                    </button>
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            const monthAgo = new Date(today);
+                            monthAgo.setDate(monthAgo.getDate() - 30);
+                            setStartDate(monthAgo.toISOString().split('T')[0]);
+                            setEndDate(today.toISOString().split('T')[0]);
+                        }}
+                        className="bg-green-100 hover:bg-green-200 text-green-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        30 ngày qua
+                    </button>
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+                            setStartDate(firstDay.toISOString().split('T')[0]);
+                            setEndDate(today.toISOString().split('T')[0]);
+                        }}
+                        className="bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        Tháng này
+                    </button>
+                    <button
+                        onClick={() => {
+                            const today = new Date();
+                            const firstDay = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+                            const lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
+                            setStartDate(firstDay.toISOString().split('T')[0]);
+                            setEndDate(lastDay.toISOString().split('T')[0]);
+                        }}
+                        className="bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-2 px-4 rounded-lg transition"
+                    >
+                        Tháng trước
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <label className="block font-semibold text-gray-700 mb-3">Hoặc chọn khoảng thời gian:</label>
+                <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                        <Calendar className="text-blue-600" size={20} />
+                        <label className="font-medium text-gray-600 w-20">Từ ngày:</label>
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="flex-1 border-2 border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Calendar className="text-blue-600" size={20} />
+                        <label className="font-medium text-gray-600 w-20">Đến ngày:</label>
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="flex-1 border-2 border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                    </div>
+                </div>
+            </div>
+
+
             {/* 2. STATS GRID (KPIs) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            < div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" >
 
                 {/* Doanh thu */}
-                <div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                < div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" >
                     <div className="flex justify-between items-start mb-4">
                         <div className="p-3 bg-indigo-50 rounded-xl group-hover:bg-indigo-600 transition-colors duration-300">
                             <DollarSign className="w-6 h-6 text-indigo-600 group-hover:text-white transition-colors" />
@@ -173,10 +276,10 @@ export default function AdminDashboard() {
                             {formatCurrency(data.totalRevenue)}
                         </h3>
                     </div>
-                </div>
+                </div >
 
                 {/* Đơn hàng */}
-                <div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                < div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" >
                     <Link href="/admin/order">
                         <div className="flex justify-between items-start mb-4">
                             <div className="p-3 bg-blue-50 rounded-xl group-hover:bg-blue-600 transition-colors duration-300">
@@ -191,10 +294,10 @@ export default function AdminDashboard() {
                             <h3 className="text-2xl font-bold text-gray-900 mt-1">{data.totalOrders}</h3>
                         </div>
                     </Link>
-                </div>
+                </div >
 
                 {/* Khách hàng */}
-                <div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                < div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" >
                     <Link href="/admin/user">
                         <div className="flex justify-between items-start mb-4">
                             <div className="p-3 bg-purple-50 rounded-xl group-hover:bg-purple-600 transition-colors duration-300">
@@ -206,10 +309,10 @@ export default function AdminDashboard() {
                             <h3 className="text-2xl font-bold text-gray-900 mt-1">{data.totalUsers}</h3>
                         </div>
                     </Link>
-                </div>
+                </div >
 
                 {/* Sản phẩm */}
-                <div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                < div className="group bg-white p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300" >
                     <Link href="/admin/products">
                         <div className="flex justify-between items-start mb-4">
                             <div className="p-3 bg-orange-50 rounded-xl group-hover:bg-orange-600 transition-colors duration-300">
@@ -221,16 +324,16 @@ export default function AdminDashboard() {
                             <h3 className="text-2xl font-bold text-gray-900 mt-1">{data.totalProducts}</h3>
                         </div>
                     </Link>
-                </div>
-            </div>
+                </div >
+            </div >
 
             {/* 3. MAIN CONTENT */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            < div className="grid grid-cols-1 xl:grid-cols-3 gap-8" >
 
                 {/* 3.1 Recent Orders Table (Chiếm 2/3) */}
-                <div className="xl:col-span-2 flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                < div className="xl:col-span-2 flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden" >
                     {/* Card Header */}
-                    <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/30">
+                    < div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/30" >
                         <div className="flex items-center gap-2">
                             <div className="bg-indigo-100 p-1.5 rounded-lg">
                                 <Clock className="w-4 h-4 text-indigo-700" />
@@ -240,10 +343,10 @@ export default function AdminDashboard() {
                         <Link href="/admin/orders" className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition">
                             Xem tất cả &rarr;
                         </Link>
-                    </div>
+                    </div >
 
                     {/* Table */}
-                    <div className="overflow-x-auto">
+                    < div className="overflow-x-auto" >
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-gray-50/50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-100">
@@ -295,16 +398,16 @@ export default function AdminDashboard() {
                                 )}
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                    </div >
+                </div >
 
                 {/* 3.2 Action Panel (Chiếm 1/3) */}
-                <div className="flex flex-col gap-6">
+                < div className="flex flex-col gap-6" >
 
                     {/* Widget: Việc cần làm */}
-                    <div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl shadow-lg shadow-indigo-200 text-white p-6 relative overflow-hidden">
+                    < div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl shadow-lg shadow-indigo-200 text-white p-6 relative overflow-hidden" >
                         {/* Background Decoration */}
-                        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
+                        < div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full blur-xl" ></div >
                         <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-20 h-20 bg-white opacity-10 rounded-full blur-xl"></div>
 
                         <h3 className="text-lg font-bold mb-1 flex items-center gap-2 relative z-10">
@@ -330,10 +433,10 @@ export default function AdminDashboard() {
                         >
                             + Thêm sản phẩm mới
                         </Link>
-                    </div>
+                    </div >
 
                     {/* Widget: Thông báo hệ thống */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    < div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6" >
                         <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
                             <AlertCircle className="w-5 h-5 text-gray-400" /> Hệ thống
                         </h3>
@@ -353,10 +456,10 @@ export default function AdminDashboard() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
 
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+        </div >
     );
 }

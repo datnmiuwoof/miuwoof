@@ -2,16 +2,69 @@
 
 import '@/app/styles/reset.css';
 import '@/app/styles/globals.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createCart } from '@/lib/cartSlice';
+import { RootState } from '@/lib/store';
 import { IProduct } from "../../lib/cautrucdata";
 import { useAuth } from "@/context/AuthContext";
+import { toggleFavoriteId, setFavorites } from '@/lib/favoriteSlice';
+import { useEffect } from 'react';
 
 
 
 export default function ProductCard({ product }: { product: IProduct }) {
     const dispatch = useDispatch();
     const { userId, token, loading } = useAuth();
+
+    const favoriteIds = useSelector((state: RootState) => state.favorite.listIds ?? []);
+
+    useEffect(() => {
+        handleFavorite()
+    }, [userId, dispatch])
+
+    const handleFavorite = async () => {
+        const result = await fetch(`http://localhost:3000/api/favorites`, { credentials: "include" });
+
+        const res = await result.json();
+
+        const ids = res.data.map(item => item.product_id);
+
+        dispatch(setFavorites(ids));
+    }
+
+    const isLiked = favoriteIds.includes(product.id);
+
+    const handleToggleFavorite = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!userId) {
+            alert("Vui lòng đăng nhập để yêu thích sản phẩm!");
+            return;
+        }
+
+        // update UI trước
+        dispatch(toggleFavoriteId(product.id));
+
+        try {
+            const res = await fetch("http://localhost:3000/api/favorites/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ productId: product.id }),
+            });
+
+            if (!res.ok) {
+                console.error("Lỗi API:", await res.text());
+                dispatch(toggleFavoriteId(product.id));
+            }
+        } catch (error) {
+            console.error("Lỗi toggle favorite", error);
+            dispatch(toggleFavoriteId(product.id));
+        }
+    };
 
 
     const checkDiscount = product?.Discounts?.some(d => d.discount_type === 1);
@@ -38,7 +91,9 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     </div>
                 )}
 
-                <div className="product__favorite">
+                <div className="product__favorite"
+                    onClick={handleToggleFavorite}
+                    style={{ cursor: "pointer" }}>
                     <svg
                         width="18"
                         height="18"
@@ -48,7 +103,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     >
                         <path
                             d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55ZM16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z"
-                            fill="black"
+                            fill={isLiked ? "#e10600" : "black"}
                         />
                     </svg>
                 </div>

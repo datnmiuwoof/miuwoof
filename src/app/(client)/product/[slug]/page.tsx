@@ -2,6 +2,7 @@
 
 import "@/app/styles/reset.css";
 import "@/app/styles/detailproduct.css";
+import { ChevronDown } from 'lucide-react';
 import Link from "next/link";
 import Image from "next/image";
 import RelatedProducts from "@/components/layout/RelatedProducts";
@@ -23,6 +24,11 @@ export default function ProductDetail() {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const { userId, token } = useAuth();
+    const [openSection, setOpenSection] = useState(null);
+
+    const toggleSection = (section: any) => {
+        setOpenSection(openSection === section ? null : section);
+    };
 
     console.log(product)
 
@@ -92,9 +98,8 @@ export default function ProductDetail() {
                 <Breadcrumb product={product} category={product.Categories[0]} />
             )}
 
-
             {/* Product detail */}
-            <section className="prodetail">
+            <section className="prodetail !pb-[30px]">
                 <div className="main-content">
                     <div className="row">
                         <div className="product-detail">
@@ -118,9 +123,9 @@ export default function ProductDetail() {
 
                             {/* Main image with arrows */}
                             <div className="gallery__main">
-                                <div className="gallery__main-img" style={{ width: 470, height: 470 }}>
+                                <div className="gallery__main-img">
                                     {/* container must be relative for fill */}
-                                    <div style={{ position: "relative", width: "470px", height: "470px" }}>
+                                    <div>
                                         <Image src={mainImage} alt={product.name} fill className="main__img" priority />
                                     </div>
 
@@ -275,14 +280,86 @@ export default function ProductDetail() {
                                 )}
 
                             </div>
-                            <div className="prodetail__desc"></div>
+                            <div className="prodetail__desc">
+                                <div className="prodetail__desc w-full mt-6">
+                                    {/* Chi tiết giao hàng */}
+                                    <div className="border-b border-gray-300">
+                                        <button
+                                            onClick={() => toggleSection('delivery')}
+                                            className="w-full flex items-center justify-between py-[20px] text-left hover:bg-gray-50 transition"
+                                        >
+                                            <span className="!font-bold !text-[16px] text-base">Chi tiết giao hàng</span>
+                                            <ChevronDown
+                                                className={`w-5 h-5 transition-transform duration-300 ${openSection === 'delivery' ? 'rotate-180' : ''
+                                                    }`}
+                                            />
+                                        </button>
+                                        <div
+                                            className={`overflow-hidden transition-all duration-300 ${openSection === 'delivery' ? 'max-h-96 pb-4' : 'max-h-0'
+                                                }`}
+                                        >
+                                            <div className="text-gray-600 text-sm space-y-2">
+                                                <p><strong>Giao hàng tiêu chuẩn:</strong> 2-3 ngày làm việc</p>
+                                                <p><strong>Giao hàng nhanh:</strong> 1 ngày làm việc (nội thành)</p>
+                                                <p><strong>Miễn phí vận chuyển:</strong> Đơn hàng từ 500.000đ</p>
+                                                <p><strong>Đổi trả:</strong> Trong vòng 7 ngày nếu sản phẩm lỗi</p>
+                                                <p><strong>Kiểm tra hàng:</strong> Được kiểm tra trước khi thanh toán</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Mô tả sản phẩm */}
+                                    <div className="border-b border-gray-300">
+                                        <button
+                                            onClick={() => toggleSection('description')}
+                                            className="w-full flex items-center justify-between py-[20px] text-left hover:bg-gray-50 transition"
+                                        >
+                                            <span className="!font-bold !text-[16px] text-base">Mô tả sản phẩm</span>
+                                            <ChevronDown
+                                                className={`w-5 h-5 transition-transform duration-300 ${openSection === 'description' ? 'rotate-180' : ''
+                                                    }`}
+                                            />
+                                        </button>
+                                        <div
+                                            className={`overflow-hidden transition-all duration-300 ${openSection === 'description' ? 'max-h-[600px] pb-4' : 'max-h-0'
+                                                }`}
+                                        >
+                                            <div className="text-gray-600 text-sm space-y-3">
+                                                <p><strong>Tên sản phẩm:</strong> {product?.name || 'Sản phẩm chất lượng cao'}</p>
+                                                <p><strong>Mã sản phẩm:</strong> {product?.sku || 'N/A'}</p>
+                                                <p><strong>Thương hiệu:</strong> {product?.Brand?.name || 'Chính hãng'}</p>
+
+                                                <div className="mt-3">
+                                                    <p className="font-semibold mb-2">Đặc điểm nổi bật:</p>
+                                                    <ul className="list-disc list-inside space-y-1 ml-2">
+                                                        <li>Chất liệu cao cấp, bền đẹp</li>
+                                                        <li>Thiết kế hiện đại, sang trọng</li>
+                                                        <li>Dễ dàng sử dụng và bảo quản</li>
+                                                        <li>Đảm bảo chất lượng, giá cả hợp lý</li>
+                                                    </ul>
+                                                </div>
+
+                                                {product?.description && (
+                                                    <div className="mt-3">
+                                                        <p className="font-semibold mb-2">Chi tiết:</p>
+                                                        <p className="leading-relaxed">{product.description}</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="!mt-[30px]">
+            <div className="main-content"><hr className="my-8 border-t border-gray-300" /></div>
+
+
+            <section className="!mt-[40px] !pt-4">
                 <RelatedProducts productId={product.id} categoryId={product.Categories?.[0]?.id} />
             </section>
         </section>

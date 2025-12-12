@@ -13,6 +13,8 @@ export default function RegisterForm() {
         password: "",
     })
 
+    console.log(form)
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
             ...form,
