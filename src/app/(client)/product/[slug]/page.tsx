@@ -242,7 +242,7 @@ export default function ProductDetail() {
                                                 name: product.name,
                                                 quantity: quantityNumber,
                                                 image: mainImage,
-                                                finalPrice: finalPrice,
+                                                discounts: product?.Discounts,
                                                 totalCart: Number(totalCart),
                                                 selectedVariant: variant,
                                             }));
@@ -259,7 +259,6 @@ export default function ProductDetail() {
                                                                 name: product.name,
                                                                 quantity: quantityNumber,
                                                                 price: finalPrice,
-                                                                totalPrice: finalPrice,
                                                                 image: mainImage,
                                                                 variant: product?.ProductVariants?.[(selectedVariant)],
                                                             }

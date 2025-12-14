@@ -43,7 +43,6 @@ export default function ProductCard({ product }: { product: IProduct }) {
             return;
         }
 
-        // update UI trước
         dispatch(toggleFavoriteId(product.id));
 
         try {
@@ -147,8 +146,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                                 name: product.name,
                                 quantity: 1,
                                 image: product?.ProductVariants?.[0]?.ProductImages?.[0]?.image,
-                                finalPrice: finalPrice,
-                                totalCart: finalPrice,
+                                discounts: product?.Discounts,
                                 selectedVariant: product?.ProductVariants?.[0],
                             }));
 
@@ -163,8 +161,6 @@ export default function ProductCard({ product }: { product: IProduct }) {
                                                 id: product.id,
                                                 name: product.name,
                                                 quantity: 1,
-                                                price: finalPrice,
-                                                totalPrice: finalPrice,
                                                 image: product?.ProductVariants?.[0]?.ProductImages?.[0]?.image,
                                                 variant: product?.ProductVariants?.[0],
                                             }

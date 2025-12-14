@@ -8,6 +8,7 @@ import BreadcrumbSite from "@/components/layout/breadcrumbSite";
 import { useAuth } from "@/context/AuthContext";
 import { toggleSelect, resetSelect } from '@/lib/checkoutSlice';
 import { useRouter } from 'next/navigation';
+import { selectSelectedTotal } from '@/lib/checkoutSlice';
 import {
   deleteCart,
   incrementQuantity,
@@ -19,11 +20,12 @@ import {
 export default function CartPage() {
   const dispatch = useDispatch();
   const cart: ICart[] = useSelector((state: RootState) => state.cart.listProduct);
-  const totalPriceAll = useSelector(selectCartTotal);
+  // const totalPriceAll = useSelector(selectCartTotal);
   const [isClient, setIsClient] = useState(false);
   const { userId, token, loading } = useAuth();
   const router = useRouter();
   const selectedItems = useSelector((state: RootState) => state.checkout.selectedIds);
+  const selectedTotal = useSelector(selectSelectedTotal);
 
 
   const API = "http://localhost:3000/api/cart";
@@ -38,11 +40,13 @@ export default function CartPage() {
         if (!res.ok) return;
 
         const data = await res.json();
+        console.log(data)
         const itemsWithUniqueId = data.items.map((p: any) => ({
           ...p,
           quantity: p.quantity,
           uniqueId: `${p.id}-${p.variant.id || "default"}`,
         }))
+
 
         dispatch(setcart({ userId: data.userId, cart: itemsWithUniqueId || [] }));
         dispatch(resetSelect());
@@ -141,8 +145,12 @@ export default function CartPage() {
     router.push("/checkout");
   };
 
+  function calcProductPrice(price: number, discountValue?: number) {
+    if (!discountValue || discountValue <= 0) return price;
+    return Math.round(price * (1 - discountValue / 100));
+  }
 
-  // GIAO DIỆN KHÔNG ĐỔI 1 CHỮ NÀO
+
   return (
     <div className="main-content">
       <div className="pt-2 !mt-[10px]">
@@ -157,51 +165,61 @@ export default function CartPage() {
             <p className="text-gray-500">Giỏ hàng đang trống</p>
           ) : (
             <div className="space-y-4">
-              {cart.map((item: ICart, index: number) => (
-                <div key={item.uniqueId} className="flex items-center gap-4  pb-4 mb-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.uniqueId)}
-                    onChange={() => handleSelectItem(item.uniqueId)}
-                  />
-                  <img src={item.image} className="w-20 h-20 object-cover rounded" />
+              {cart.map((item: ICart, index: number) => {
 
-                  <div className="flex-1">
-                    <h3 className="font-semibold">{item.name}</h3>
-                    <p className="text-[#5c5c5c] !text-[10px] py-1">
-                      {[
-                        item?.variant?.size,
-                        item?.variant?.style,
-                        item?.variant?.unit,
-                        item?.variant?.flavor,
-                      ]
-                        .filter(Boolean)
-                        .join(" / ")}
-                    </p>
+                const unitPrice = calcProductPrice(
+                  item?.variant.price,
+                  item?.discounts?.[0]?.discount_value
+                );
 
-                    <p className="text-sm text-gray-600">{item.price.toLocaleString()}đ</p>
+                const rowTotal = unitPrice * item.quantity;
 
-                    <div className="flex items-center mt-2">
-                      <button className="px-2 py-1 border rounded" onClick={() => handleDecrement(item.uniqueId, item.id)}>-</button>
-                      <span className="px-4">{item.quantity}</span>
-                      <button className="px-2 py-1 border rounded" onClick={() => handleIncrement(item.uniqueId, item.id)}>+</button>
+                return (
+                  <div key={item.uniqueId} className="flex items-center gap-4  pb-4 mb-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item.uniqueId)}
+                      onChange={() => handleSelectItem(item.uniqueId)}
+                    />
+                    <img src={item.image} className="w-20 h-20 object-cover rounded" />
+
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{item.name}</h3>
+                      <p className="text-[#5c5c5c] !text-[10px] py-1">
+                        {[
+                          item?.variant?.size,
+                          item?.variant?.style,
+                          item?.variant?.unit,
+                          item?.variant?.flavor,
+                        ]
+                          .filter(Boolean)
+                          .join(" / ")}
+                      </p>
+
+                      <p className="text-sm text-gray-600">{unitPrice.toLocaleString()}đ</p>
+
+                      <div className="flex items-center mt-2">
+                        <button className="px-2 py-1 border rounded" onClick={() => handleDecrement(item.uniqueId, item.id)}>-</button>
+                        <span className="px-4">{item.quantity}</span>
+                        <button className="px-2 py-1 border rounded" onClick={() => handleIncrement(item.uniqueId, item.id)}>+</button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col justify-between items-end h-full">
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="text-red-500 font-bold p-1 hover:bg-red-100 rounded"
+                      >
+                        X
+                      </button>
+
+                      <p className="!font-bold !mt-[8px]">
+                        {rowTotal.toLocaleString()}đ
+                      </p>
                     </div>
                   </div>
-
-                  <div className="flex flex-col justify-between items-end h-full">
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="text-red-500 font-bold p-1 hover:bg-red-100 rounded"
-                    >
-                      X
-                    </button>
-
-                    <p className="!font-bold !mt-[8px]">
-                      {item.totalPrice.toLocaleString()}đ
-                    </p>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           )}
         </div>
@@ -212,7 +230,7 @@ export default function CartPage() {
 
           <div className="flex justify-between items-center !my-[10px] border-dotted !border-y-1 !py-[10px] mb-2">
             <span className='!font-semibold  !text-[16px]'>Tạm tính:</span>
-            <span className="!font-semibold !text-[24px] text-red-600">{totalPriceAll.toLocaleString()}đ</span>
+            <span className="!font-semibold !text-[24px] text-red-600">{selectedTotal.toLocaleString()}đ</span>
           </div>
 
           <div className="!mt-[8px]">

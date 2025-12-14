@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 interface CheckoutState {
   selectedIds: string[];
@@ -50,7 +51,31 @@ export const checkoutSlice = createSlice({
 
     
   }
+
+  
 });
+
+export const selectSelectedTotal = (state: RootState): number => {
+  const cartItems = state.cart?.listProduct ?? [];
+  const selectedIds = state.checkout?.selectedIds ?? [];
+
+  if (selectedIds.length === 0 || cartItems.length === 0) return 0;
+
+  return cartItems
+    .filter((item) => item?.uniqueId && selectedIds.includes(item.uniqueId))
+    .reduce((total, item) => {
+      const originalPrice = item.variant?.price || 0;
+      const discountValue = item.discounts?.[0]?.discount_value || 0;
+
+      const priceAfterDiscount = Math.max(0, Math.round(originalPrice * (1 - discountValue / 100)));
+
+      return total + priceAfterDiscount * item.quantity;
+    }, 0);
+};
+
+export const selectSelectedCount = (state: RootState): number => {
+  return state.checkout?.selectedIds?.length ?? 0;
+};
 
 export const { toggleSelect, clearSelected, resetSelect } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

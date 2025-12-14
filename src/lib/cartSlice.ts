@@ -54,7 +54,9 @@ export const cartSlice = createSlice({
             }
           : null;
 
-        const price = Number(product.finalPrice);
+  
+        const discount_value = product.discounts || null;
+        console.log(discount_value)
         const quantity = product.quantity || 1;
         const uniqueId = `${product.id}-${variant?.id || "default"}`;
 
@@ -68,8 +70,7 @@ export const cartSlice = createSlice({
             uniqueId,
             id: product.id,
             name: product.name,
-            price,
-            totalPrice: price * quantity,
+            discounts: discount_value, 
             quantity,
             image: variant?.image || "",
             variant,

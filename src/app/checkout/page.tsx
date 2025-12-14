@@ -64,7 +64,6 @@ export default function CheckoutPage() {
 
     const checkoutItems = cart.filter(item => selectedItems.includes(item.uniqueId));
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormAddress({
             ...formAddress,
@@ -80,14 +79,28 @@ export default function CheckoutPage() {
         });
     };
 
-    const items = checkoutItems.map(item => ({
-        product_variant_id: item.variant?.id,
-        price: item.price,
-        name: item.name,
-        Image: item.image,
-        final_price: item.totalPrice,
-        quantity: item.quantity,
-    }));
+    const items = checkoutItems.map(item => {
+        const originalPrice = item.variant?.price || 0; // giá gốc từ variant
+        const discountValue = item.discounts?.[0]?.discount_value || 0; // phần trăm giảm: 20, 30, ...
+
+        const finalPrice = Math.round(originalPrice * (1 - discountValue / 100));
+
+        const subtotal = finalPrice * item.quantity;
+
+        return {
+            product_variant_id: item.variant?.id,
+            price: originalPrice,
+            name: item.name,
+            image: item.image,
+            final_price: finalPrice,
+            quantity: item.quantity,
+            subtotal: subtotal,
+            discount_percent: discountValue,
+            uniqueId: item.uniqueId,
+        };
+    });
+
+    console.log("checount xem", items)
 
     const body = {
         ...formData,
@@ -212,7 +225,7 @@ export default function CheckoutPage() {
     //     }
     // };
 
-    const subtotal = checkoutItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const subtotal = items.reduce((sum, item) => sum + (item.final_price * item.quantity), 0);
     const shipping = 30000;
     const total = subtotal + shipping;
 
@@ -378,7 +391,7 @@ export default function CheckoutPage() {
                             </div>
 
                             <div className="!space-y-4 !mb-6">
-                                {checkoutItems.map(item => (
+                                {items.map(item => (
                                     <div key={item.id} className="!flex !gap-4 !pb-4 !border-b !border-gray-100">
                                         <img
                                             className="!w-16 !h-16 !rounded-lg !object-cover !flex-shrink-0"
@@ -399,7 +412,7 @@ export default function CheckoutPage() {
                                             <h3 className="!font-medium !text-gray-800 !m-0 !text-base">{item.name}</h3>
                                             <p className="!text-sm !text-gray-500 !m-0">Số lượng: {item.quantity}</p>
                                             <p className="!text-blue-600 !font-semibold !mt-1 !m-0">
-                                                {(item.price * item.quantity).toLocaleString('vi-VN')}₫
+                                                {(item?.final_price * item.quantity).toLocaleString('vi-VN')}₫
                                             </p>
                                         </div>
                                     </div>
