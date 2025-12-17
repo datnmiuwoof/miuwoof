@@ -310,7 +310,7 @@ export default function OrderDetailPage() {
                             </button>
                             <button
                                 onClick={() => {
-                                    handleUpdateStatus("cancelled");
+                                    // handleUpdateStatus("cancelled");
                                     setShowCancelModal(false);
                                 }}
                                 className="flex-1 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"

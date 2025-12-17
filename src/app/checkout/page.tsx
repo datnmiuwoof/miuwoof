@@ -7,7 +7,6 @@ import { RootState } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { useAuth } from "@/context/AuthContext";
 import { jwtDecode } from 'jwt-decode';
-import { totalQuantity } from '@/lib/cartSlice';
 import AddressSlectect from '@/components/layout/AddressSelect';
 import Link from 'next/link';
 
@@ -100,8 +99,6 @@ export default function CheckoutPage() {
         };
     });
 
-    console.log("checount xem", items)
-
     const body = {
         ...formData,
         ...formAddress,
@@ -142,7 +139,6 @@ export default function CheckoutPage() {
 
             if (formData.paymentMethod === "momo" && result.data?.payUrl) {
                 const orderId = result.data.orderId || result.data.orderCode;
-                console.log("khi order xong", orderId)
                 setPendingOrderId(orderId);
                 localStorage.setItem("momo_pending_order", orderId);
 

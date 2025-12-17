@@ -41,7 +41,6 @@ export default function UpdateProduct() {
         },
     ]);
 
-    // ✅ Lấy danh mục
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -64,7 +63,7 @@ export default function UpdateProduct() {
         fetchCategories();
     }, []);
 
-    // ✅ Lấy sản phẩm để fill form
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {

@@ -26,7 +26,6 @@ export default function BannedUsersPage() {
     const [status, setStatus] = useState("all");
     const [totalPage, setTotalPage] = useState(1);
 
-    console.log(userData)
 
     useEffect(() => {
         fetchBannedUsers();
@@ -39,7 +38,6 @@ export default function BannedUsersPage() {
             });
             const json = await res.json();
             setUserData(json.data);
-            console.log(json)
             setTotalPage(json.totalPages)
             setLoading(false);
         } catch (error) {
