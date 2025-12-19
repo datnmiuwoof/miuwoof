@@ -28,7 +28,17 @@ export default function AddProduct() {
         },
     ]);
 
-    // Load categories và nhóm theo parent
+    const [discountOptions, setDiscountOptions] = useState([]);
+    const [selectedDiscountIds, setSelectedDiscountIds] = useState<number[]>([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/voucher/product-active', {
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(setDiscountOptions);
+    }, []);
+
     useEffect(() => {
         fetch('http://localhost:3000/api/categorys', { credentials: "include" })
             .then(res => res.json())
@@ -36,7 +46,6 @@ export default function AddProduct() {
                 const allCategories = data.data;
                 setCategories(allCategories);
 
-                // Lọc chỉ lấy category con (parent_id !== null)
                 const childCategories = allCategories.filter((cat: ICategory) => cat.parent_id !== null);
 
                 // Nhóm theo parent_id
@@ -134,6 +143,7 @@ export default function AddProduct() {
 
 
         formdata.append("category_ids", JSON.stringify(selectedCategories));
+        formdata.append("discountIds", JSON.stringify(selectedDiscountIds));
 
         const variantToSent = variants.map(v => {
             const { previews, ...rest } = v;
@@ -189,7 +199,6 @@ export default function AddProduct() {
             alert("Gửi dữ liệu thất bại!");
         }
     };
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50 p-6">
             <div className="max-w-5xl mx-auto">
@@ -459,6 +468,36 @@ export default function AddProduct() {
                             Thêm biến thể
                         </button>
                     </div>
+
+                    <div className="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 className="font-bold text-lg text-gray-700">
+                            áp mã giảm giá
+                        </h3>
+                        <div className="flex flex-wrap p-4 gap-3">
+                            {discountOptions.map(d => (
+                                <div
+                                    key={d.id}
+                                    onClick={() =>
+                                        setSelectedDiscountIds(prev =>
+                                            prev.includes(d.id)
+                                                ? prev.filter(id => id !== d.id)
+                                                : [...prev, d.id]
+                                        )
+                                    }
+                                    className={`px-4 py-2 border-2 rounded-lg cursor-pointer transition-all ${selectedDiscountIds.includes(d.id)
+                                        ? 'border-blue-500 bg-blue-50'
+                                        : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50'
+                                        }`}
+                                >
+                                    <span className={`text-sm font-medium whitespace-nowrap ${selectedDiscountIds.includes(d.id) ? 'text-blue-600' : 'text-gray-700'
+                                        }`}>
+                                        {d.discount_name} – <span className="text-red-600 font-semibold">Giảm {d.discount_value}%</span>
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
 
                     {/* Submit button */}
                     <div className="bg-white rounded-2xl shadow-lg p-8">

@@ -60,15 +60,21 @@ export default function Profile() {
         }));
     };
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
 
-        // const result = await fetch(`http://localhost:3000/profile/update` {
+        const result = await fetch(`http://localhost:3000/profile/update`, {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(profileData)
+        })
 
-        // })
-        console.log('Profile Data:', profileData);
+        if (result.ok) {
+            dataProfile();
+        }
     };
-
-    console.log(dataProfile)
 
     return (
         <div className="!col-span-9">
@@ -128,9 +134,10 @@ export default function Profile() {
                         <input
                             type="text"
                             value={formattedAddress.province}
+                            disabled
                             onChange={(e) => handleInputChange('province', e.target.value)}
                             placeholder="Chưa cập nhật"
-                            className="!w-full !px-4 !py-3 !bg-gray-50 !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent placeholder:!text-gray-400"
+                            className="!w-full !px-4 !py-3 !bg-gray-50 !cursor-not-allowed !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent placeholder:!text-gray-400"
                         />
                     </div>
 

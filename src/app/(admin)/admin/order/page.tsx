@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Search, Package } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/admin/Pagination";
 
 
 const statusConfig = {
@@ -14,8 +14,16 @@ const statusConfig = {
     refund: { label: "hoàn hàng", color: "bg-red-100 text-yellow-500", count: 0 },
 };
 
+const buttonLabel = {
+    pending: "Xác nhận đơn hàng",
+    confirmed: "Đợi vận chuyển",
+    shipping: "Đang giao hàng",
+    completed: "Đơn đã hoàn tất",
+    cancelled: "Đơn đã hủy",
+    refund: "Hoàn tiền",
+};
+
 export default function OrdersPage() {
-    const [page, setPage] = useState(1);
     const [order, setOrder] = useState<any>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
@@ -29,29 +37,68 @@ export default function OrdersPage() {
         cancelled: 0,
         refund: 0,
     });
-    const [totalPage, setTotalPage] = useState(1);
-
+    const [pagination, setPagination] = useState({
+        currentPage: 1,
+        totalPages: 1,
+    });
 
 
     useEffect(() => {
-        fetchData()
-    }, [page, statusFilter]);
+        fetchData(pagination.currentPage);
+    }, [pagination.currentPage, statusFilter]);
 
-    const fetchData = async () => {
+
+    useEffect(() => {
+        fetchData(1);
+    }, [statusFilter]);
+
+
+    const fetchData = async (page: number) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/admin/orders?page=${page}&status=${statusFilter}`, { credentials: "include" });
+            const res = await fetch(
+                `http://localhost:3000/api/admin/orders?page=${page}&status=${statusFilter}`,
+                { credentials: "include" }
+            );
+
             const json = await res.json();
 
-            console.log("json", json)
-            setOrder(json.data);
             setOrder(json.data || []);
             setTotal(json.total || 0);
-            setStatusCount(json.statusCounts)
-            setTotalPage(json.totalPages || 1);
+            setStatusCount(json.statusCounts || {});
+
+            setPagination({
+                currentPage: json.page,        // backend trả
+                totalPages: json.totalPages,   // backend trả
+            });
+
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
+    const handleUpdate = async (id) => {
+        await fetch("http://localhost:3000/api/admin/orders/update", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id })
+        });
+
+        fetchData(pagination.currentPage);
+    };
+
+    const handleCancelled = async (id) => {
+        await fetch("http://localhost:3000/api/admin/orders/cancelled", {
+            method: "PUT",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id })
+        });
+
+        fetchData(pagination.currentPage);
+    };
+
+
 
 
     return (
@@ -78,7 +125,7 @@ export default function OrdersPage() {
                         </div>
 
                         <a href="/admin/orders/export" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
-                            Xuất Excel
+                            đơn đã bị xóa
                         </a>
                     </div>
                 </div>
@@ -138,7 +185,7 @@ export default function OrdersPage() {
                                 Trạng thái
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Ngày đặt
+                                Cập nhật
                             </th>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Thao tác
@@ -160,9 +207,7 @@ export default function OrdersPage() {
                                 {/* KHÁCH HÀNG */}
                                 <td className="px-6 py-4">
                                     <div className="flex flex-col">
-                                        <div className="font-medium text-gray-900">{o.Address?.name}</div>
-                                        <div className="text-xs text-gray-500">{o.Address?.email}</div>
-                                        <div className="text-xs text-gray-500">{o.Address?.phone}</div>
+                                        <div className="font-medium text-gray-900">{o.User?.name}</div>
                                     </div>
                                 </td>
 
@@ -218,9 +263,24 @@ export default function OrdersPage() {
                                     </span>
                                 </td>
 
-                                {/* NGÀY ĐẶT */}
-                                <td className="px-6 py-4 text-gray-700 text-sm">
-                                    {o.createdAt}
+                                {/* thao tác */}
+                                <td className="px-6 py-4 text-gray-700 text-xs">
+                                    <button
+                                        onClick={() => handleUpdate(o.id)}
+                                        className="w-full px-4 py-2 mb-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                                        disabled={false}
+                                    >
+                                        {buttonLabel[o.order_status] || 'cập nhật'}
+                                    </button>
+
+                                    {o.order_status === "pending" && (
+                                        <button
+                                            onClick={() => handleCancelled(o.id)}
+                                            className="w-full px-4 py-2 border text-xs border-red-600 text-red-600 rounded hover:bg-red-50 transition"
+                                        >
+                                            Hủy đơn hàng
+                                        </button>
+                                    )}
                                 </td>
 
                                 {/* THAO TÁC */}
@@ -234,7 +294,7 @@ export default function OrdersPage() {
                                     <button
                                         className="text-red-600 hover:text-red-800 px-2 font-medium"
                                     >
-                                        Hủy
+                                        xóa
                                     </button>
                                 </td>
                             </tr>
@@ -255,23 +315,20 @@ export default function OrdersPage() {
                     Hiển thị {order.length} đơn hàng
                 </div>
                 <div className="flex items-center space-x-2">
-                    <button
-                        disabled={page === 1}
-                        onClick={() => setPage(page - 1)}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                    >
-                        Trước
-                    </button>
-                    <span className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium">
-                        Trang {page}
-                    </span>
-                    <button
-                        disabled={page >= totalPage}
-                        onClick={() => setPage(page + 1)}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                    >
-                        Sau
-                    </button>
+                    <Pagination
+                        currentPage={pagination.currentPage}
+                        totalPages={pagination.totalPages}
+                        onPageChange={(page) => {
+                            if (page === pagination.currentPage) return;
+
+                            setPagination(prev => ({
+                                ...prev,
+                                currentPage: page
+                            }));
+                        }}
+                    />
+
+
                 </div>
             </div>
         </div>

@@ -154,7 +154,6 @@ export default function AddressSelect({ onChangeAddress }: AddressProps) {
         setSpecificAddress(addr);
         onChangeAddress({ address: addr });
     };
-    console.log(addresses)
 
     return (
         <div className="!bg-white !rounded-2xl !shadow-lg !p-6">

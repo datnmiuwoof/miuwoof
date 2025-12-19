@@ -17,6 +17,7 @@ export default function ProductCatSection() {
 
             const ProductCat = data.products_cat;
             setProducts(ProductCat);
+            console.log(data)
         };
         fetchData();
     }, []);

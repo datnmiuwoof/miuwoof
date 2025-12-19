@@ -1,35 +1,61 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Search, Filter, ChevronDown, Plus, Edit, Trash2, Mail, Phone, Calendar } from 'lucide-react';
+import Pagination from '@/components/admin/Pagination';
 
 const UserManagement = () => {
 
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
-    const [page, setPage] = useState(1)
     const [user, setUser] = useState<any>([]);
-    const [totalPage, setTotalPage] = useState(1);
+    const [pagination, setPagination] = useState({
+        currentPage: 1,
+        totalPages: 1,
+    });
+
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
-        fetchData();
-    }, [statusFilter, page])
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
 
-    const fetchData = async () => {
+        setPagination(prev => ({
+            ...prev,
+            currentPage: 1
+        }));
+    }, [statusFilter]);
+
+    useEffect(() => {
+        fetchData(pagination.currentPage);
+    }, [pagination.currentPage, statusFilter]);
+
+    const fetchData = async (page: number) => {
         try {
-            const result = await fetch(`http://localhost:3000/api/users?page=${page}&status=${statusFilter}`, { credentials: "include" })
-            const res = await result.json()
+            const result = await fetch(
+                `http://localhost:3000/api/users?page=${page}&status=${statusFilter}`,
+                { credentials: "include" }
+            );
+
+            const res = await result.json();
 
             setUser(res.data);
-            setTotalPage(res.totalPages)
-            console.log(res)
+
+            setPagination({
+                currentPage: res.page,
+                totalPages: res.totalPages
+            });
+
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
+
 
     // const statusConfig = {
     //     active: { label: 'Hoạt động', color: 'bg-green-100 text-green-800' },
@@ -252,23 +278,18 @@ const UserManagement = () => {
                     Hiển thị {user.length} đơn hàng
                 </div>
                 <div className="flex items-center space-x-2">
-                    <button
-                        disabled={page === 1}
-                        onClick={() => setPage(page - 1)}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                    >
-                        Trước
-                    </button>
-                    <span className="px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-medium">
-                        Trang {page}
-                    </span>
-                    <button
-                        disabled={page >= totalPage}
-                        onClick={() => setPage(page + 1)}
-                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                    >
-                        Sau
-                    </button>
+                    <Pagination
+                        currentPage={pagination.currentPage}
+                        totalPages={pagination.totalPages}
+                        onPageChange={(newPage) => {
+                            if (newPage < 1 || newPage > pagination.totalPages) return;
+
+                            setPagination(prev => ({
+                                ...prev,
+                                currentPage: newPage
+                            }));
+                        }}
+                    />
                 </div>
             </div>
         </div>

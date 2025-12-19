@@ -18,9 +18,16 @@ export default function ProductCard({ product }: { product: IProduct }) {
 
     const favoriteIds = useSelector((state: RootState) => state.favorite.listIds ?? []);
 
+    // useEffect(() => {
+    //     handleFavorite()
+    // }, [userId, dispatch])
+
     useEffect(() => {
-        handleFavorite()
-    }, [userId, dispatch])
+        if (loading) return;
+        if (!userId) return;
+
+        handleFavorite();
+    }, [userId, dispatch, loading]);
 
     const handleFavorite = async () => {
         const result = await fetch(`http://localhost:3000/api/favorites`, { credentials: "include" });

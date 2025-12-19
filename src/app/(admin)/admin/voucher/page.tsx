@@ -3,30 +3,67 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Filter, ChevronDown, Plus, Edit, Trash2, Eye, Calendar, Copy, Percent, DollarSign, Users } from 'lucide-react';
+import Pagination from "@/components/admin/Pagination";
 
 const PromotionCodeManagement = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState('');
     const [dataDiscount, setDataDiscount] = useState([]);
     const router = useRouter();
+    const [pagination, setPagination] = useState({
+        total: 0,
+        page: 1,
+        limit: 10,
+        totalPages: 1
+    });
+    const [statusFilter, setStatusFilter] = useState('all');
 
     useEffect(() => {
-        dataVoucher()
-    }, [])
+        fetchVouchers(pagination.page);
+    }, [pagination.page, statusFilter]);
 
-    const dataVoucher = async () => {
+
+
+    const fetchVouchers = async (page = 1) => {
         try {
-            const result = await fetch(`http://localhost:3000/api/voucher`, { credentials: "include" });
-            const res = await result.json();
-            setDataDiscount(res);
+            const res = await fetch(
+                `http://localhost:3000/api/voucher?page=${page}&limit=${pagination.limit}&status=${statusFilter}`,
+                { credentials: 'include' }
+            );
+
+            const result = await res.json();
+
+            setDataDiscount(result.data);
+            setPagination(prev => ({
+                ...prev,
+                ...result.pagination
+            }));
         } catch (error) {
-            console.error('Error fetching vouchers:', error);
+            console.error(error);
+        }
+    };
+
+
+
+
+    const handlerDelete = async (id: any) => {
+        try {
+            const result = await fetch(`http://localhost:3000/api/voucher/${id}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (result.ok) {
+                alert('xóa thành công');
+                fetchVouchers()
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     const statusConfig = {
-        1: { label: 'Đang hoạt động', color: 'bg-green-100 text-green-800' },
-        0: { label: 'Đã tắt', color: 'bg-gray-100 text-gray-800' }
+        true: { label: 'hoạt động', color: 'bg-green-100 text-green-800' },
+        false: { label: 'Đã tắt', color: 'bg-gray-100 text-gray-800' }
     };
 
     const formatDate = (dateString) => {
@@ -43,10 +80,7 @@ const PromotionCodeManagement = () => {
         return new Intl.NumberFormat('vi-VN').format(value);
     };
 
-    const getUsagePercentage = (used, limit) => {
-        if (!limit) return 0;
-        return Math.round((used / limit) * 100);
-    };
+    console.log(dataDiscount)
 
     return (
         <div className="main p-6">
@@ -73,7 +107,7 @@ const PromotionCodeManagement = () => {
                             onChange={(e) => setStatusFilter(e.target.value)}
                             className="w-full border border-gray-300 rounded-lg pl-10 pr-8 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
                         >
-                            <option value="">Tất cả trạng thái</option>
+                            <option value="all">Tất cả trạng thái</option>
                             <option value="1">Đang hoạt động</option>
                             <option value="0">Đã tắt</option>
                         </select>
@@ -128,7 +162,7 @@ const PromotionCodeManagement = () => {
 
                     <tbody className="divide-y divide-gray-200">
                         {dataDiscount.map((code) => {
-                            const usagePercent = getUsagePercentage(code.used_quantity, code.max_order_value);
+                            // const usagePercent = getUsagePercentage(code.used_quantity);
 
 
                             return (
@@ -213,27 +247,9 @@ const PromotionCodeManagement = () => {
                                                 <div className="flex items-center gap-2">
                                                     <Users className="w-4 h-4 text-gray-400" />
                                                     <span className="text-sm font-medium">
-                                                        {code.used_quantity} / {code.max_order_value || '∞'}
+                                                        còn {code.used_quantity}
                                                     </span>
                                                 </div>
-                                                {code.max_order_value && (
-                                                    <>
-                                                        <div className="w-full bg-gray-200 rounded-full h-2">
-                                                            <div
-                                                                className={`h-2 rounded-full ${usagePercent >= 90
-                                                                    ? 'bg-red-500'
-                                                                    : usagePercent >= 70
-                                                                        ? 'bg-yellow-500'
-                                                                        : 'bg-green-500'
-                                                                    }`}
-                                                                style={{ width: `${usagePercent}%` }}
-                                                            ></div>
-                                                        </div>
-                                                        <div className="text-xs text-gray-500">
-                                                            {usagePercent}% đã sử dụng
-                                                        </div>
-                                                    </>
-                                                )}
                                             </div>
                                         ) : (
                                             <div className="text-sm text-gray-500">
@@ -277,7 +293,9 @@ const PromotionCodeManagement = () => {
                                                 <Eye className="w-4 h-4" />
                                                 Xem
                                             </button>
-                                            <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50">
+                                            <button className="flex items-center gap-1 text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50"
+                                                onClick={() => handlerDelete(`${code.id}`)}
+                                            >
                                                 <Trash2 className="w-4 h-4" />
                                                 Xóa
                                             </button>
@@ -296,6 +314,23 @@ const PromotionCodeManagement = () => {
                     </div>
                 )}
             </div>
+            <div className='mt-[30px]'>
+                <Pagination
+                    currentPage={pagination.page}
+                    totalPages={pagination.totalPages}
+                    onPageChange={(page) => {
+                        if (page === pagination.page) return;
+
+                        setPagination(prev => ({
+                            ...prev,
+                            page
+                        }));
+                    }}
+                />
+
+            </div>
+
+
         </div>
     );
 };

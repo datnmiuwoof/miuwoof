@@ -13,6 +13,7 @@ export default function UpdateProduct() {
     });
     const [categories, setCategories] = useState<any[]>([]);
     const [groupedCategories, setGroupedCategories] = useState<any>({});
+
     const [variants, setVariants] = useState<
         {
             id?: number | null;
@@ -40,6 +41,17 @@ export default function UpdateProduct() {
             ProductImages: [],
         },
     ]);
+    const [discountOptions, setDiscountOptions] = useState([]);
+    const [selectedDiscountId, setSelectedDiscountId] = useState<number | null>(null);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/api/voucher/product-active', {
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .then(setDiscountOptions);
+    }, []);
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -99,6 +111,7 @@ export default function UpdateProduct() {
         };
         fetchProduct();
     }, [id]);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -174,6 +187,9 @@ export default function UpdateProduct() {
             available_quantity: Number(rest.available_quantity) || 0,
         }));
 
+        if (selectedDiscountId) {
+            formData.append("discount_id", String(selectedDiscountId));
+        }
         formData.append("variants", JSON.stringify(toSendVariants));
         const toKeep = variants.filter((v) => v.id).map((v) => v.id);
         formData.append("tokeepvariants", JSON.stringify(toKeep));
@@ -448,6 +464,36 @@ export default function UpdateProduct() {
                             Thêm biến thể
                         </button>
                     </div>
+
+                    <div className="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 className="font-bold text-lg text-gray-700">
+                            Áp mã giảm giá
+                        </h3>
+
+                        <div className="flex flex-wrap p-4 gap-3">
+                            {discountOptions.map(d => (
+                                <div
+                                    key={d.id}
+                                    onClick={() => setSelectedDiscountId(d.id)}
+                                    className={`px-4 py-2 border-2 rounded-lg cursor-pointer transition-all
+          ${selectedDiscountId === d.id
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50'
+                                        }`}
+                                >
+                                    <span className={`text-sm font-medium whitespace-nowrap
+          ${selectedDiscountId === d.id ? 'text-blue-600' : 'text-gray-700'}
+        `}>
+                                        {d.discount_name} –{" "}
+                                        <span className="text-red-600 font-semibold">
+                                            Giảm {d.discount_value}%
+                                        </span>
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
 
                     {/* Submit button */}
                     <div className="bg-white rounded-2xl shadow-lg p-8">

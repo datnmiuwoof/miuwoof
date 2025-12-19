@@ -42,6 +42,22 @@ export default function CheckoutPage() {
         ward: '',
         phone: '',
     });
+    const [shippingMethods, setShippingMethods] = useState([]);
+    const [selectedShipping, setSelectedShipping] = useState(null);
+    const [discountCode, setDiscountCode] = useState('');
+    const [discountError, setDiscountError] = useState('');
+    const [discountInfo, setDiscountInfo] = useState(null);
+    const [isApplying, setIsApplying] = useState(false);
+
+
+
+
+    useEffect(() => {
+        fetch('http://localhost:3000/shipping-methods')
+            .then(res => res.json())
+            .then(data => setShippingMethods(data));
+    }, []);
+
 
 
 
@@ -79,8 +95,8 @@ export default function CheckoutPage() {
     };
 
     const items = checkoutItems.map(item => {
-        const originalPrice = item.variant?.price || 0; // giá gốc từ variant
-        const discountValue = item.discounts?.[0]?.discount_value || 0; // phần trăm giảm: 20, 30, ...
+        const originalPrice = item.variant?.price || 0;
+        const discountValue = item.discounts?.[0]?.discount_value || 0;
 
         const finalPrice = Math.round(originalPrice * (1 - discountValue / 100));
 
@@ -99,14 +115,26 @@ export default function CheckoutPage() {
         };
     });
 
+    const subtotal = items.reduce((sum, item) => sum + (item.final_price * item.quantity), 0);
+    const total = subtotal - (discountInfo?.discount_amount || 0) + (parseInt(selectedShipping?.shipping_fee) || 0);
+
     const body = {
         ...formData,
         ...formAddress,
         ...userForm,
         items,
+        shipping_method_id:
+            subtotal < 200000 && selectedShipping
+                ? selectedShipping.id
+                : null,
+        discount_id: discountInfo?.id || null
     }
 
     const handleSubmit = async () => {
+        if (subtotal < 200000 && !selectedShipping) {
+            alert('Vui lòng chọn phương thức giao hàng');
+            return;
+        }
         if (!formAddress.phone || !formAddress.address ||
             !formAddress.city || !formAddress.district || !formAddress.ward) {
             alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
@@ -156,7 +184,6 @@ export default function CheckoutPage() {
 
     const checkPaymentStatus = async () => {
         const orderId = pendingOrderId || localStorage.getItem("momo_pending_order");
-        console.log("orderId", orderId);
         if (!orderId) {
             alert("Không tìm thấy mã đơn hàng để kiểm tra");
             return;
@@ -188,6 +215,48 @@ export default function CheckoutPage() {
             setChecking(false);
         }
     };
+
+    const handleApplyDiscount = async () => {
+        setDiscountError('');
+        setIsApplying(true);
+
+        try {
+            const res = await fetch('http://localhost:3000/api/voucher/apply', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    code: discountCode,
+                    subtotal
+                })
+            });
+
+            const result = await res.json();
+            if (!res.ok) {
+                setDiscountError(result.message || 'Mã giảm giá không hợp lệ');
+                setDiscountInfo(null);
+                return;
+            }
+
+
+
+            // backend trả về snapshot đã tính
+            setDiscountInfo({
+                id: result.id,
+                code: result.code,
+                discount_amount: result.discount_amount
+            });
+
+        } catch (err) {
+            setDiscountError('Có lỗi xảy ra khi áp dụng mã');
+        } finally {
+            setIsApplying(false);
+        }
+    };
+
+    console.log(discountInfo)
 
 
     // const handleSubmit = async () => {
@@ -221,9 +290,7 @@ export default function CheckoutPage() {
     //     }
     // };
 
-    const subtotal = items.reduce((sum, item) => sum + (item.final_price * item.quantity), 0);
-    const shipping = 30000;
-    const total = subtotal + shipping;
+
 
     if (!isClient) return null;
 
@@ -415,26 +482,121 @@ export default function CheckoutPage() {
                                 ))}
                             </div>
 
+                            <div className="space-y-2 mb-4">
+                                <label className="block text-sm my-4 font-medium text-gray-700">
+                                    Mã giảm giá
+                                </label>
+
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={discountCode}
+                                        onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+                                        placeholder="Nhập mã giảm giá"
+                                        className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    />
+
+                                    <button
+                                        type="button"
+                                        onClick={handleApplyDiscount}
+                                        disabled={isApplying || !discountCode}
+                                        className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50"
+                                    >
+                                        {isApplying ? 'Đang áp dụng...' : 'Áp dụng'}
+                                    </button>
+                                </div>
+
+                                {discountError && (
+                                    <p className="text-sm text-red-600">{discountError}</p>
+                                )}
+
+                                {discountInfo && (
+                                    <p className="text-sm text-green-600">
+                                        Đã áp dụng mã <strong>{discountInfo.code}</strong> – Giảm{' '}
+                                        {discountInfo.discount_amount.toLocaleString('vi-VN')}₫
+                                    </p>
+                                )}
+                            </div>
+
+
                             <div className="!border-t !pt-4 !space-y-3">
                                 <div className="!flex !justify-between !text-gray-600">
                                     <span>Tạm tính</span>
-                                    <span className="!font-medium">{subtotal.toLocaleString('vi-VN')}₫</span>
+                                    <span className="!font-medium">
+                                        {subtotal.toLocaleString('vi-VN')}₫
+                                    </span>
                                 </div>
+
                                 <div className="!flex !justify-between !text-gray-600">
                                     <span>Phí vận chuyển</span>
-                                    <span className="!font-medium">{shipping.toLocaleString('vi-VN')}₫</span>
+                                    <span className="!font-medium">
+                                        {parseInt(selectedShipping?.shipping_fee || 0).toLocaleString('vi-VN')}₫
+                                    </span>
                                 </div>
+
                                 <div className="!flex !justify-between !text-xl !font-bold !text-gray-800 !pt-3 !border-t-2">
                                     <span>Tổng cộng</span>
-                                    <span className="!text-blue-600">{total.toLocaleString('vi-VN')}₫</span>
+                                    <span className="!text-blue-600">
+                                        {total.toLocaleString('vi-VN')}₫
+                                    </span>
                                 </div>
                             </div>
+
 
                             <div className="!mt-6 !p-4 !bg-blue-50 !rounded-lg">
                                 <p className="!text-sm !text-gray-700 !m-0">
                                     🚚 Giao hàng dự kiến: <span className="!font-semibold">3-5 ngày</span>
                                 </p>
                             </div>
+
+                            {subtotal < 200000 && (
+                                <div className="space-y-3">
+                                    {shippingMethods.map(method => (
+                                        <label
+                                            key={method.id}
+                                            className="relative flex items-start gap-4 p-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-200 hover:border-blue-400 hover:bg-blue-50/30 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 has-[:checked]:shadow-md group"
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="shipping_method"
+                                                value={method.id}
+                                                onChange={() => setSelectedShipping(method)}
+                                                className="mt-1 w-5 h-5 text-blue-600 border-gray-300 focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                            />
+
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <strong className="text-gray-900 text-base font-semibold group-has-[:checked]:text-blue-700">
+                                                        {method.name}
+                                                    </strong>
+                                                    <span className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold rounded-full shadow-sm">
+                                                        {Number(method.shipping_fee).toLocaleString('vi-VN')}₫
+                                                    </span>
+                                                </div>
+
+                                                <div className="flex items-center gap-3 text-sm text-gray-600">
+                                                    <span className="flex items-center gap-1.5">
+                                                        {method.description}
+                                                    </span>
+
+                                                    <span className="flex items-center gap-1.5">
+                                                        <span className="font-medium text-gray-700">
+                                                            {method.estimated_day} ngày
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="absolute top-3 right-3 w-6 h-6 bg-blue-600 rounded-full items-center justify-center hidden group-has-[:checked]:flex">
+                                                ✓
+                                            </div>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+
+
+
                         </div>
 
                         {pendingOrderId && formData.paymentMethod === "momo" && (

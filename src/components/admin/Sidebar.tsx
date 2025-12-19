@@ -2,7 +2,13 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Home, ShoppingCart, Users, Ticket, Package, Settings, LogOut, BookOpen, FolderTree, Image } from "lucide-react";
+import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
+import { X, Home, ShoppingCart, Users, Ticket, Package, Settings, BookOpen, FolderTree, Image } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { LogOut } from "@/lib/userSlice";
+
 
 export default function Sidebar({
     isOpen,
@@ -12,7 +18,7 @@ export default function Sidebar({
     setIsOpen: (v: boolean) => void;
 }) {
     const pathname = usePathname();
-
+    const user: any = useSelector((state: RootState) => state.user.info);
     useEffect(() => {
         setIsOpen(false);
     }, [pathname, setIsOpen]);
@@ -26,41 +32,58 @@ export default function Sidebar({
         { href: "/admin/voucher", icon: Ticket, label: "Giảm giá" },
         { href: "/admin/post", icon: BookOpen, label: "Bài viết" },
         { href: "/admin/banner", icon: Image, label: "Banner" },
-        { href: "/admin/settings", icon: Settings, label: "Cài đặt" },
     ];
+
+    const router = useRouter();
+    const dispatch = useDispatch();
+
+    const handleLogOut = async () => {
+        try {
+            await fetch("http://localhost:3000/user/logout", {
+                method: "POST",
+                credentials: "include",
+            });
+            dispatch(LogOut())
+            router.push('/')
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    }
+
+
 
     return (
         <>
             {/* Overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300"
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             <div
-                className={`fixed md:sticky top-0 left-0 !h-screen w-72 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950 text-white transition-transform duration-300 z-40 shadow-2xl
+                className={`fixed md:sticky top-0 left-0 !h-screen w-72 bg-gradient-to-b from-slate-50 via-white to-gray-50 text-gray-800 transition-transform duration-300 z-40 shadow-md
                 ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
             >
                 <div className="flex flex-col h-full">
                     {/* Header Section - CỐ ĐỊNH */}
                     <div className="flex-shrink-0">
-                        <div className="flex items-center justify-between p-6 border-b border-gray-800/50">
+                        <div className="flex items-center justify-between p-6 border-b border-gray-200">
                             <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                                    <span className="text-xl font-bold">M</span>
+                                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-sm">
+                                    <span className="text-xl font-bold text-white">M</span>
                                 </div>
                                 <div>
-                                    <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                                    <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                                         Miuwoof
                                     </h1>
-                                    <p className="text-xs text-gray-400">Admin Dashboard</p>
+                                    <p className="text-xs text-gray-500">Admin Dashboard</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="md:hidden p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+                                className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -82,14 +105,14 @@ export default function Sidebar({
                                     href={item.href}
                                     className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 group
                 ${isActive
-                                            ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 shadow-lg shadow-cyan-500/10"
-                                            : "text-gray-400 hover:bg-gray-800/50 hover:text-white"
+                                            ? "bg-gradient-to-r from-cyan-50 to-blue-50 text-cyan-600 shadow-sm"
+                                            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                                         }`}
                                 >
-                                    <Icon className={`w-5 h-5 ${isActive ? "text-cyan-400" : "group-hover:text-cyan-400"} transition-colors`} />
+                                    <Icon className={`w-5 h-5 ${isActive ? "text-cyan-600" : "group-hover:text-cyan-500"} transition-colors`} />
                                     <span className="font-medium">{item.label}</span>
                                     {isActive && (
-                                        <div className="ml-auto w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
+                                        <div className="ml-auto w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></div>
                                     )}
                                 </Link>
                             );
@@ -98,21 +121,14 @@ export default function Sidebar({
 
                     {/* Footer Section - CỐ ĐỊNH */}
                     <div className="flex-shrink-0 p-4 space-y-3">
-                        <button className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-gray-400 hover:bg-gray-800/50 hover:text-red-400 transition-all duration-200 group">
-                            <LogOut className="w-5 h-5 group-hover:text-red-400 transition-colors" />
+
+
+                        <button className="w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-red-50 hover:text-red-600 transition-all duration-200 group"
+                            onClick={handleLogOut}
+                        >
+
                             <span className="font-medium">Đăng xuất</span>
                         </button>
-                        <div className="p-4 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-800/50 backdrop-blur-sm">
-                            <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold shadow-lg">
-                                    A
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-white truncate">Admin User</p>
-                                    <p className="text-xs text-gray-400 truncate">admin@example.com</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

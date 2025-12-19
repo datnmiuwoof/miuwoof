@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {
     DollarSign,
     ShoppingBag,
@@ -18,30 +19,20 @@ import Link from "next/link";
 export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<any>({});
+    const [filterType, setFilterType] = useState("thisMonth");
+    const [revenueData, setRevenueData] = useState([]);
+    const [orderStatusData, setOrderStatusData] = useState([]);
 
-    // Ngày mặc định
-    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
-    const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
-    const [filterType, setFilterType] = useState("today");
+    console.log(orderStatusData)
+
+    const [startDate, setStartDate] = useState(
+        new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0]
+    );
+    const [endDate, setEndDate] = useState(new Date().toISOString().split("T")[0]);
 
     useEffect(() => {
-        fetchData();
-        setLoading(false);
+        fetchData(startDate, endDate);
     }, []);
-
-    const fetchData = async () => {
-        try {
-            const resOrders = await fetch("http://localhost:3000/AdminDashboard", { credentials: "include", });
-            const res = await resOrders.json();
-            setData(res.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-    };
 
     const handleQuickFilter = (type: string) => {
         setFilterType(type);
@@ -50,59 +41,79 @@ export default function AdminDashboard() {
         let end = new Date(today);
 
         switch (type) {
-            case 'today':
+            case "today":
                 break;
-            case 'yesterday':
+            case "yesterday":
                 start.setDate(today.getDate() - 1);
                 end.setDate(today.getDate() - 1);
                 break;
-            case 'last7days':
+            case "last7days":
                 start.setDate(today.getDate() - 7);
                 break;
-            case 'last30days':
+            case "last30days":
                 start.setDate(today.getDate() - 30);
                 break;
-            case 'thisMonth':
+            case "thisMonth":
                 start = new Date(today.getFullYear(), today.getMonth(), 1);
                 break;
-            case 'lastMonth':
+            case "lastMonth":
                 start = new Date(today.getFullYear(), today.getMonth() - 1, 1);
                 end = new Date(today.getFullYear(), today.getMonth(), 0);
                 break;
-            default:
+            case "all":
+                start = new Date(2000, 0, 1); // ngày bắt đầu bán
+                end = today;
                 break;
         }
-        setStartDate(start.toISOString().split('T')[0]);
-        setEndDate(end.toISOString().split('T')[0]);
+
+        setStartDate(start.toISOString().split("T")[0]);
+        setEndDate(end.toISOString().split("T")[0]);
+
+        fetchData(start.toISOString().split("T")[0], end.toISOString().split("T")[0]);
+    };
+
+    const fetchData = async (start: string, end: string) => {
+        setLoading(true);
+        try {
+            const res = await fetch(`http://localhost:3000/AdminDashboard?start=${start}&end=${end}`);
+            const result = await res.json();
+            setData(result.data || {});
+            setRevenueData(result.data.revenueData);
+            setOrderStatusData(result.data.orderStatusData);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(amount);
     };
 
     const renderStatusBadge = (status: string) => {
-        const s = status?.toLowerCase() || '';
+        const s = status?.toLowerCase() || "";
         let styles = "bg-gray-100 text-gray-600 border-gray-200";
         let label = status;
         let dotColor = "bg-gray-400";
 
-        if (s === 'pending' || s === 'chờ xử lý') {
+        if (s === "pending" || s === "chờ xử lý") {
             styles = "bg-amber-50 text-amber-700 border-amber-200";
             label = "Chờ xử lý";
             dotColor = "bg-amber-500";
-        }
-        else if (s === 'confirmed' || s === 'đã xác nhận') {
+        } else if (s === "confirmed" || s === "đã xác nhận") {
             styles = "bg-blue-50 text-blue-700 border-blue-200";
             label = "Đã xác nhận";
             dotColor = "bg-blue-500";
-        }
-        else if (s === 'shipping' || s === 'đang giao') {
+        } else if (s === "shipping" || s === "đang giao") {
             styles = "bg-indigo-50 text-indigo-700 border-indigo-200";
             label = "Đang giao";
             dotColor = "bg-indigo-500";
-        }
-        else if (s === 'completed' || s === 'hoàn thành') {
+        } else if (s === "completed" || s === "hoàn thành") {
             styles = "bg-emerald-50 text-emerald-700 border-emerald-200";
             label = "Hoàn thành";
             dotColor = "bg-emerald-500";
-        }
-        else if (s === 'cancelled' || s === 'đã hủy') {
+        } else if (s === "cancelled" || s === "đã hủy") {
             styles = "bg-red-50 text-red-700 border-red-200";
             label = "Đã hủy";
             dotColor = "bg-red-500";
@@ -167,16 +178,27 @@ export default function AdminDashboard() {
                         <input
                             type="date"
                             value={startDate}
-                            onChange={(e) => { setStartDate(e.target.value); setFilterType('custom'); }}
+                            onChange={(e) => {
+                                const newStart = e.target.value;
+                                setStartDate(newStart);
+                                setFilterType('custom');
+                                fetchData(newStart, endDate); // gọi API với startDate mới
+                            }}
                             className="text-xs sm:text-sm border-none bg-transparent focus:ring-0 text-gray-600 font-medium p-0 w-24 sm:w-auto"
                         />
                         <ArrowRight className="w-3 h-3 text-gray-400" />
                         <input
                             type="date"
                             value={endDate}
-                            onChange={(e) => { setEndDate(e.target.value); setFilterType('custom'); }}
+                            onChange={(e) => {
+                                const newEnd = e.target.value;
+                                setEndDate(newEnd);
+                                setFilterType('custom');
+                                fetchData(startDate, newEnd); // gọi API với endDate mới
+                            }}
                             className="text-xs sm:text-sm border-none bg-transparent focus:ring-0 text-gray-600 font-medium p-0 w-24 sm:w-auto"
                         />
+
                     </div>
 
                     {/* Divider vertical */}
@@ -360,7 +382,141 @@ export default function AdminDashboard() {
                         </div>
                     </div>
                 </div>
+
             </div>
+
+            {/* Charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+                {/* Biểu đồ doanh thu theo tháng */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">📈 Doanh thu theo tháng</h3>
+                    <ResponsiveContainer width="100%" height={350}>
+                        <LineChart data={revenueData}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis
+                                dataKey="month"
+                                label={{ value: 'Tháng', position: 'insideBottom', offset: -5 }}
+                                tick={{ fill: '#6b7280' }}
+                            />
+                            <YAxis
+                                yAxisId="left"
+                                tick={{ fill: '#6b7280' }}
+                                label={{ value: 'Doanh thu (nghìn)', angle: -90, position: 'insideLeft' }}
+                            />
+                            <YAxis
+                                yAxisId="right"
+                                orientation="right"
+                                tick={{ fill: '#6b7280' }}
+                                label={{ value: 'Số đơn', angle: 90, position: 'insideRight' }}
+                            />
+                            <Tooltip
+                                formatter={(value, name) => {
+                                    if (name === 'Doanh thu (nghìn)') {
+                                        return [formatCurrency(value * 1000), 'Doanh thu'];
+                                    }
+                                    return [value, 'Đơn hàng'];
+                                }}
+                                contentStyle={{
+                                    backgroundColor: '#fff',
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '8px',
+                                    padding: '12px'
+                                }}
+                            />
+                            <Legend />
+                            <Line
+                                yAxisId="left"
+                                type="monotone"
+                                dataKey="revenue"
+                                stroke="#3B82F6"
+                                strokeWidth={3}
+                                name="Doanh thu (nghìn)"
+                                dot={{ fill: '#3B82F6', r: 5 }}
+                                activeDot={{ r: 7 }}
+                            />
+                            <Line
+                                yAxisId="right"
+                                type="monotone"
+                                dataKey="orders"
+                                stroke="#22C55E"
+                                strokeWidth={3}
+                                name="Số đơn hàng"
+                                dot={{ fill: '#22C55E', r: 5 }}
+                                activeDot={{ r: 7 }}
+                            />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+
+            {/* Biểu đồ trạng thái đơn hàng */}
+            <div className="bg-white rounded-xl shadow-lg p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">🎯 Trạng thái đơn hàng</h3>
+                <ResponsiveContainer width="100%" height={350}>
+                    <PieChart>
+                        <Pie
+                            data={orderStatusData}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={true}
+                            label={({ name, percent, value }) =>
+                                `${name}: ${value} (${(percent * 100).toFixed(0)}%)`
+                            }
+                            outerRadius={100}
+                            fill="#8884d8"
+                            dataKey="value"
+                            paddingAngle={2}
+                        >
+                            {orderStatusData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                        </Pie>
+                        <Tooltip
+                            formatter={(value, name) => [`${value} đơn`, name]}
+                            contentStyle={{
+                                backgroundColor: '#fff',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '8px',
+                                padding: '12px'
+                            }}
+                        />
+                    </PieChart>
+                </ResponsiveContainer>
+
+                {/* Legend tùy chỉnh */}
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                    {orderStatusData.map((item, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                            <div
+                                className="w-4 h-4 rounded"
+                                style={{ backgroundColor: item.color }}
+                            />
+                            <span className="text-sm text-gray-600">
+                                {item.name}: <span className="font-semibold">{item.value}</span>
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 mt-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Tổng quan chi tiết</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-gray-50 rounded-xl text-center">
+                        <p className="text-xs text-gray-500 uppercase">Tổng doanh thu</p>
+                        <h4 className="text-xl font-bold text-gray-900">{data.totalRevenue ? formatCurrency(data.totalRevenue) : '0 ₫'}</h4>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-xl text-center">
+                        <p className="text-xs text-gray-500 uppercase">Tổng đơn hàng</p>
+                        <h4 className="text-xl font-bold text-gray-900">{data.totalOrders || 0}</h4>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-xl text-center">
+                        <p className="text-xs text-gray-500 uppercase">Đơn chờ xử lý</p>
+                        <h4 className="text-xl font-bold text-gray-900">{data.orderPending || 0}</h4>
+                    </div>
+                </div>
+            </div> */}
+
         </div>
     );
 }

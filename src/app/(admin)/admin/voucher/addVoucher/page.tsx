@@ -2,8 +2,11 @@
 
 import React, { useState } from 'react';
 import { ArrowLeft, Save, X, Calendar, Percent, DollarSign, Tag, FileText, ShoppingCart, Package } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const AddVoucherForm = () => {
+
+    const router = useRouter();
     const [formData, setFormData] = useState<any>({
         discount_name: '',
         description: '',
@@ -39,7 +42,8 @@ const AddVoucherForm = () => {
             newErrors.discount_name = 'Vui lòng nhập tên voucher';
         }
 
-        if (!formData.code.trim()) {
+
+        if (formData.discount_type === '0' && !formData.code.trim()) {
             newErrors.code = 'Vui lòng nhập mã voucher';
         }
 
@@ -59,11 +63,11 @@ const AddVoucherForm = () => {
             newErrors.used_quantity = 'Số lượng sử dụng tối đa phải lớn hơn 0';
         }
 
-        if (!formData.start_date) {
+        if (!formData.start_date && formData.discount_type === '0') {
             newErrors.start_date = 'Vui lòng chọn ngày bắt đầu';
         }
 
-        if (!formData.end_date) {
+        if (!formData.end_date && formData.discount_type === '0') {
             newErrors.end_date = 'Vui lòng chọn ngày kết thúc';
         }
 
@@ -91,9 +95,6 @@ const AddVoucherForm = () => {
                 used_quantity: formData.used_quantity || 0,
             };
 
-            console.log('Submit data:', submitData);
-
-
             const response = await fetch('http://localhost:3000/api/voucher/addVoucher', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -103,6 +104,7 @@ const AddVoucherForm = () => {
 
             if (response.ok) {
                 alert('Tạo voucher thành công!');
+                router.push('/admin/voucher');
             } else {
                 alert('Tạo voucher không thành công!');
             }
