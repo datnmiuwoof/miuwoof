@@ -229,7 +229,6 @@ export default function NewsPage() {
                         <div className="card border-0 shadow-sm">
                             <div className="card-body p-4">
                                 <h2 className="h5 fw-bold mb-4 pb-3 border-bottom">
-                                    📌 Bài viết mới nhất
                                 </h2>
                                 <div>
                                     {latestPosts.map((post) => (

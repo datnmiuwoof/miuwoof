@@ -66,6 +66,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 console.error("Lỗi API:", await res.text());
                 dispatch(toggleFavoriteId(product.id));
             }
+
         } catch (error) {
             console.error("Lỗi toggle favorite", error);
             dispatch(toggleFavoriteId(product.id));
