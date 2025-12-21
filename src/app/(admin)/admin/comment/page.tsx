@@ -1,198 +1,66 @@
 'use client'
 
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Star, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-const Comment = () => {
+export default function AdminCommentManagement() {
+
+    const router = useRouter();
+    const [reviews, setReviews] = useState([]);
+    const [statistics, setStatistics] = useState({
+        total: 0,
+        average: 0,
+        ratingCounts: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+    });
+    const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [categoryFilter, setCategoryFilter] = useState('');
-    const [productFilter, setProductFilter] = useState('');
-    const [ratingFilter, setRatingFilter] = useState('');
-    const [statusFilter, setStatusFilter] = useState('');
-    const [selectedReviews, setSelectedReviews] = useState([]);
+    const [ratingFilter, setRatingFilter] = useState('all');
+    const [statusFilter, setStatusFilter] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 10;
 
-    // Sample review data
-    const [reviews, setReviews] = useState([
-        {
-            id: 1,
-            productName: 'Thức ăn hạt cho chó Dog Mania',
-            productId: 'prod-001',
-            categoryName: 'ĐỒ CHO CHÓ',
-            categoryId: 'do-cho-cho',
-            productImage: 'https://images.unsplash.com/photo-1592286927505-c0d00c2d4d0c?w=100&h=100&fit=crop',
-            customerName: 'Nguyễn Văn An',
-            customerAvatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-001234',
-            rating: 5,
-            reviewContent: 'Sản phẩm tuyệt vời! Giao hàng nhanh, đóng gói cẩn thận. Rất hài lòng với lần mua hàng này.',
-            imageCount: 2,
-            videoCount: 0,
-            reviewDate: '2024-12-15T14:30:00',
-            status: 'visible',
-            createdAt: '2024-12-15T14:30:00',
-            orderCompletedDate: '2024-12-10T10:00:00'
-        },
-        {
-            id: 2,
-            productName: 'Snack cho chó Gặm sạch răng Collagen Altimate gói 90gr',
-            productId: 'prod-002',
-            categoryName: 'ĐỒ CHO CHÓ',
-            categoryId: 'do-cho-cho',
-            productImage: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop',
-            customerName: 'Trần Thị Bình',
-            customerAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-001567',
-            rating: 4,
-            reviewContent: 'Vị này lần đầu cho cún nhà mình thử, bé ăn rất ngon. Rất đáng để cho các bé cún thử vừa ngon vừa giúp bé làm sạch.',
-            imageCount: 1,
-            videoCount: 0,
-            reviewDate: '2024-12-18T09:15:00',
-            status: 'visible',
-            createdAt: '2024-12-18T09:15:00',
-            orderCompletedDate: '2024-12-12T15:30:00'
-        },
-        {
-            id: 3,
-            productName: 'Cát vệ sinh cho mèo Aatas Xi măng ván',
-            productId: 'prod-003',
-            categoryName: 'ĐỒ CHO MÈO',
-            categoryId: 'do-cho-meo',
-            productImage: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=100&h=100&fit=crop',
-            customerName: 'Lê Minh Cường',
-            customerAvatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-002341',
-            rating: 3,
-            reviewContent: 'Sản phẩm tạm ổn mô tả. Thấm hút và khử mùi tạm.',
-            imageCount: 0,
-            videoCount: 0,
-            reviewDate: '2024-12-17T16:45:00',
-            status: 'hidden',
-            createdAt: '2024-12-17T16:45:00',
-            orderCompletedDate: '2024-12-08T11:20:00'
-        },
-        {
-            id: 4,
-            productName: 'Đồ chơi Củ Cà Rốt gặm ngứa răng cho chó mèo',
-            productId: 'prod-004',
-            categoryName: 'Phụ kiện',
-            categoryId: 'cat-accessories',
-            productImage: 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=100&h=100&fit=crop',
-            customerName: 'Phạm Thu Hà',
-            customerAvatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-003456',
-            rating: 5,
-            reviewContent: 'Chất lượng tuyệt vời!',
-            imageCount: 3,
-            videoCount: 1,
-            reviewDate: '2024-12-19T11:00:00',
-            status: 'visible',
-            createdAt: '2024-12-19T11:00:00',
-            orderCompletedDate: '2024-12-14T09:30:00'
-        },
-        {
-            id: 5,
-            productName: 'Phụ kiện khăn len nón Noel cho chó mèo',
-            productId: 'prod-005',
-            categoryName: 'phụ kiện',
-            categoryId: 'cat-accessories',
-            productImage: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&h=100&fit=crop',
-            customerName: 'Hoàng Văn Đức',
-            customerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-004789',
-            rating: 3,
-            reviewContent: 'Ổn nhưng giá hơi cao.',
-            imageCount: 0,
-            videoCount: 0,
-            reviewDate: '2024-12-16T13:20:00',
-            status: 'visible',
-            createdAt: '2024-12-16T13:20:00',
-            orderCompletedDate: '2024-12-11T16:45:00'
-        },
-        {
-            id: 6,
-            productName: 'Thức ăn hạt cho mèo Smartheat',
-            productId: 'prod-006',
-            categoryName: 'ĐỒ CHO MÈO',
-            categoryId: 'do-cho-meo',
-            productImage: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=100&h=100&fit=crop',
-            customerName: 'Vũ Thị Mai',
-            customerAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-005123',
-            rating: 4,
-            reviewContent: 'Sản phẩm chất lượng. vị mới cho các bé.',
-            imageCount: 1,
-            videoCount: 0,
-            reviewDate: '2024-12-14T10:30:00',
-            status: 'hidden',
-            createdAt: '2024-12-14T10:30:00',
-            orderCompletedDate: '2024-12-05T14:15:00'
-        },
-        {
-            id: 7,
-            productName: 'Áo liền chân họa tiết sọc ngang chó có khoen dắt',
-            productId: 'prod-007',
-            categoryName: 'ĐỒ CHO CHÓ',
-            categoryId: 'do-cho-cho',
-            productImage: 'https://images.unsplash.com/photo-1678652197950-75cd0ec987d7?w=100&h=100&fit=crop',
-            customerName: 'Đỗ Văn Hùng',
-            customerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop',
-            orderId: 'ORD-2024-006789',
-            rating: 4,
-            reviewContent: 'Chất liệu ổn, thoáng mát cho bé mặc hông bị khó chịu.',
-            imageCount: 2,
-            videoCount: 0,
-            reviewDate: '2024-12-19T15:20:00',
-            status: 'visible',
-            createdAt: '2024-12-19T15:20:00',
-            orderCompletedDate: '2024-12-15T10:00:00'
-        }
-    ]);
+    useEffect(() => {
+        fetchReviews();
+    }, [ratingFilter, statusFilter]);
 
-    const statusConfig = {
-        visible: { label: 'Hiển thị', color: 'bg-green-100 text-green-800' },
-        hidden: { label: 'Đã ẩn', color: 'bg-gray-100 text-gray-800' }
+    const fetchReviews = async () => {
+        try {
+            setLoading(true);
+
+            const params = new URLSearchParams({
+                page: String(currentPage),
+                limit: String(reviewsPerPage),
+                rating: ratingFilter || '',
+                status: statusFilter || '',
+            });
+
+            const response = await fetch(
+                `http://localhost:3000/api/comment?${params.toString()}`,
+                {
+                    credentials: 'include',
+                }
+            );
+
+            const res = await response.json();
+
+            if (res.success) {
+                setReviews(res.data.reviews);
+                setStatistics(res.data.statistics);
+            }
+
+            setLoading(false);
+        } catch (err) {
+            console.error(err);
+            setLoading(false);
+        }
     };
 
-    const ratingOptions = [
-        { value: '5', label: '5 Sao ⭐⭐⭐⭐⭐' },
-        { value: '4', label: '4 Sao ⭐⭐⭐⭐' },
-        { value: '3', label: '3 Sao ⭐⭐⭐' },
-        { value: '2', label: '2 Sao ⭐⭐' },
-        { value: '1', label: '1 Sao ⭐' }
-    ];
-
-    // Get unique categories
-    const categories = [...new Set(reviews.map(r => r.categoryId))].map(catId => {
-        const review = reviews.find(r => r.categoryId === catId);
-        return { id: catId, name: review.categoryName };
-    });
-
-    // Get products based on selected category
-    const availableProducts = categoryFilter
-        ? reviews.filter(r => r.categoryId === categoryFilter)
-            .reduce((acc, review) => {
-                if (!acc.find(p => p.id === review.productId)) {
-                    acc.push({ id: review.productId, name: review.productName });
-                }
-                return acc;
-            }, [])
-        : [];
 
     const formatDate = (dateString) => {
         if (!dateString) return '—';
         const date = new Date(dateString);
         return date.toLocaleDateString('vi-VN', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    };
-
-    const formatDateTime = (dateString) => {
-        if (!dateString) return '—';
-        const date = new Date(dateString);
-        return date.toLocaleString('vi-VN', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',
@@ -202,44 +70,32 @@ const Comment = () => {
     };
 
     const renderStars = (rating) => {
-        const stars = [];
-        for (let i = 1; i <= 5; i++) {
-            stars.push(
-                <span key={i} className={i <= rating ? 'text-yellow-400' : 'text-gray-300'}>
-                    ★
-                </span>
-            );
-        }
-        return <div className="flex text-lg">{stars}</div>;
+        return (
+            <div style={{ display: 'flex', gap: '2px' }}>
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                        key={star}
+                        size={16}
+                        fill={star <= rating ? '#facc15' : 'none'}
+                        color={star <= rating ? '#facc15' : '#d1d5db'}
+                    />
+                ))}
+            </div>
+        );
     };
 
-    // Filter reviews
-    const filteredReviews = reviews.filter(review => {
-        const matchesSearch =
-            review.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            review.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            review.orderId.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = !categoryFilter || review.categoryId === categoryFilter;
-        const matchesProduct = !productFilter || review.productId === productFilter;
-        const matchesRating = !ratingFilter || review.rating === parseInt(ratingFilter);
-        const matchesStatus = !statusFilter || review.status === statusFilter;
-        return matchesSearch && matchesCategory && matchesProduct && matchesRating && matchesStatus;
-    });
-
-    // Handle category filter change - reset product and rating filters
-    const handleCategoryChange = (value) => {
-        setCategoryFilter(value);
-        setProductFilter('');
-        setRatingFilter('');
-        setCurrentPage(1);
+    const getUserInitial = (name) => {
+        return (name || 'U').charAt(0).toUpperCase();
     };
 
-    // Handle product filter change - reset rating filter
-    const handleProductChange = (value) => {
-        setProductFilter(value);
-        setRatingFilter('');
-        setCurrentPage(1);
+    const getAvatarColor = (name) => {
+        const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+        const index = (name || '').charCodeAt(0) % colors.length;
+        return colors[index];
     };
+
+    // Show all reviews without filtering
+    const filteredReviews = reviews;
 
     // Pagination
     const indexOfLastReview = currentPage * reviewsPerPage;
@@ -247,363 +103,274 @@ const Comment = () => {
     const currentReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
     const totalPages = Math.ceil(filteredReviews.length / reviewsPerPage);
 
-    // Select all reviews
-    const handleSelectAll = (e) => {
-        if (e.target.checked) {
-            setSelectedReviews(currentReviews.map(review => review.id));
-        } else {
-            setSelectedReviews([]);
+    const toggleVisibility = async (reviewId) => {
+        try {
+            await fetch(`http://localhost:3000/api/comment/${reviewId}/toggle`, {
+                method: 'PUT',
+                credentials: 'include',
+            });
+            fetchReviews();
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
-    // Select individual review
-    const handleSelectReview = (reviewId) => {
-        if (selectedReviews.includes(reviewId)) {
-            setSelectedReviews(selectedReviews.filter(id => id !== reviewId));
-        } else {
-            setSelectedReviews([...selectedReviews, reviewId]);
+    const deleteReview = async (reviewId) => {
+        if (!confirm('Bạn có chắc muốn xóa đánh giá này?')) return;
+        try {
+            await fetch(`http://localhost:3000/api/comment/${reviewId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+            fetchReviews();
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
-    // Toggle review status
-    const toggleReviewStatus = (reviewId) => {
-        setReviews(reviews.map(review => {
-            if (review.id === reviewId) {
-                return {
-                    ...review,
-                    status: review.status === 'visible' ? 'hidden' : 'visible'
-                };
-            }
-            return review;
-        }));
-    };
-
-    // Calculate rating statistics
-    const ratingStats = {
-        total: reviews.length,
-        5: reviews.filter(r => r.rating === 5).length,
-        4: reviews.filter(r => r.rating === 4).length,
-        3: reviews.filter(r => r.rating === 3).length,
-        2: reviews.filter(r => r.rating === 2).length,
-        1: reviews.filter(r => r.rating === 1).length,
-        average: (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
-    };
+    if (loading) {
+        return (
+            <div style={{ padding: '32px', textAlign: 'center' }}>
+                Đang tải dữ liệu...
+            </div>
+        );
+    }
 
     return (
-        <div className="p-6">
-            {/* Statistics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-6">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow p-4 text-white">
-                    <div className="text-sm opacity-90 mb-1">Tổng đánh giá</div>
-                    <div className="text-2xl font-bold">{ratingStats.total}</div>
+        <div style={{ padding: '24px', backgroundColor: '#f9fafb', minHeight: '100vh' }}>
+            {/* Statistics */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+                <div style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', borderRadius: '8px', padding: '16px', color: 'white' }}>
+                    <div style={{ fontSize: '14px', opacity: 0.9, marginBottom: '4px' }}>Tổng đánh giá</div>
+                    <div style={{ fontSize: '28px', fontWeight: 'bold' }}>{statistics.total}</div>
                 </div>
-                <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow p-4 text-white">
-                    <div className="text-sm opacity-90 mb-1">Trung bình</div>
-                    <div className="text-2xl font-bold">{ratingStats.average} ★</div>
+                <div style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', borderRadius: '8px', padding: '16px', color: 'white' }}>
+                    <div style={{ fontSize: '14px', opacity: 0.9, marginBottom: '4px' }}>Trung bình</div>
+                    <div style={{ fontSize: '28px', fontWeight: 'bold' }}>{statistics.average} ★</div>
                 </div>
                 {[5, 4, 3, 2, 1].map(rating => (
-                    <div key={rating} className="bg-white rounded-lg shadow p-4">
-                        <div className="text-sm text-gray-600 mb-1">{rating} ★</div>
-                        <div className="text-2xl font-bold text-gray-900">{ratingStats[rating]}</div>
+                    <div key={rating} style={{ backgroundColor: 'white', borderRadius: '8px', padding: '16px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                        <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '4px' }}>{rating} ★</div>
+                        <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#1f2937' }}>{statistics.ratingCounts[rating]}</div>
                     </div>
                 ))}
             </div>
 
-            {/* Filter Section */}
-            <div className="bg-white rounded-lg shadow p-3 mb-6">
-                <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-                    {/* Search box */}
-                    <div className="relative md:col-span-2">
-                        <input
-                            type="text"
-                            placeholder="Tìm sản phẩm, khách hàng, mã đơn..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-blue-400 outline-none"
-                        />
-                    </div>
-
-                    {/* Category filter */}
-                    <div className="relative">
-                        <select
-                            value={categoryFilter}
-                            onChange={(e) => handleCategoryChange(e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
-                        >
-                            <option value="">Tất cả danh mục</option>
-                            {categories.map(cat => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Product filter */}
-                    <div className="relative">
-                        <select
-                            value={productFilter}
-                            onChange={(e) => handleProductChange(e.target.value)}
-                            disabled={!categoryFilter}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-                        >
-                            <option value="">Tất cả sản phẩm</option>
-                            {availableProducts.map(prod => (
-                                <option key={prod.id} value={prod.id}>{prod.name}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Rating filter */}
-                    <div className="relative">
-                        <select
-                            value={ratingFilter}
-                            onChange={(e) => setRatingFilter(e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
-                        >
-                            <option value="">Tất cả đánh giá</option>
-                            {ratingOptions.map(option => (
-                                <option key={option.value} value={option.value}>{option.label}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Status filter */}
-                    <div className="relative">
-                        <select
-                            value={statusFilter}
-                            onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
-                        >
-                            <option value="">Tất cả trạng thái</option>
-                            <option value="visible">Hiển thị</option>
-                            <option value="hidden">Đã ẩn</option>
-                        </select>
-                    </div>
+            {/* Search Input and Filters */}
+            <div style={{ backgroundColor: 'white', borderRadius: '8px', padding: '16px', marginBottom: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                    <input
+                        type="text"
+                        placeholder="Tìm sản phẩm, khách hàng..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '8px 12px', fontSize: '14px' }}
+                    />
+                    <select
+                        value={ratingFilter}
+                        onChange={(e) => setRatingFilter(e.target.value)}
+                        style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', cursor: 'pointer' }}
+                    >
+                        <option value="all">Tất cả đánh giá</option>
+                        <option value="5">5 ★</option>
+                        <option value="4">4 ★</option>
+                        <option value="3">3 ★</option>
+                        <option value="2">2 ★</option>
+                        <option value="1">1 ★</option>
+                    </select>
+                    <select
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '8px 12px', fontSize: '14px', cursor: 'pointer' }}
+                    >
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="visible">Hiển thị</option>
+                        <option value="hidden">Đã ẩn</option>
+                    </select>
                 </div>
-
-                {/* Action buttons row */}
-                <div className="mt-4 flex justify-end">
-                    <button className="text-center rounded px-4 py-2 bg-green-600 text-white hover:bg-green-700 text-sm">
-                        Xuất Excel
-                    </button>
-                </div>
-
-                {/* Bulk Actions */}
-                {selectedReviews.length > 0 && (
-                    <div className="mt-4 p-3 bg-blue-50 rounded-lg flex items-center justify-between">
-                        <span className="text-sm font-medium text-blue-800">
-                            Đã chọn {selectedReviews.length} đánh giá
-                        </span>
-                        <div className="flex gap-2">
-                            <button className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700">
-                                Hiển thị
-                            </button>
-                            <button className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700">
-                                Ẩn
-                            </button>
-                            <button className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700">
-                                Xóa
-                            </button>
-                        </div>
-                    </div>
-                )}
             </div>
 
-            {/* Table Section */}
-            <div>
-                <div className="border-b border-gray-200 mb-4">
-                    <h2 className="text-base font-semibold text-gray-800 mb-2">
-                        Danh sách đánh giá ({filteredReviews.length})
-                    </h2>
-                </div>
-                <table className="min-w-full border-collapse bg-white rounded-lg shadow-sm">
-                    <thead className="bg-gray-100">
+            {/* Table */}
+            <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
                         <tr>
-                            <th className="px-4 py-3 text-left w-8">
-                                <input
-                                    type="checkbox"
-                                    checked={selectedReviews.length === currentReviews.length && currentReviews.length > 0}
-                                    onChange={handleSelectAll}
-                                    className="w-4 h-4 text-blue-600 rounded cursor-pointer"
-                                />
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Sản phẩm
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Khách hàng
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Đánh giá
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Nội dung
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Trạng thái
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Ngày đánh giá
-                            </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                                Thao tác
-                            </th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Sản phẩm</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Khách hàng</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Đánh giá</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Nội dung</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Ngày</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase' }}>Thao tác</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        {currentReviews.map((review) => {
+                            const userName = review.OrderDetail?.Order?.User?.name || 'Khách';
+                            const productName = review.OrderDetail?.name || 'N/A';
+                            const productImage = review.OrderDetail?.image || '';
 
-                    <tbody className="divide-y divide-gray-200">
-                        {currentReviews.map((review) => (
-                            <tr
-                                key={review.id}
-                                className="hover:bg-gray-50 transition-colors duration-150"
-                            >
-                                {/* Checkbox */}
-                                <td className="px-4 py-4">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedReviews.includes(review.id)}
-                                        onChange={() => handleSelectReview(review.id)}
-                                        className="w-4 h-4 text-blue-600 rounded cursor-pointer"
-                                    />
-                                </td>
-
-                                {/* Product */}
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-3">
-                                        <img
-                                            src={review.productImage}
-                                            alt={review.productName}
-                                            className="w-16 h-16 object-cover rounded-lg border border-gray-200"
-                                        />
-                                        <div>
-                                            <div className="font-semibold text-gray-900 text-sm mb-1">
-                                                {review.productName}
+                            return (
+                                <tr key={review.id} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            <img src={productImage} alt={productName} style={{ width: '60px', height: '60px', borderRadius: '8px', objectFit: 'cover' }} />
+                                            <div style={{ fontSize: '14px', fontWeight: '500', color: '#1f2937', maxWidth: '200px' }}>{productName}</div>
+                                        </div>
+                                    </td>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <div style={{
+                                                width: '40px',
+                                                height: '40px',
+                                                borderRadius: '50%',
+                                                backgroundColor: getAvatarColor(userName),
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                color: 'white',
+                                                fontWeight: 'bold',
+                                                fontSize: '16px'
+                                            }}>
+                                                {getUserInitial(userName)}
                                             </div>
-                                            <div className="text-xs text-gray-500 mb-1">
-                                                {review.orderId}
-                                            </div>
-                                            <div className="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded inline-block">
-                                                {review.categoryName}
-                                            </div>
+                                            <span style={{ fontSize: '14px', color: '#1f2937' }}>{userName}</span>
                                         </div>
-                                    </div>
-                                </td>
-
-                                {/* Customer */}
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <img
-                                            src={review.customerAvatar}
-                                            alt={review.customerName}
-                                            className="w-10 h-10 rounded-full object-cover border-2 border-gray-200"
-                                        />
-                                        <div className="font-medium text-gray-900 text-sm">
-                                            {review.customerName}
+                                    </td>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                                            {renderStars(review.rating)}
+                                            <span style={{ fontSize: '14px', fontWeight: '600', color: '#1f2937' }}>{review.rating}.0</span>
                                         </div>
-                                    </div>
-                                </td>
-
-                                {/* Rating */}
-                                <td className="px-6 py-4">
-                                    <div className="flex flex-col items-center gap-1">
-                                        {renderStars(review.rating)}
-                                        <span className="text-sm font-semibold text-gray-700">
-                                            {review.rating}.0
-                                        </span>
-                                    </div>
-                                </td>
-
-                                {/* Review Content */}
-                                <td className="px-6 py-4">
-                                    <div className="max-w-xs">
-                                        <div className="text-sm text-gray-700 line-clamp-3">
-                                            {review.reviewContent}
+                                    </td>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ fontSize: '14px', color: '#374151', maxWidth: '300px', lineHeight: '1.5' }}>
+                                            {review.content}
                                         </div>
-                                    </div>
-                                </td>
-
-
-                                {/* Status */}
-                                <td className="px-6 py-4">
-                                    <span className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full ${statusConfig[review.status].color}`}>
-                                        {statusConfig[review.status].label}
-                                    </span>
-                                </td>
-
-                                {/* Review Date */}
-                                <td className="px-6 py-4">
-                                    <div className="text-sm text-gray-700">
-                                        <div className="mb-1">
-                                            {formatDateTime(review.reviewDate)}
+                                    </td>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                                            {formatDate(review.createdAt)}
                                         </div>
-                                        <div className="text-xs text-gray-500">
-                                            Đơn: {formatDate(review.orderCompletedDate)}
+                                    </td>
+                                    <td style={{ padding: '12px' }}>
+                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                            <button
+                                                onClick={() => router.push(`/admin/comment/${review.id}`)}
+                                                style={{
+                                                    padding: '6px 12px',
+                                                    fontSize: '12px',
+                                                    color: 'white',
+                                                    background: 'green',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '4px'
+                                                }}
+                                            >
+                                                xem
+                                            </button>
+                                            <button
+                                                onClick={() => toggleVisibility(review.id)}
+                                                style={{
+                                                    padding: '6px 12px',
+                                                    fontSize: '12px',
+                                                    backgroundColor: review.is_active ? '#3b82f6' : '#6b7280',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '4px'
+                                                }}
+                                            >
+                                                {review.is_active ? <Eye size={14} /> : <EyeOff size={14} />}
+                                                {review.is_active ? 'Hiện' : 'Ẩn'}
+                                            </button>
+                                            <button
+                                                onClick={() => deleteReview(review.id)}
+                                                style={{
+                                                    padding: '6px 12px',
+                                                    fontSize: '12px',
+                                                    backgroundColor: '#ef4444',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '4px'
+                                                }}
+                                            >
+                                                <Trash2 size={14} />
+                                                Xóa
+                                            </button>
                                         </div>
-                                    </div>
-                                </td>
-
-                                {/* Actions */}
-                                <td className="px-6 py-4 text-sm">
-                                    <div className="flex flex-col gap-2">
-                                        <button className="text-green-600 hover:text-green-800 px-2 py-1 rounded hover:bg-green-50 text-xs text-left">
-                                            Xem chi tiết
-                                        </button>
-                                        <button
-                                            onClick={() => toggleReviewStatus(review.id)}
-                                            className={`px-2 py-1 rounded text-xs text-left ${review.status === 'visible'
-                                                ? 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                                                : 'text-blue-600 hover:text-blue-800 hover:bg-blue-50'
-                                                }`}
-                                        >
-                                            {review.status === 'visible' ? 'Ẩn' : 'Hiển thị'}
-                                        </button>
-                                        <button className="text-red-600 hover:text-red-800 px-2 py-1 rounded hover:bg-red-50 text-xs text-left">
-                                            Xóa
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
 
-                {/* Empty state */}
-                {filteredReviews.length === 0 && (
-                    <div className="text-center py-12 text-gray-500">
-                        <p className="text-4xl mb-3">💬</p>
-                        <p>Không tìm thấy đánh giá nào</p>
+                {currentReviews.length === 0 && (
+                    <div style={{ padding: '48px', textAlign: 'center', color: '#6b7280' }}>
+                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>💬</div>
+                        <div>Không tìm thấy đánh giá nào</div>
                     </div>
                 )}
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="mt-6 flex items-center justify-between">
-                        <div className="text-sm text-gray-700">
-                            Hiển thị {indexOfFirstReview + 1}-{Math.min(indexOfLastReview, filteredReviews.length)} trong tổng số {filteredReviews.length} đánh giá
+                    <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #e5e7eb' }}>
+                        <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                            Hiển thị {indexOfFirstReview + 1}-{Math.min(indexOfLastReview, filteredReviews.length)} / {filteredReviews.length}
                         </div>
-                        <div className="flex gap-2">
+                        <div style={{ display: 'flex', gap: '8px' }}>
                             <button
-                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
                                 disabled={currentPage === 1}
-                                className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                style={{
+                                    padding: '6px 12px',
+                                    fontSize: '14px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    backgroundColor: 'white'
+                                }}
                             >
                                 Trước
                             </button>
-                            {[...Array(totalPages)].map((_, index) => (
+                            {[...Array(totalPages)].map((_, i) => (
                                 <button
-                                    key={index}
-                                    onClick={() => setCurrentPage(index + 1)}
-                                    className={`px-3 py-1 text-sm border rounded ${currentPage === index + 1
-                                        ? 'bg-blue-600 text-white border-blue-600'
-                                        : 'border-gray-300 hover:bg-gray-50'
-                                        }`}
+                                    key={i}
+                                    onClick={() => setCurrentPage(i + 1)}
+                                    style={{
+                                        padding: '6px 12px',
+                                        fontSize: '14px',
+                                        border: '1px solid',
+                                        borderRadius: '6px',
+                                        cursor: 'pointer',
+                                        backgroundColor: currentPage === i + 1 ? '#3b82f6' : 'white',
+                                        color: currentPage === i + 1 ? 'white' : '#374151',
+                                        borderColor: currentPage === i + 1 ? '#3b82f6' : '#d1d5db'
+                                    }}
                                 >
-                                    {index + 1}
+                                    {i + 1}
                                 </button>
                             ))}
                             <button
-                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
                                 disabled={currentPage === totalPages}
-                                className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                style={{
+                                    padding: '6px 12px',
+                                    fontSize: '14px',
+                                    border: '1px solid #d1d5db',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    backgroundColor: 'white'
+                                }}
                             >
                                 Sau
                             </button>
@@ -613,6 +380,4 @@ const Comment = () => {
             </div>
         </div>
     );
-};
-
-export default Comment;
+}

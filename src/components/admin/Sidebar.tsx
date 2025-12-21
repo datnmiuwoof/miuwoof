@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RootState } from "@/lib/store";
 import { useSelector } from "react-redux";
-import { X, Home, ShoppingCart, Users, Ticket, Package, Settings, BookOpen, FolderTree, Image } from "lucide-react";
+import { X, Home, ShoppingCart, Users, Ticket, Package, BookOpen, FolderTree, Image, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { LogOut } from "@/lib/userSlice";
@@ -32,6 +32,7 @@ export default function Sidebar({
         { href: "/admin/voucher", icon: Ticket, label: "Giảm giá" },
         { href: "/admin/post", icon: BookOpen, label: "Bài viết" },
         { href: "/admin/banner", icon: Image, label: "Banner" },
+        { href: "/admin/comment", icon: MessageCircle, label: "Đánh giá" },
     ];
 
     const router = useRouter();

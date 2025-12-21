@@ -109,7 +109,8 @@ export const cartSlice = createSlice({
           saveCartToStorage(state.listProduct);
         }
       }
-    }
+    },
+
   }
 });
 
@@ -119,6 +120,6 @@ export const selectCartTotal = (state: RootState) =>
 export const totalQuantity = (state: RootState) =>
   state.cart.listProduct.reduce((total, item) => total + Number(item.quantity), 0);
 
-export const { createCart, deleteCart, incrementQuantity, decrementQuantity, setcart } = cartSlice.actions;
+export const { createCart, deleteCart, incrementQuantity, decrementQuantity, setcart, mergeCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

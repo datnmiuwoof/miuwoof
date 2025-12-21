@@ -98,6 +98,27 @@ export default function OrdersPage() {
         fetchData(pagination.currentPage);
     };
 
+    const handleDeleteOrder = async (orderId: number) => {
+        if (!confirm("Bạn có chắc muốn xóa đơn hàng này không?")) return;
+
+        try {
+            const result = await fetch(`http://localhost:3000/api/admin/orders/${orderId}/delete`, {
+                method: "PUT",
+                credentials: 'include'
+            });
+
+            if (result.ok) {
+                alert("Đã xóa đơn hàng");
+                fetchData(pagination.currentPage);
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Xóa thất bại");
+        }
+    };
+
+
 
 
 
@@ -124,7 +145,7 @@ export default function OrdersPage() {
                             />
                         </div>
 
-                        <a href="/admin/orders/export" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                        <a href="/admin/order/is_deleted" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
                             đơn đã bị xóa
                         </a>
                     </div>
@@ -293,9 +314,11 @@ export default function OrdersPage() {
                                     </a>
                                     <button
                                         className="text-red-600 hover:text-red-800 px-2 font-medium"
+                                        onClick={() => handleDeleteOrder(o.id)}
                                     >
                                         xóa
                                     </button>
+
                                 </td>
                             </tr>
                         ))}

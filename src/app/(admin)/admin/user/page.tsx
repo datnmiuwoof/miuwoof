@@ -86,7 +86,7 @@ const UserManagement = () => {
 
             if (result.ok) {
                 alert("chặn được user thành công")
-                fetchData();
+                fetchData(pagination.currentPage);
             }
         } catch (error) {
             alert(error)

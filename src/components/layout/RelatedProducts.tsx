@@ -19,7 +19,6 @@ export default function RelatedProducts({ categoryId, productId }: any) {
 
             const res = await result.json();
             setItems(res)
-            console.log("long ben layout", res)
         } catch (error) {
             console.log(error)
         }

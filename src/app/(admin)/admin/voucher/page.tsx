@@ -46,6 +46,7 @@ const PromotionCodeManagement = () => {
 
 
     const handlerDelete = async (id: any) => {
+        if (!confirm("Bạn có chắc muốn khôi phục đơn hàng này?")) return;
         try {
             const result = await fetch(`http://localhost:3000/api/voucher/${id}`, {
                 method: 'DELETE',

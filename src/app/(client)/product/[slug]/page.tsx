@@ -14,6 +14,7 @@ import ProductVariant from "@/components/layout/variantSelecter";
 import { useDispatch } from "react-redux";
 import { createCart } from "@/lib/cartSlice";
 import { useAuth } from "@/context/AuthContext";
+import Comment from "@/components/layout/comment";
 
 export default function ProductDetail() {
     const { slug } = useParams();
@@ -30,7 +31,6 @@ export default function ProductDetail() {
         setOpenSection(openSection === section ? null : section);
     };
 
-    console.log(product)
 
     useEffect(() => {
         fetch(`http://localhost:3000/product/${slug}`)
@@ -357,10 +357,11 @@ export default function ProductDetail() {
 
             <div className="main-content"><hr className="my-8 border-t border-gray-300" /></div>
 
-
             <section className="!mt-[40px] !pt-4">
                 <RelatedProducts productId={product.id} categoryId={product.Categories?.[0]?.id} />
             </section>
+
+            <Comment slug={slug as string} />
         </section>
     );
 }
