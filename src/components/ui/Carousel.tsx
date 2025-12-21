@@ -32,7 +32,11 @@ export default function MyCarousel() {
     }
     return (
         <section className="banner">
-            <div className="main-content">
+            {!banners.length > 0 ? (
+                <div className='h-[900px] w-full'>
+
+                </div>
+            ) : (<div className="main-content">
                 {banners.length > 0 && (
                     <div
                         id="heroCarousel"
@@ -96,7 +100,8 @@ export default function MyCarousel() {
                         </button>
                     </div>
                 )}
-            </div>
+            </div>)}
+
         </section>
 
     );

@@ -13,6 +13,11 @@ export default function LoginForm() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = "http://localhost:3000/user/auth/google";
+    };
+
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
@@ -66,7 +71,9 @@ export default function LoginForm() {
 
                 <div className="mb-5">
                     <div className="mb-2">
-                        <button className="w-full bg-[#db4437] text-white py-3 rounded hover:bg-[#c1351d] transition">
+                        <button className="w-full bg-[#db4437] text-white py-3 rounded hover:bg-[#c1351d] transition"
+                            onClick={handleGoogleLogin}
+                        >
                             <i className="fab fa-google mr-2"></i>Đăng nhập Google
                         </button>
                     </div>

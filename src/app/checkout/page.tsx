@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { CreditCard, MapPin, User, Package, Router } from 'lucide-react';
-import { useSelector, } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { useRouter } from 'next/navigation';
 import { useAuth } from "@/context/AuthContext";
@@ -171,6 +171,7 @@ export default function CheckoutPage() {
                 localStorage.setItem("momo_pending_order", orderId);
 
                 window.open(result.data.payUrl, "_blank", "width=550,height=750");
+
 
                 alert("Đã mở cửa sổ thanh toán MoMo!\n\nSau khi thanh toán xong, vui lòng quay lại trang này và bấm nút 'Tôi đã thanh toán xong' bên dưới nhé!");
             }
