@@ -120,8 +120,6 @@ export default function OrdersPage() {
 
 
 
-
-
     return (
         <div className="main p-6">
             {/* Header với Search */}
@@ -274,7 +272,7 @@ export default function OrdersPage() {
 
                                 {/* THANH TOÁN */}
                                 <td className="px-6 py-4 text-gray-700 text-sm">
-                                    MoMo
+                                    {o.transaction_code !== null ? 'MOMO' : "COD"}
                                 </td>
 
                                 {/* TRẠNG THÁI */}

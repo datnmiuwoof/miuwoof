@@ -21,6 +21,17 @@ export default function OrderTrackingPage() {
     const [comment, setComment] = useState('');
     const [checkConmment, setCheckComment] = useState([]);
 
+    const ORDER_STATUS_LABEL = {
+        all: "Tất cả",
+        pending: "Chờ xác nhận",
+        confirmed: "Chờ giao hàng",
+        shipping: "Vận chuyển",
+        completed: "Hoàn thành",
+        cancelled: "Đã hủy",
+        refund: "Trả hàng/Hoàn tiền",
+    };
+
+
     const tabs = [
         { key: "all", label: "Tất cả" },
         { key: "pending", label: "Chờ xác nhận" },
@@ -54,8 +65,6 @@ export default function OrderTrackingPage() {
                 .map((d: any) => d.id)
         );
         setCheckComment(commentedIds);
-
-        console.log(result.data)
     }
 
     const SubmitComment = async (
@@ -63,9 +72,6 @@ export default function OrderTrackingPage() {
         orderDetailId: number
     ) => {
         e.preventDefault();
-
-        console.log("DETAIL:", orderDetailId);
-
         try {
             const res = await fetch("http://localhost:3000/comment/create", {
                 method: "POST",
@@ -162,10 +168,11 @@ export default function OrderTrackingPage() {
                             </div>
                         </div>
 
+
                         {order && order.map((item: any) => (
                             <div key={item.id} className="!border-b !bg-white !border-gray-100 !last:border-b-0 !mb-4">
                                 <div className="!p-4 !font-bold">
-                                    đơn hang của ban: <span className='!text-red-400 !text-[16px]'>Đang giao hàng</span>
+                                    đơn hang của ban: <span className='!text-red-400 !text-[16px]'> {ORDER_STATUS_LABEL[item.order_status] || "Không xác định"}</span>
                                 </div>
 
                                 {item.OrderDetails.map((o: any) => (

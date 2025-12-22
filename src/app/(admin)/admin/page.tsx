@@ -23,8 +23,6 @@ export default function AdminDashboard() {
     const [revenueData, setRevenueData] = useState([]);
     const [orderStatusData, setOrderStatusData] = useState([]);
 
-    console.log(orderStatusData)
-
     const [startDate, setStartDate] = useState(
         new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split("T")[0]
     );
@@ -75,7 +73,7 @@ export default function AdminDashboard() {
     const fetchData = async (start: string, end: string) => {
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/AdminDashboard?start=${start}&end=${end}`);
+            const res = await fetch(`http://localhost:3000/AdminDashboard?start=${start}&end=${end}`, { credentials: 'include' });
             const result = await res.json();
             setData(result.data || {});
             setRevenueData(result.data.revenueData);

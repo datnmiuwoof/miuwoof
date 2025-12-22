@@ -771,6 +771,8 @@ body.menu-open::before {
   margin-bottom: 0;
   height: var(--height);
   margin-bottom: 10px;
+  border: 1px solid #f5f5f5;
+  transition: box-shadow 0.3s ease;
 }
 
 .product__item:hover .product__favorite{
@@ -781,7 +783,7 @@ body.menu-open::before {
 .product__item:hover{
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   transition: box-shadow 0.3s ease;
-  background: #fff; 
+  background: #f5f5f5; 
 }
 
 .product__images {

@@ -27,7 +27,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
         if (!userId) return;
 
         handleFavorite();
-    }, [userId, dispatch, loading]);
+    }, [userId, loading]);
 
     const handleFavorite = async () => {
         const result = await fetch(`http://localhost:3000/api/favorites`, { credentials: "include" });

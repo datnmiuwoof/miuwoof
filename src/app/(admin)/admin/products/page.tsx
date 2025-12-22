@@ -106,7 +106,7 @@ export default function Product() {
                             id="statusFilter"
                             className="w-full border border-gray-300 rounded-lg pl-10 pr-8 py-2 text-sm appearance-none bg-white cursor-pointer focus:ring-1 focus:ring-blue-400 outline-none"
                         >
-                            <option value="">Tất cả trạng thái</option>
+                            <option value="all">Tất cả trạng thái</option>
                             <option value="completed">đang hot</option>
                             <option value="processing">nhiều lượt xem</option>
                             <option value="shipping">Hàng mới</option>
