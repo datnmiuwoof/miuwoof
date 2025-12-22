@@ -9,6 +9,7 @@ export default function AddProduct() {
     const [categories, setCategories] = useState<ICategory[]>([]);
     const [groupedCategories, setGroupedCategories] = useState<{ [key: string]: ICategory[] }>({});
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [submitting, setSubmitting] = useState(false);
 
     const [form, setForm] = useState({
         name: "",
@@ -133,6 +134,7 @@ export default function AddProduct() {
             return;
         }
 
+        setSubmitting(true);
         const formdata = new FormData();
 
         Object.entries(form).forEach(([key, value]) => {
@@ -190,6 +192,7 @@ export default function AddProduct() {
                     images: [] as File[],
                     previews: [] as string[],
                 }]);
+                setSelectedDiscountIds([]);
             } else {
                 console.error("Backend trả lỗi:", data);
                 alert("Lỗi khi thêm sản phẩm!");
@@ -197,6 +200,8 @@ export default function AddProduct() {
         } catch (error) {
             console.error("Lỗi gửi dữ liệu:", error);
             alert("Gửi dữ liệu thất bại!");
+        } finally {
+            setSubmitting(false);
         }
     };
     return (
@@ -501,12 +506,19 @@ export default function AddProduct() {
 
                     {/* Submit button */}
                     <div className="bg-white rounded-2xl shadow-lg p-8">
-                        <button
-                            type="submit"
-                            className="w-full bg-gradient-to-r bg-blue-500 text-white py-2 rounded-xl font-bold text-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all"
-                        >
-                            Thêm Sản Phẩm
-                        </button>
+                        <div className="bg-white rounded-2xl shadow-lg p-8">
+                            <button
+                                type="submit"
+                                disabled={submitting}
+                                className={`w-full py-2 rounded-xl font-bold text-lg transition-all
+            ${submitting
+                                        ? 'bg-gray-400 cursor-not-allowed'
+                                        : 'bg-blue-500 text-white hover:shadow-2xl hover:scale-[1.02]'
+                                    }`}
+                            >
+                                {submitting ? 'Đang thêm sản phẩm...' : 'Thêm Sản Phẩm'}
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

@@ -13,6 +13,7 @@ export default function UpdateProduct() {
     });
     const [categories, setCategories] = useState<any[]>([]);
     const [groupedCategories, setGroupedCategories] = useState<any>({});
+    const [submitting, setSubmitting] = useState(false);
 
     const [variants, setVariants] = useState<
         {
@@ -175,7 +176,7 @@ export default function UpdateProduct() {
 
     const handlerSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setSubmitting(true);
         const formData = new FormData();
         formData.append("name", form.name);
         formData.append("description", form.description);
@@ -212,6 +213,8 @@ export default function UpdateProduct() {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -497,8 +500,16 @@ export default function UpdateProduct() {
 
                     {/* Submit button */}
                     <div className="bg-white rounded-2xl shadow-lg p-8">
-                        <button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-xl font-bold text-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all">
-                            Cập nhật Sản Phẩm
+                        <button
+                            type="submit"
+                            disabled={submitting}
+                            className={`w-full py-2 rounded-xl font-bold text-lg transition-all
+            ${submitting
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-blue-500 text-white hover:shadow-2xl hover:scale-[1.02]'
+                                }`}
+                        >
+                            {submitting ? 'Đang cập nhật sản phẩm...' : 'Cập nhật Sản Phẩm'}
                         </button>
                     </div>
                 </form>

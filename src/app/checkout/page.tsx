@@ -228,6 +228,7 @@ export default function CheckoutPage() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     code: discountCode,
                     subtotal
@@ -257,7 +258,6 @@ export default function CheckoutPage() {
         }
     };
 
-    console.log(discountInfo)
 
 
     // const handleSubmit = async () => {
