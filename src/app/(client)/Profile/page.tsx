@@ -1,75 +1,105 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import dvhcvn from "@/app/checkout/address/dvhcvn.json";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
+/**
+ * Build full address text safely
+ */
 function getFullAddress(address: any, dvhcvn: any) {
-    const province = dvhcvn.data.find((p: any) => p.level1_id === address.city);
-    const district = province?.level2s.find((d: any) => d.level2_id === address.district);
-    const ward = district?.level3s.find((w: any) => w.level3_id === address.ward);
+    if (!address || !address.city || !address.district || !address.ward) {
+        return {
+            province: "",
+            full: "",
+        };
+    }
+
+    const province = dvhcvn.data.find(
+        (p: any) => p.level1_id === address.city
+    );
+
+    const district = province?.level2s.find(
+        (d: any) => d.level2_id === address.district
+    );
+
+    const ward = district?.level3s.find(
+        (w: any) => w.level3_id === address.ward
+    );
 
     return {
-        // line: address.address_line,
-        // ward: ward?.name ?? "",
-        // district: district?.name ?? "",
         province: province?.name ?? "",
         full: `${ward?.name ?? ""}, ${district?.name ?? ""}, ${province?.name ?? ""}`,
     };
 }
 
 export default function Profile() {
-
     const router = useRouter();
+
     const [profileData, setProfileData] = useState({
-        fullName: '',
-        address: '',
-        country: 'Vietnam',
-        province: '',
-        email: '',
-        phone: '',
+        fullName: "",
+        address: "",
+        country: "Vietnam",
+        province: "",
+        email: "",
+        phone: "",
     });
 
+    // 👉 INIT address có structure để không crash
+    const [address, setAddress] = useState<any>({
+        city: null,
+        district: null,
+        ward: null,
+    });
 
-    const [address, setAddress] = useState({});
     const formattedAddress = getFullAddress(address, dvhcvn);
 
     useEffect(() => {
         dataProfile();
-    }, [])
+    }, []);
 
     const dataProfile = async () => {
-        const res = await fetch(`http://localhost:3000/profile`, { credentials: "include" });
+        try {
+            const res = await fetch(`http://localhost:3000/profile`, {
+                credentials: "include",
+            });
 
-        const result = await res.json();
-        setAddress(result.Addresses?.[0])
-        setProfileData({
-            fullName: result.name,
-            address: '',
-            country: 'Vietnam',
-            province: result.Addresses?.[0].city,
-            email: result.email,
-            phone: result.Addresses?.[0]?.phone,
-        })
-    }
+            const result = await res.json();
+            const firstAddress = result.Addresses?.[0] || null;
 
-    const handleInputChange = (field, value) => {
-        setProfileData(prev => ({
+            if (firstAddress) {
+                setAddress(firstAddress);
+            }
+
+            setProfileData({
+                fullName: result.name ?? "",
+                address: "",
+                country: "Vietnam",
+                province: firstAddress?.city ?? "",
+                email: result.email ?? "",
+                phone: firstAddress?.phone ?? "",
+            });
+        } catch (error) {
+            console.error("❌ Lỗi load profile:", error);
+        }
+    };
+
+    const handleInputChange = (field: string, value: any) => {
+        setProfileData((prev) => ({
             ...prev,
-            [field]: value
+            [field]: value,
         }));
     };
 
     const handleUpdate = async () => {
-
         const result = await fetch(`http://localhost:3000/profile/update`, {
             method: "PUT",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(profileData)
-        })
+            body: JSON.stringify(profileData),
+        });
 
         if (result.ok) {
             dataProfile();
@@ -92,7 +122,9 @@ export default function Profile() {
                         <input
                             type="text"
                             value={profileData.fullName}
-                            onChange={(e) => handleInputChange('fullName', e.target.value)}
+                            onChange={(e) =>
+                                handleInputChange("fullName", e.target.value)
+                            }
                             className="!w-full !px-4 !py-3 !bg-gray-50 !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent"
                         />
                     </div>
@@ -104,9 +136,8 @@ export default function Profile() {
                         </label>
                         <input
                             type="text"
-                            value={formattedAddress?.full || ""}
+                            value={formattedAddress.full || ""}
                             disabled
-                            onChange={(e) => handleInputChange('address', e.target.value)}
                             placeholder="Chưa cập nhật"
                             className="!w-full !px-4 !py-3 !cursor-not-allowed !bg-gray-50 !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent placeholder:!text-gray-400"
                         />
@@ -121,7 +152,6 @@ export default function Profile() {
                             type="text"
                             disabled
                             value={profileData.country}
-                            onChange={(e) => handleInputChange('country', e.target.value)}
                             className="!w-full !px-4 !py-3 !cursor-not-allowed !bg-gray-50 !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent"
                         />
                     </div>
@@ -133,9 +163,8 @@ export default function Profile() {
                         </label>
                         <input
                             type="text"
-                            value={formattedAddress.province}
+                            value={formattedAddress.province || ""}
                             disabled
-                            onChange={(e) => handleInputChange('province', e.target.value)}
                             placeholder="Chưa cập nhật"
                             className="!w-full !px-4 !py-3 !bg-gray-50 !cursor-not-allowed !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent placeholder:!text-gray-400"
                         />
@@ -162,7 +191,9 @@ export default function Profile() {
                         <input
                             type="tel"
                             value={profileData.phone}
-                            onChange={(e) => handleInputChange('phone', e.target.value)}
+                            onChange={(e) =>
+                                handleInputChange("phone", e.target.value)
+                            }
                             className="!w-full !px-4 !py-3 !bg-gray-50 !border !border-gray-200 !rounded-xl focus:!outline-none focus:!ring-2 focus:!ring-red-500 focus:!border-transparent"
                         />
                     </div>
