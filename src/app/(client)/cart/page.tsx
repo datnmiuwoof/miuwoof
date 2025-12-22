@@ -196,7 +196,7 @@ export default function CartPage() {
                           .join(" / ")}
                       </p>
 
-                      <p className="text-sm text-gray-600">{unitPrice.toLocaleString()}đ</p>
+                      <p className="text-sm text-gray-600">{unitPrice.toLocaleString('vi-VN')}đ</p>
 
                       <div className="flex items-center mt-2">
                         <button className="px-2 py-1 border rounded" onClick={() => handleDecrement(item.uniqueId, item.id)}>-</button>
@@ -214,7 +214,7 @@ export default function CartPage() {
                       </button>
 
                       <p className="!font-bold !mt-[8px]">
-                        {rowTotal.toLocaleString()}đ
+                        {rowTotal.toLocaleString('vi-VN')}đ
                       </p>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ export default function CartPage() {
 
           <div className="flex justify-between items-center !my-[10px] border-dotted !border-y-1 !py-[10px] mb-2">
             <span className='!font-semibold  !text-[16px]'>Tạm tính:</span>
-            <span className="!font-semibold !text-[24px] text-red-600">{selectedTotal.toLocaleString()}đ</span>
+            <span className="!font-semibold !text-[24px] text-red-600">{selectedTotal.toLocaleString('vi-VN')}đ</span>
           </div>
 
           <div className="!mt-[8px]">

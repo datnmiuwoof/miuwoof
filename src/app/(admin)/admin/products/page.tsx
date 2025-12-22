@@ -118,7 +118,7 @@ export default function Product() {
 
 
                 <div className="flex mt-4 space-x-1 items-center justify-end">
-                    <a href="/admin/products/softDelete" className="text-center rounded-sm px-4 py-2 bg-blue-600 text-white">sản phẩm đã bị xóa</a>
+                    <a href="/admin/products/softDelete" className="text-center rounded-sm px-4 py-2 bg-red-600 text-white">sản phẩm đã bị xóa</a>
                     <a href="/admin/products/addProduct" className="text-center rounded-sm px-4 py-2 bg-blue-600 text-white">thêm sản phẩm</a>
                 </div>
             </div>

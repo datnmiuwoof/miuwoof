@@ -121,7 +121,7 @@ export default function CategoryManagement() {
                     </div>
 
                     <div className="flex space-x-1 items-center justify-end">
-                        <button className="text-center !mr-2 rounded px-4 py-2 bg-blue-600 text-white hover:bg-green-700"
+                        <button className="text-center !mr-2 rounded px-4 py-2 bg-red-600 text-white hover:bg-red-400"
                             onClick={() => router.push('/admin/category/deleteCategory')}
                         >
                             Danh mục đã xóa

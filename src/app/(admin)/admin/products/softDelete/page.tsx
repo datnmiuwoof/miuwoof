@@ -129,12 +129,7 @@ export default function DeletedProducts() {
                                     >
                                         Khôi phục
                                     </button>
-                                    <button
-                                        // onClick={() => handleDelete(p.id)}
-                                        className="text-blue-600 hover:text-blue-800 px-2"
-                                    >
-                                        xóa vĩnh viễn
-                                    </button>
+
                                 </td>
                             </tr>
                         ))}

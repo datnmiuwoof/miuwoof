@@ -148,11 +148,11 @@ const UserManagement = () => {
                             </select>
                             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
                         </div> */}
-                        <button className="flex items-center justify-center gap-2 rounded px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                        {/* <button className="flex items-center justify-center gap-2 rounded px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                             <Plus className="w-4 h-4" />
                             Quản lý quyền
-                        </button>
-                        <button className="rounded px-4 py-2 bg-green-600 text-white hover:bg-green-700 transition-colors"
+                        </button> */}
+                        <button className="rounded px-4 py-2 bg-red-600 text-white hover:bg-red-400 transition-colors"
                             onClick={() => router.push("/admin/user/is_locket")}
                         >
                             Danh sách chặn

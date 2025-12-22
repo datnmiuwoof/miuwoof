@@ -420,7 +420,7 @@ export default function CheckoutPage() {
                                         <span className="!ml-3 !text-gray-700 !font-medium !text-base">🏦 Chuyển khoản ngân hàng</span>
                                     </label>
 
-                                    <label className={`!flex !items-center !p-4 !border-2 !rounded-lg !cursor-pointer !transition ${formData.paymentMethod === 'card'
+                                    {/* <label className={`!flex !items-center !p-4 !border-2 !rounded-lg !cursor-pointer !transition ${formData.paymentMethod === 'card'
                                         ? '!border-purple-500 !bg-purple-50'
                                         : '!border-gray-200 hover:!border-purple-300'
                                         }`}>
@@ -433,13 +433,13 @@ export default function CheckoutPage() {
                                             className="!w-5 !h-5 !text-purple-600 !cursor-pointer"
                                         />
                                         <span className="!ml-3 !text-gray-700 !font-medium !text-base">💳 Thẻ tín dụng/Ghi nợ</span>
-                                    </label>
+                                    </label> */}
                                 </div>
                             </div>
 
                             <button
                                 onClick={handleSubmit}
-                                className="!w-full !bg-gradient-to-r !from-blue-600 !to-purple-600 !text-white !py-4 !rounded-xl !font-bold !text-lg hover:!from-blue-700 hover:!to-purple-700 !transition !shadow-lg hover:!shadow-xl !border-0"
+                                className="!w-full !bg-gradient-to-r !bg-red-600 !text-white !py-4 !rounded-xl !font-bold !text-lg hover:!from-blue-700 hover:!to-purple-700 !transition !shadow-lg hover:!shadow-xl !border-0"
                             >
                                 🛒 Đặt hàng
                             </button>

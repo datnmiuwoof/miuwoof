@@ -117,7 +117,7 @@ const PromotionCodeManagement = () => {
 
                     {/* Action buttons */}
                     <div className="flex items-center justify-end">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                             onClick={() => router.push("/admin/voucher/addVoucher")}
                         >
                             <Plus className="w-4 h-4" />
