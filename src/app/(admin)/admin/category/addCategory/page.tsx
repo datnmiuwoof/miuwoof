@@ -22,7 +22,7 @@ const AddCategoryPage = () => {
     }, [])
 
     const parentcategory = async () => {
-        const data = await fetch(`http://localhost:3000/api/categorys`);
+        const data = await fetch(`http://localhost:3000/api/categorys`, { credentials: "include" });
         const res = await data.json();
 
         const categoryParent = res.data.filter((p: any) => p.parent_id === null)
@@ -83,6 +83,12 @@ const AddCategoryPage = () => {
 
         if (submitData.ok) {
             alert("thêm danh mục thành công");
+            setFormData({
+                name: '',
+                description: '',
+                parent_id: '',
+                is_active: true,
+            })
             router.push("/admin/category")
         }
     };

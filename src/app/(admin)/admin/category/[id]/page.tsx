@@ -27,7 +27,7 @@ const CategoryEditPage = () => {
 
     const dataCategory = async () => {
         try {
-            const data = await fetch(`http://localhost:3000/api/categorys/${id}`);
+            const data = await fetch(`http://localhost:3000/api/categorys/${id}`, { credentials: "include" });
             const res = await data.json();
             const result = res.data;
 
